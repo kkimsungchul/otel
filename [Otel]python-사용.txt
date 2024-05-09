@@ -22,7 +22,7 @@ pip install opentelemetry-exporter-otlp
 # 플라스크 실행
 set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument `
---metric_export_interval=15000 `
+--metric_export_interval=1000 `
 --traces_exporter=otlp `
 --metrics_exporter=otlp `
 --logs_exporter=otlp `
