@@ -39,8 +39,26 @@
 	엔드포인트(콜렉터) 설정 방법 예시 : 
 		https://opentelemetry.io/docs/collector/deployment/agent/
 	
+	- 데스크탑
 	=====================================================================
 	set JAVA_TOOL_OPTIONS=-javaagent:C:\Users\sung\Desktop\개발\otel\opentelemetry-javaagent.jar
+	set OTEL_TRACES_EXPORTER=logging
+	set OTEL_METRICS_EXPORTER=logging
+	set OTEL_LOGS_EXPORTER=logging
+	set OTEL_METRIC_EXPORT_INTERVAL=1000
+	set OTEL_TRACES_EXPORTER=otlp
+	set OTEL_METRICS_EXPORTER=otlp
+	set OTEL_LOGS_EXPORTER=otlp
+	set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
+	set OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317
+	set OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4317
+	set OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://127.0.0.1:4317
+	set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+	=====================================================================
+	
+	-노트북
+	==========================================================================
+	set JAVA_TOOL_OPTIONS=-javaagent:C:\IntelliJ_Project\otel-util\opentelemetry-javaagent.jar
 	set OTEL_TRACES_EXPORTER=logging
 	set OTEL_METRICS_EXPORTER=logging
 	set OTEL_LOGS_EXPORTER=logging
@@ -53,7 +71,8 @@
 	set OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4317
 	set OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://127.0.0.1:4317
 	set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-	=====================================================================
+
+	==========================================================================
 
 	※ 기본값
 	set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -112,6 +131,26 @@
 	otelcol --config=customconfig.yaml
 
 
+==========================================================================
+
+[ 파이썬 ]
+
+#  플라스크 실행
+
+==========================================================================
+set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+opentelemetry-instrument `
+--metric_export_interval=15000 `
+--traces_exporter=otlp `
+--metrics_exporter=otlp `
+--logs_exporter=otlp `
+--exporter_otlp_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_traces_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_logs_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_protocol=grpc `
+flask run -p 9090
+==========================================================================
 
 
 
