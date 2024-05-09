@@ -1,0 +1,10 @@
+# 설치 파일 다운로드
+	https://prometheus.io/download/
+
+# 압축 푼 후 아래의 파일 실행
+	prometheus.exe
+
+# 접속
+	http://localhost:9090/
+
+
