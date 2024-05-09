@@ -2,7 +2,7 @@
 
 # java 예제
 	https://opentelemetry.io/docs/languages/java/getting-started/
-
+	https://opentelemetry.io/docs/languages/java/instrumentation/
 
 # collector 다운로드
 	https://github.com/open-telemetry/opentelemetry-collector/releases
