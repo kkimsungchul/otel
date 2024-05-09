@@ -1,3 +1,4 @@
+# These are the necessary import declarations
 from opentelemetry import trace
 from opentelemetry import metrics
 
