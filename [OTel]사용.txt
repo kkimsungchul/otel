@@ -153,6 +153,24 @@ flask run -p 9090
 ==========================================================================
 
 
+[ 오류 ]
+ERROR:opentelemetry.exporter.otlp.proto.grpc.exporter:Failed to export metrics to 127.0.0.1:4317, error code: StatusCode.UNIMPLEMENTED
+-> 콜렉터의 metrics 설정이 안되어 있어서 발생함 아래와 같이 설정하면 됨
+service:
+  pipelines:
+    logs/dev:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]
+    traces:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+
 
 
 
