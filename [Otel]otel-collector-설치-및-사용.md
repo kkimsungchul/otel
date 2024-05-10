@@ -7,7 +7,7 @@
 - [collector 설치](#collector-설치)
 - [설정 가이드](#설정-가이드)
 - [customconfig.yaml 파일 생성](#customconfig.yaml-파일-생성)
-- [customconfig.yaml 파일 검증](#customconfig.yaml-파일 검증)
+- [customconfig.yaml 파일 검증](#customconfig.yaml-파일-검증)
 - [collector 실행](#collector-실행)
 
 ---
