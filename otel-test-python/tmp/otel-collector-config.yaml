@@ -7,19 +7,22 @@ receivers:
       http:
         endpoint: 127.0.0.1:4318
 
+
 exporters:
   logging :
     verbosity: detailed
   file: # the File Exporter, to ingest logs to local file
     path: example.log
     rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464
 
 processors:
   batch:
 
 service:
   pipelines:
-    logs/dev:
+    logs:
       receivers: [otlp]
       processors: [batch]
       exporters: [file]
@@ -29,5 +32,5 @@ service:
       processors: [batch]
     metrics:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [prometheus]
       processors: [batch]

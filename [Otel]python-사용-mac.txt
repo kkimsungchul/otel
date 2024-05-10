@@ -12,7 +12,7 @@ pip install flask
 # 플라스크 실행
 flask run -p 8080
 
-# opentelemetry-distro  설치
+# opentelemetry-distro  설치 (interpreter settings에서)
 pip install opentelemetry-distro
 opentelemetry-bootstrap -a install
 
@@ -87,6 +87,9 @@ git에서는 python3 -m flask run -p 8080으로 해야 실행됨
 # prometheus 설치
 brew install prometheus
 
+# yml 파일 경로
+/opt/homebrew/etc/prometheus.yml
+
 # prometheus yml 파일 수정
 global:
   scrape_interval: 15s
@@ -101,5 +104,66 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
 
-# yml 파일 경로
-/opt/homebrew/etc/prometheus.yml
+# yaml 파일 수정
+# /tmp/otel-collector-config.yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:4317
+      http:
+        endpoint: 127.0.0.1:4318
+
+
+exporters:
+  logging :
+    verbosity: detailed
+  file: # the File Exporter, to ingest logs to local file
+    path: example.log
+    rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    logs/dev:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]
+    traces:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
+      processors: [batch]
+
+# export 시 필요한 라이브러리 설치
+pip3 install opentelemetry-exporter-otlp-proto-grpc
+pip3 install flask opentelemetry-api opentelemetry-sdk opentelemetry-instrumentation-flask opentelemetry-exporter-otlp
+pip3 install opentelemetry-exporter-prometheus
+
+
+# 플라스크 실행
+export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+opentelemetry-instrument \
+--metric_export_interval=15000 \
+--traces_exporter=otlp \
+--metrics_exporter=prometheus \
+--logs_exporter=otlp \
+--exporter_otlp_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_traces_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_protocol=grpc \
+python3 -m flask run -p 8080
+
+export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+export OTEL_METRIC_EXPORT_INTERVAL=15000
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
+export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+opentelemetry-instrument python3 -m flask run -p 8080
+
