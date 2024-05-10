@@ -13,12 +13,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RollController {
     private static final Logger logger = LoggerFactory.getLogger(RollController.class);
 
-    @GetMapping("/rolldice")
+    @GetMapping("/java/rolldice")
     public String index(@RequestParam("player") Optional<String> player) {
         System.out.printf("in");
         int result = this.getRandomNumber(1, 6);
         if (player.isPresent()) {
-            logger.info("{} is rolling the dice: {}", player.get(), result);
+            logger.info("language : java , {} is rolling the dice: {}", player.get(), result);
         } else {
             logger.info("Anonymous player is rolling the dice: {}", result);
         }

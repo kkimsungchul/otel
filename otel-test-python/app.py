@@ -21,7 +21,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.route("/rolldice")
+@app.route("/python/rolldice")
 def roll_dice():
     # This creates a new span that's the child of the current one
     with tracer.start_as_current_span("roll") as roll_span:
