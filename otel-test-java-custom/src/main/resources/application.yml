@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: java-otel-test-custom
+
+server:
+  port: 19090

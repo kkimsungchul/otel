@@ -1,0 +1,32 @@
+# SpringBoot Customizing 
+
+## 공식문서
+https://opentelemetry.io/docs/languages/java/instrumentation/
+
+## 접속 
+http://localhost:19090/java-custom/rolldice?rolls=12
+
+
+# 의존성 추가
+implementation platform("io.opentelemetry:opentelemetry-bom:1.37.0")
+implementation "io.opentelemetry:opentelemetry-api"
+implementation "io.opentelemetry:opentelemetry-sdk"
+implementation "io.opentelemetry:opentelemetry-exporter-logging"
+implementation "io.opentelemetry.semconv:opentelemetry-semconv:1.25.0-alpha"
+implementation "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure"
+
+
+## 빌드
+gradlew.bat assemble
+set OTEL_SERVICE_NAME=dice-server
+set OTEL_TRACES_EXPORTER=logging
+set OTEL_METRICS_EXPORTER=logging
+set OTEL_LOGS_EXPORTER=logging
+set OTEL_METRIC_EXPORT_INTERVAL=1000
+
+## 실행
+java -jar .\build\libs\otel-0.0.1-SNAPSHOT.jar
+
+
+###
+https://opentelemetry.io/docs/languages/java/instrumentation/#initialize-metrics
