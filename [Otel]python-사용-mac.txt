@@ -26,7 +26,7 @@ opentelemetry-instrument \
     --metrics_exporter console \
     --logs_exporter console \
     --service_name dice-server \
-    flask run -p 8080
+    python3 flask run -p 8080
 
 # tmp 폴더에 yaml 파일 생성
 # /tmp/otel-collector-config.yaml
@@ -55,6 +55,13 @@ service:
       processors: [batch]
       exporters: [file]
 
+# collector 설치
+curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
+tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
+
+# collector 권한부여
+chmod +x /Users/jihyoun/Otel/otelcol
+
 # collector 실행
 /Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-test-python/tmp/otel-collector-config.yaml
 
@@ -70,6 +77,29 @@ opentelemetry-instrument \
 --exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_protocol=grpc \
-flask run -p 8080
+python3 -m flask run -p 8080
 
-otel 설치경로(otelcol)에 log파일 생성됨
+root 경로(jihyoun)에 log파일 생성됨
+git에서는 python3 -m flask run -p 8080으로 해야 실행됨
+(기존에는 flask run -p 8080)
+
+
+# prometheus 설치
+brew install prometheus
+
+# prometheus yml 파일 수정
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+    - targets: ["localhost:9090"]
+
+  - job_name: dice-service
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
+
+# yml 파일 경로
+/opt/homebrew/etc/prometheus.yml
