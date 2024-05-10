@@ -1,0 +1,77 @@
+[ 공식문서 따라하기 ]
+
+# java 예제
+	https://opentelemetry.io/docs/languages/java/getting-started/
+	https://opentelemetry.io/docs/languages/java/instrumentation/
+
+# java
+	https://github.com/open-telemetry/opentelemetry-java
+
+# sdk
+	https://opentelemetry.io/docs/languages/java/
+	java의 경우 1.8이 미니멈임
+=====================================================================
+# 참고사항
+	요구사항 버전이 상당히 높음
+	권장사양
+	https://opentelemetry.io/docs/demo/development/
+
+	
+# 프로젝트 생성 및 빌드
+	- 스프링부트 프로젝트로 생성했으며, 별도의 라이브러리 임포트 없음,다만 로깅내용만 간단히 남김
+	- jar 로 빌드하여 실행 파일 생성
+	- 컨트롤러 하나를 생성해 두고, 사용자가 접속할수 있도록 설정
+	ex) http://localhost:8080/rolldice
+
+# agent jar 다운로드
+	java 에이전트임
+	https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
+
+# agent 다운로드 후 cmd창에서 아래와 같이 설정
+	설정 관련 정보 링크 : 
+		https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#logging-exporter
+	엔드포인트(콜렉터) 설정 방법 예시 : 
+		https://opentelemetry.io/docs/collector/deployment/agent/
+	
+
+	- mac (이지현)
+	=====================================================================
+	export JAVA_TOOL_OPTIONS=-javaagent:/Users/jihyoun/2024/otel/otel-java-agent/opentelemetry-javaagent.jar
+    export OTEL_METRIC_EXPORT_INTERVAL=1000
+    export OTEL_TRACES_EXPORTER=otlp
+    export OTEL_METRICS_EXPORTER=otlp
+    export OTEL_LOGS_EXPORTER=otlp
+    export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
+    export OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317
+    export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4317
+    export OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://127.0.0.1:4317
+    export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+	==========================================================================
+
+	- 콘솔에만 출력
+	=====================================================================
+	export JAVA_TOOL_OPTIONS=-javaagent:/Users/jihyoun/2024/otel/otel-java-agent/opentelemetry-javaagent.jar
+    export OTEL_METRIC_EXPORT_INTERVAL=1000
+    export OTEL_TRACES_EXPORTER=logging
+    export OTEL_METRICS_EXPORTER=logging
+    export OTEL_LOGS_EXPORTER=logging
+	=====================================================================
+
+	※ 기본값
+	set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+	※ 여기서 삽질 오지게함.
+		http/protobuf 로 설정하고 보내면 콜렉터에서 받질못햇음.
+		뭐 아무리 설정을 뒤져봐도 안됐음.
+		프로토콜을 grpc로 바꾸고 콜렉터 설정에도 grpc를 넣어주면 작동함
+
+# 위 설정 완료 후 프로젝트 파일 실행
+	java -jar otel-test-springboot.jar
+	=====================================================================
+    [otel.javaagent 2024-05-10 14:16:13:567 +0900] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: 2.3.0
+    [otel.javaagent 2024-05-10 14:16:15:673 +0900] [PeriodicMetricReader-1] INFO io.opentelemetry.exporter.logging.LoggingMetricExporter - Received a collection of 12 metrics for export.
+	=====================================================================
+
+
+# 콜렉터 실행
+	[Otel]otel-collector-설치-및-사용.txt 파일 참고
+    /Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-collector//otel-collector-config.yaml
