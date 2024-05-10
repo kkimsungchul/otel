@@ -1,0 +1,33 @@
+python.exe -m pip install --upgrade pip
+
+# 윈도우에서 가상 환경 진입
+venv\Scripts\activate
+
+# 플라스크 설치
+pip install flask
+
+# 플라스크 실행
+flask run -p 9090
+
+# opentelemetry-distro  설치
+pip install opentelemetry-distro
+opentelemetry-bootstrap -a install
+
+
+# opentelemetry-exporter-otlp 설치
+pip install opentelemetry-exporter-otlp
+
+
+# 플라스크 실행(windows)
+set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+opentelemetry-instrument `
+--metric_export_interval=1000 `
+--traces_exporter=otlp `
+--metrics_exporter=otlp `
+--logs_exporter=otlp `
+--exporter_otlp_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_traces_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_logs_endpoint=http://127.0.0.1:4317 `
+--exporter_otlp_protocol=grpc `
+flask run -p 9090

@@ -2,10 +2,6 @@
 1. python
 https://opentelemetry.io/docs/languages/python/getting-started/
 
-python.exe -m pip install --upgrade pip
-
-# 윈도우에서 가상 환경 진입
-venv\Scripts\activate
 
 # 맥에서 가상 환경 설치 및 필요한 라이브러리 설치
 Pycharm > Settings > Python Interpreter > python v3.11
@@ -14,15 +10,23 @@ Pycharm > Settings > Python Interpreter > python v3.11
 pip install flask
 
 # 플라스크 실행
-flask run -p 9090
+flask run -p 8080
 
 # opentelemetry-distro  설치
 pip install opentelemetry-distro
 opentelemetry-bootstrap -a install
 
-
 # opentelemetry-exporter-otlp 설치
 pip install opentelemetry-exporter-otlp
+
+# 트레이스, 메트릭, 로그 확인
+export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+opentelemetry-instrument \
+    --traces_exporter console \
+    --metrics_exporter console \
+    --logs_exporter console \
+    --service_name dice-server \
+    flask run -p 8080
 
 # tmp 폴더에 yaml 파일 생성
 # /tmp/otel-collector-config.yaml
@@ -54,22 +58,7 @@ service:
 # collector 실행
 /Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-test-python/tmp/otel-collector-config.yaml
 
-
-# 플라스크 실행(windows)
-set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
-opentelemetry-instrument `
---metric_export_interval=1000 `
---traces_exporter=otlp `
---metrics_exporter=otlp `
---logs_exporter=otlp `
---exporter_otlp_endpoint=http://127.0.0.1:4317 `
---exporter_otlp_traces_endpoint=http://127.0.0.1:4317 `
---exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 `
---exporter_otlp_logs_endpoint=http://127.0.0.1:4317 `
---exporter_otlp_protocol=grpc `
-flask run -p 9090
-
-# 플라스크 실행(mac)
+# 플라스크 실행
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
 --metric_export_interval=15000 \
@@ -82,3 +71,5 @@ opentelemetry-instrument \
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_protocol=grpc \
 flask run -p 8080
+
+otel 설치경로(otelcol)에 log파일 생성됨
