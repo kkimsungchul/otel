@@ -1,10 +1,26 @@
 # 설치 파일 다운로드
 	https://prometheus.io/download/
 
+### prometheus.yml 설정
+
+```yaml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+    - targets: ["localhost:9090"]
+
+  - job_name: dice-service
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
+```
+
 # 압축 푼 후 아래의 파일 실행
 	prometheus.exe
 
-# 접속
+### 접속
 	http://localhost:9090/
-
 

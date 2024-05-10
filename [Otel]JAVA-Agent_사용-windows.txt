@@ -72,6 +72,9 @@
 	set OTEL_METRIC_EXPORT_INTERVAL=1000
 	=====================================================================
 
+	- 프로메테우스로 바로 전송
+		set OTEL_METRICS_EXPORTER=prometheus
+		set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317 <- 라인제거
 	※ 기본값
 	set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 	※ 여기서 삽질 오지게함.

@@ -31,3 +31,8 @@ opentelemetry-instrument `
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 `
 --exporter_otlp_protocol=grpc `
 flask run -p 9090
+
+
+※ 아래와 같이 설정하면 프로메테우스로 바로 전송함
+--exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 `< 해당 라인을 제거하고
+--metrics_exporter=prometheus <프로메테우스로 변경
