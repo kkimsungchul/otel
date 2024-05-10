@@ -4,12 +4,6 @@
 	https://opentelemetry.io/docs/languages/java/getting-started/
 	https://opentelemetry.io/docs/languages/java/instrumentation/
 
-# collector 다운로드
-	https://github.com/open-telemetry/opentelemetry-collector/releases
-	https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.100.0
-	윈도우용 다운로드
-	https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_windows_386.tar.gz
-
 # java
 	https://github.com/open-telemetry/opentelemetry-java
 
@@ -39,12 +33,10 @@
 	엔드포인트(콜렉터) 설정 방법 예시 : 
 		https://opentelemetry.io/docs/collector/deployment/agent/
 	
+
 	- 데스크탑 (김성철)
 	=====================================================================
 	set JAVA_TOOL_OPTIONS=-javaagent:C:\Users\sung\Desktop\개발\otel\OTel-git\otel-java-agent\opentelemetry-javaagent.jar
-	set OTEL_TRACES_EXPORTER=logging
-	set OTEL_METRICS_EXPORTER=logging
-	set OTEL_LOGS_EXPORTER=logging
 	set OTEL_METRIC_EXPORT_INTERVAL=1000
 	set OTEL_TRACES_EXPORTER=otlp
 	set OTEL_METRICS_EXPORTER=otlp
@@ -59,9 +51,6 @@
 	-노트북 (김성철)
 	==========================================================================
 	set JAVA_TOOL_OPTIONS=-javaagent:C:\IntelliJ_Project\otel-util\opentelemetry-javaagent.jar
-	set OTEL_TRACES_EXPORTER=logging
-	set OTEL_METRICS_EXPORTER=logging
-	set OTEL_LOGS_EXPORTER=logging
 	set OTEL_METRIC_EXPORT_INTERVAL=15000
 	set OTEL_TRACES_EXPORTER=otlp
 	set OTEL_METRICS_EXPORTER=otlp
@@ -73,6 +62,15 @@
 	set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 
 	==========================================================================
+
+	- 콘솔에만 출력
+	=====================================================================
+	set JAVA_TOOL_OPTIONS=-javaagent:C:\Users\sung\Desktop\개발\otel\OTel-git\otel-java-agent\opentelemetry-javaagent.jar
+	set OTEL_TRACES_EXPORTER=logging
+	set OTEL_METRICS_EXPORTER=logging
+	set OTEL_LOGS_EXPORTER=logging
+	set OTEL_METRIC_EXPORT_INTERVAL=1000
+	=====================================================================
 
 	※ 기본값
 	set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
@@ -88,48 +86,6 @@
 	[otel.javaagent 2024-05-09 00:21:35:279 +0900] [PeriodicMetricReader-1] INFO io.opentelemetry.exporter.logging.LoggingMetricExporter - metric: ImmutableMetricData{resource=Resource{schemaUrl=https://opentelemetry.io/schemas/1.24.0, attributes={host.arch="amd64", host.name="sung-PC", os.description="Windows 10 10.0", os.type="windows", process.command_line="C:\Program Files\Java\jdk-17.0.2\bin\java.exe -javaagent:C:\Users\sung\Desktop\개발\otel\opentelemetry-javaagent.jar -jar otel-0.0.1-SNAPSHOT.jar", process.executable.path="C:\Program Files\Java\jdk-17.0.2\bin\java.exe", process.pid=13864, process.runtime.description="Oracle Corporation OpenJDK 64-Bit Server VM 17.0.2+8-86", process.runtime.name="OpenJDK Runtime Environment", process.runtime.version="17.0.2+8-86", service.instance.id="33a15e56-8598-44bd-b586-6daf91fcfcca", service.name="otel-test", service.version="0.0.1-SNAPSHOT", telemetry.sdk.language="java", telemetry.sdk.name="opentelemetry", telemetry.sdk.version="1.37.0"}}, instrumentationScopeInfo=InstrumentationScopeInfo{name=io.opentelemetry.tomcat-10.0, version=2.3.0-alpha, schemaUrl=null, attributes={}}, name=http.server.request.duration, description=Duration of HTTP server requests., unit=s, type=HISTOGRAM, data=ImmutableHistogramData{aggregationTemporality=CUMULATIVE, points=[ImmutableHistogramPointData{getStartEpochNanos=1715181305211707500, getEpochNanos=1715181695225332200, getAttributes={http.request.method="GET", http.response.status_code=200, http.route="/rolldice", network.protocol.version="1.1", url.scheme="http"}, getSum=0.20853419999999998, getCount=2, hasMin=true, getMin=0.0043199, hasMax=true, getMax=0.2042143, getBoundaries=[0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1.0, 2.5, 5.0, 7.5, 10.0], getCounts=[1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], getExemplars=[]}]}}
 	=====================================================================
 
-# collector 설치
-	https://opentelemetry.io/docs/collector/installation/
 
-# 설정
-	https://opentelemetry.io/docs/collector/configuration/
-
-# customconfig.yaml 파일 생성
-	https://opentelemetry.io/docs/collector/configuration/
-	=====================================================================
-	receivers:
-	  otlp: # the OTLP receiver the app is sending logs to
-		protocols:
-		  grpc:
-			endpoint: 127.0.0.1:4317
-		  http:
-			endpoint: 127.0.0.1:4318
-
-	processors:
-	  batch:
-
-	exporters:
-	  logging :
-		verbosity: detailed 
-	  file: # the File Exporter, to ingest logs to local file
-		path: example.log
-		rotation:
-
-	service:
-	  pipelines:
-		logs/dev:
-		  receivers: [otlp]
-		  processors: [batch]
-		  exporters: [file]
-
-	=====================================================================
-
-# customconfig.yaml 파일 검증
-	otelcol validate --config=customconfig.yaml
-
-# collector 실행
-	otelcol --config=customconfig.yaml
-
-
-
-
+# 콜렉터 실행
+	[Otel]otel-collector-설치-및-사용.txt 파일 참고
