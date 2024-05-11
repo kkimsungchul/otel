@@ -22,8 +22,8 @@ service:
   pipelines:
     logs/dev:
       receivers: [otlp]
-      processors: [batch]
       exporters: [file]
+	  processors: [batch]
     traces:
       receivers: [otlp]
       exporters: [file]

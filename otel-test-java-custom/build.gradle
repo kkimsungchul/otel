@@ -17,19 +17,20 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-
     implementation platform("io.opentelemetry:opentelemetry-bom:1.37.0")
     implementation "io.opentelemetry:opentelemetry-api"
     implementation "io.opentelemetry:opentelemetry-sdk"
     implementation "io.opentelemetry:opentelemetry-exporter-logging"
     implementation "io.opentelemetry.semconv:opentelemetry-semconv:1.25.0-alpha"
     implementation "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure"
+    //otlp 사용
     implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
     //logback 사용
-    runtimeOnly 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:2.3.0-alpha' 
+    runtimeOnly 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:2.3.0-alpha'
+
+    //prometheus로 바로 전송 collector
+    implementation 'io.opentelemetry:opentelemetry-exporter-prometheus:1.38.0-alpha'
 
 }

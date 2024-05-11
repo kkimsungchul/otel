@@ -4,3 +4,17 @@ spring:
 
 server:
   port: 19090
+
+otel:
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+  logs:
+    exporter: otlp
+  exporter:
+    otlp:
+      endpoint: 127.0.0.1:4317
+  metric:
+    export:
+      interval: 10000 #옵션이 적용 안됨

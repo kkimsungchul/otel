@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import sungchul.com.otel.DiceService;
+import sungchul.com.otel.service.DiceService;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,18 +44,36 @@ public class RollController {
     @GetMapping("/java-custom/rolldice")
     public List<Integer> index(@RequestParam("player") Optional<String> player,
                                @RequestParam("rolls") Optional<Integer> rolls) {
+
+        String hostName ="";
+        String address = "";
+        try{
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            hostName = inetAddress.getHostName();
+            address = inetAddress.getHostAddress();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // 사용할 속성 정의
+        Attributes attrs = Attributes.of(
+                stringKey("hostname"), hostName,
+                stringKey("address"), address,
+                stringKey("region"), "korea");
+
+        //span 정의
         Span span = tracer.spanBuilder("rollTheDice").setSpanKind(SpanKind.CLIENT).startSpan();
         span.setAttribute("http.method", "GET");
         span.setAttribute("http.url", "/java-custom/rolldice");
+        span.setAllAttributes(attrs);
 
-        Attributes attrs = Attributes.of(
-                stringKey("hostname"), "i-98c3d4938",
-                stringKey("region"), "us-east-1");
+
+
+        //카운터 추가
         LongCounter counter = meter.counterBuilder("dice-lib.rolls.counter")
                 .setDescription("How many times the dice have been rolled.")
                 .setUnit("rolls")
                 .build();
-
         counter.add(1, attrs);
 
 

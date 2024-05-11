@@ -80,12 +80,22 @@
 	- 프로메테우스로 바로 전송
 		set OTEL_METRICS_EXPORTER=prometheus
 		set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317 <- 라인제거
+	
 	※ 기본값
-	set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+		set OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 	※ 여기서 삽질 오지게함.
 		http/protobuf 로 설정하고 보내면 콜렉터에서 받질못햇음.
 		뭐 아무리 설정을 뒤져봐도 안됐음.
 		프로토콜을 grpc로 바꾸고 콜렉터 설정에도 grpc를 넣어주면 작동함
+	
+	※ TRACES , METRICS , LOGS 의 ENDPOINT가 똑같다면 아래의 옵션 하나로 설정 가능
+		set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
+		
+		---아래 세개의 옵션은 TRACES , METRICS , LOGS 가 각각 다를떄 설정
+		set OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317
+		set OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4317
+		set OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://127.0.0.1:4317
+
 
 # 위 설정 완료 후 프로젝트 파일 실행
 	java -jar otel-test-springboot.jar
