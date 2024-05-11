@@ -32,41 +32,44 @@ https://github.com/open-telemetry/opentelemetry-collector-releases/releases/down
 
 ```yaml
 receivers:
-  otlp: # the OTLP receiver the app is sending logs to
+  otlp:
     protocols:
       grpc:
         endpoint: 127.0.0.1:4317
       http:
         endpoint: 127.0.0.1:4318
-processors:
-  batch:
 
 exporters:
   logging :
-    verbosity: detailed 
+    verbosity: detailed
   file: # the File Exporter, to ingest logs to local file
     path: example.log
     rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+
+processors:
+  batch:
 
 service:
   pipelines:
     logs/dev:
       receivers: [otlp]
-      processors: [batch]
       exporters: [file]
+      processors: [batch]
     traces:
       receivers: [otlp]
       exporters: [file]
       processors: [batch]
     metrics:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [prometheus]
       processors: [batch]
 ```
 
 ## customconfig.yaml 파일 검증
-	otelcol validate --config=customconfig.yaml
+otelcol validate --config=customconfig.yaml
 
 ## collector 실행
-	otelcol --config=customconfig.yaml
+otelcol --config=customconfig.yaml
 
