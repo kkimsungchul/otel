@@ -2,25 +2,30 @@
 
 # 목차
 - [windows](#windows)
-    * [코드 내려받기](#-------)
-    * [사전 환경 구성 및 유의사항](#---------------)
-    * [collector 실행](#collector---)
-        + [customconfig.yaml 파일 검증](#customconfigyaml------)
-        + [collector 실행](#collector----1)
-    * [JAVA(SpringBoot) (agent) 실행](#java-springboot---agent----)
-        + [otel 변수 설정](#otel------)
-        + [SpringBoot 프로젝트 실행](#springboot--------)
-    * [Python(SDK) 실행](#python-sdk----)
-        + [파이썬 가상환경 설정](#-----------)
-        + [pip 업데이트](#pip-----)
-        + [플라스크 설치](#-------)
-        + [opentelemetry-distro  설치](#opentelemetry-distro----)
-        + [opentelemetry-exporter-otlp 설치](#opentelemetry-exporter-otlp---)
-        + [플라스크 실행(windows)](#--------windows-)
-    * [테스트](#---)
-        + [SrpingBoot 환경 접속](#srpingboot------)
-        + [python 환경 접속](#python------)
-        + [로그 확인](#-----)
+    * [코드 내려받기](#코드-내려받기)
+    * [사전 환경 구성 및 유의사항](#사전-환경-구성-및-유의사항)
+    * [collector 실행](#collector-실행)
+        + [collector 경로 이동](#collector-경로-이동)
+        + [customconfig.yaml 파일 검증](#customconfigyaml-파일-검증)
+        + [collector 실행](#collector-실행-1)
+    * [prometheus 실행](#prometheus-실행)
+        + [경로 이동](#경로-이동)
+        + [실행](#실행)
+    * [JAVA(SpringBoot) (agent) 실행](#javaspringboot-agent-실행)
+        + [otel 변수 설정](#otel-변수-설정)
+        + [SpringBoot 프로젝트 실행](#springboot-프로젝트-실행)
+    * [JAVA(SpringBoot) (SDK) 실행](#javaspringboot-sdk-실행)
+    * [Python(SDK) 실행](#pythonsdk-실행)
+        + [파이썬 가상환경 설정](#파이썬-가상환경-설정)
+        + [pip 업데이트](#pip-업데이트)
+        + [플라스크 설치](#플라스크-설치)
+        + [opentelemetry 필요 라이브러리 설치](#opentelemetry-필요-라이브러리-설치)
+        + [플라스크 실행(windows)](#플라스크-실행windows)
+    * [테스트](#테스트)
+        + [SrpingBoot(agent) 환경 접속](#srpingbootagent-환경-접속)
+        + [SrpingBoot(sdk) 환경 접속](#srpingbootsdk-환경-접속)
+        + [python 환경 접속](#python-환경-접속)
+        + [로그 확인](#로그-확인)
 
 # windows 
 
@@ -31,13 +36,14 @@ git clone https://github.com/kkimsungchul/otel.git
 ## 사전 환경 구성 및 유의사항
 - java 17 
 - python 3.x
-- ~user-path는 본인이 사용할 경로를 설정
 - 파이썬 경로에 한글이 있으면 안됨
 
 
 ## collector 실행
+
+### collector 경로 이동
 ```shell
-cd C:\Users\sung\Desktop\개발\otel\test\otel\otel-collector
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-collector
 ```
 ### customconfig.yaml 파일 검증
 ```shell
@@ -48,11 +54,23 @@ otelcol validate --config=customconfig.yaml
 otelcol --config=customconfig.yaml
 ```
 ---
-## JAVA(SpringBoot) (agent) 실행
 
+## prometheus 실행
+※ 프로메테우스의 경우 현재 깃 리파지토리에 포함되어 있지 않으며, 별도 설치 후 config만 변경해주면 바로 사용 가능
+### 경로 이동
+```shell
+cd C:\Users\sung\Desktop\otel\prometheus-2.52.0.windows-amd64
+```
+### 실행
+```shell
+prometheus.exe
+```
+
+
+## JAVA(SpringBoot) (agent) 실행
 ### otel 변수 설정
 ```
-set JAVA_TOOL_OPTIONS=-javaagent:C:\Users\sung\Desktop\개발\otel\OTel-git\otel-java-agent\opentelemetry-javaagent.jar
+set JAVA_TOOL_OPTIONS=-javaagent:C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent\opentelemetry-javaagent.jar
 set OTEL_METRIC_EXPORT_INTERVAL=1000
 set OTEL_TRACES_EXPORTER=otlp
 set OTEL_METRICS_EXPORTER=otlp
@@ -66,8 +84,15 @@ set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 
 ### SpringBoot 프로젝트 실행
 ```shell
-cd C:\Users\sung\Desktop\개발\otel\OTel-git\otel-java-agent
-java -jar otel-test-springboot.jar
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
+java -jar otel-sdk-test-springboot.jar
+```
+---
+
+## JAVA(SpringBoot) (SDK) 실행
+```shell
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
+
 ```
 ---
 ## Python(SDK) 실행
@@ -75,7 +100,7 @@ java -jar otel-test-springboot.jar
 ### 파이썬 가상환경 설정
 ※ 경로에 한글이 있으면 실행이 안됨
 ```shell
-cd C:\Users\sung\Desktop\test
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-test-pytyon-run
 python -m venv venv
 venv\Scripts\activate
 ```
@@ -95,7 +120,7 @@ pip install opentelemetry-distro
 opentelemetry-bootstrap -a install
 pip install opentelemetry-exporter-otlp
 pip install opentelemetry-exporter-otlp-proto-grpc
-pip install opentelemetry-api  
+pip install opentelemetry-api
 pip install opentelemetry-sdk
 pip install opentelemetry-instrumentation-flask
 pip install opentelemetry-exporter-prometheus
@@ -131,11 +156,14 @@ flask run -p 18080
 ---
 ## 테스트
 
-### SrpingBoot 환경 접속
-- localhost:8080/rolldice
+### SrpingBoot(agent) 환경 접속
+- http://localhost:8080/java/rolldice
+
+### SrpingBoot(sdk) 환경 접속
+- http://localhost:19090/java-custom/rolldice?rolls=12
 
 ### python 환경 접속
-- http://localhost:9090/rolldice
+- http://localhost:18080/python/rolldice
 
 ### 로그 확인
 ```shell
@@ -143,5 +171,3 @@ cd C:\Users\sung\Desktop\개발\otel\test\otel\otel-collector
 ```
 - 아래의 파일 확인<br>
 example.log
-
-

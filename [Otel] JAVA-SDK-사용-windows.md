@@ -21,7 +21,7 @@
 - [접속](#접속)
 - [테스트 및 확인](#테스트-및-확인)
 
-
+---
 ## 공식문서 및 참고 문서
 ### JAVA-OpenTelemetry SDK
 - https://opentelemetry.io/docs/languages/java/instrumentation/
@@ -47,7 +47,7 @@
 ※ maven 라이브러리
 - ps://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-logback-appender-1.0/2.3.0-alpha
 
-
+---
 ## 프로젝트 개발 및 실행 환경
 - windows 10
 - SpringBoot 3.2.5
@@ -56,7 +56,7 @@
 
 ※ OpenTelemetry Java 자체는 Java 8 버전 이상에서 사용 가능
 
-
+---
 ## 의존성 추가
 ```groovy
 dependencies {
@@ -76,12 +76,12 @@ dependencies {
     runtimeOnly 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:2.3.0-alpha'
 }
 ```
-
+---
 ## Spring Bean에 OpenTelemetry 등록
 ※ 내용이 길어 아래의 파일 참고
 - 경로 : otel-test-java-custom/src/main/java/sungchul/com/otel/
 - 파일명 : OtelTestApplication.java
-
+---
 ## Sample 코드 작성
 ### Sample 코드 위치
 #### 컨트롤러
@@ -91,7 +91,7 @@ dependencies {
 #### 서비스
 - 경로 : otel-test-java-custom/src/main/java/sungchul/com/otel/service/
 - 파일명 : DiceService.java
-
+---
 ## exporter 설정 방법
 - exporter 설정방법은 세가지가 존재함
 1. JAVA 환경 변수로 설정
@@ -115,18 +115,46 @@ java -jar otel-0.0.1-SNAPSHOT.jar
 
 ※ 예시로 Metric만 기재하였으며, 다른 설정들은 해당 파일 참고
 ```java
+// otlp 사용 설정 시작
+SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
+        .addSpanProcessor(BatchSpanProcessor.builder(
+                        OtlpGrpcSpanExporter.builder()
+//                            .setEndpoint("http://127.0.0.1:4317")
+                                .build()
+                ).build()
+        ).setResource(resource)
+        .build();
+
 SdkMeterProvider sdkMeterProvider = SdkMeterProvider.builder()
         .registerMetricReader(
-            PeriodicMetricReader
-            .builder(
-                OtlpGrpcMetricExporter.builder()
-                    .setEndpoint("http://127.0.0.1:4317")
-                    .build()
-            )
-            .setInterval(Duration.ofMillis(1000))
-            .build())
+                PeriodicMetricReader
+                        .builder(
+                                OtlpGrpcMetricExporter.builder()
+//                                .setEndpoint("http://127.0.0.1:4317")
+                                        .build()
+                        )
+                        //yaml파일의 설정이 적용 안되므로 아래에서 적용
+                        .setInterval(Duration.ofMillis(1000))
+                        .build())
         .setResource(resource)
         .build();
+SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+        .addLogRecordProcessor(
+                BatchLogRecordProcessor.builder(
+                        OtlpGrpcLogRecordExporter.builder()
+//                            .setEndpoint("http://127.0.0.1:4317")
+                                .build()
+                ).build()
+        ).setResource(resource)
+        .build();
+
+OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
+        .setTracerProvider(sdkTracerProvider)
+        .setMeterProvider(sdkMeterProvider)
+        .setLoggerProvider(sdkLoggerProvider)
+        .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
+        .buildAndRegisterGlobal();
+// otlp 사용 설정 종료
 ```
 
 3. application.yml 또는 application.properties 파일에 설정
@@ -150,15 +178,14 @@ otel:
       interval: 10000 #옵션이 적용 안됨
 ```
 
-- 설정 옵션 링크
-
-https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#otlp-exporter-span-metric-and-log-exporters
-
+※ 설정 옵션 링크
+- https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#otlp-exporter-span-metric-and-log-exporters
+---
 ## 빌드
 ```shell
 gradlew.bat assemble
 ```
-
+---
 ## 실행 전 유의사항
 - 프로메테우스가 실행되어 있어야 함
 - otel collector 가 실행되어 있어야 함
@@ -167,15 +194,15 @@ gradlew.bat assemble
 ```text
 WARN  i.o.e.internal.grpc.GrpcExporter - Failed to export metrics. Server responded with gRPC status code 2. Error message: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:4317
 ```
-
+---
 ## 실행
 ```shell
 java -jar ./build/libs/otel-0.0.1-SNAPSHOT.jar
 ```
-
+---
 ## 접속
 http://localhost:19090/java-custom/rolldice?rolls=12
-
+---
 ## 테스트 및 확인
 - 위 접속 URL 호출 시 span(Traces) 데이터는 collector에서 설정한 파일에 생성이 됨
 - - 현재는 example.log 파일명으로 저장됨

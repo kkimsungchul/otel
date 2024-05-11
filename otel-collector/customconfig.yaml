@@ -23,7 +23,7 @@ service:
     logs/dev:
       receivers: [otlp]
       exporters: [file]
-	  processors: [batch]
+      processors: [batch]
     traces:
       receivers: [otlp]
       exporters: [file]
