@@ -155,7 +155,9 @@ otel:
 https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#otlp-exporter-span-metric-and-log-exporters
 
 ## 빌드
+```shell
 gradlew.bat assemble
+```
 
 ## 실행 전 유의사항
 - 프로메테우스가 실행되어 있어야 함
@@ -167,7 +169,9 @@ WARN  i.o.e.internal.grpc.GrpcExporter - Failed to export metrics. Server respon
 ```
 
 ## 실행
+```shell
 java -jar ./build/libs/otel-0.0.1-SNAPSHOT.jar
+```
 
 ## 접속
 http://localhost:19090/java-custom/rolldice?rolls=12
