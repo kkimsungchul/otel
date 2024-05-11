@@ -1,5 +1,8 @@
 package sungchul.com.otel.controller;
 
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.metrics.LongCounter;
+import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.api.trace.SpanKind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +24,20 @@ import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Scope;
 
+import static io.opentelemetry.api.common.AttributeKey.stringKey;
+
 @RestController
 public class RollController {
     private static final Logger logger = LoggerFactory.getLogger(RollController.class);
     private final Tracer tracer;
+    Meter meter;
 
     @Autowired
     RollController(OpenTelemetry openTelemetry) {
         tracer = openTelemetry.getTracer(RollController.class.getName(), "0.1.0");
+        meter = openTelemetry.meterBuilder("dice-server")
+                .setInstrumentationVersion("0.1.0")
+                .build();
     }
 
     @GetMapping("/java-custom/rolldice")
@@ -37,6 +46,17 @@ public class RollController {
         Span span = tracer.spanBuilder("rollTheDice").setSpanKind(SpanKind.CLIENT).startSpan();
         span.setAttribute("http.method", "GET");
         span.setAttribute("http.url", "/java-custom/rolldice");
+
+        Attributes attrs = Attributes.of(
+                stringKey("hostname"), "i-98c3d4938",
+                stringKey("region"), "us-east-1");
+        LongCounter counter = meter.counterBuilder("dice-lib.rolls.counter")
+                .setDescription("How many times the dice have been rolled.")
+                .setUnit("rolls")
+                .build();
+
+        counter.add(1, attrs);
+
 
         // Make the span the current span
         try (Scope scope = span.makeCurrent()) {

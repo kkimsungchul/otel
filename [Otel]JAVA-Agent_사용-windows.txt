@@ -7,13 +7,18 @@
 # java
 	https://github.com/open-telemetry/opentelemetry-java
 
+# JAVA 서버에 agent 추가 방법
+	https://opentelemetry.io/docs/languages/java/automatic/server-config/
+
 # sdk
+	
 	https://opentelemetry.io/docs/languages/java/
 	java의 경우 1.8이 미니멈임
 =====================================================================
 # 참고사항
 	요구사항 버전이 상당히 높음
 	권장사양
+	https://github.com/open-telemetry/opentelemetry-java/blob/main/VERSIONING.md#language-version-compatibility
 	https://opentelemetry.io/docs/demo/development/
 
 	
