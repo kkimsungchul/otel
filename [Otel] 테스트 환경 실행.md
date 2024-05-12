@@ -96,6 +96,7 @@ cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
 ```
 
 ## JAVA(Tomcat) (Agent) 실행
+- tomcat의 경우에는 [Otel]Tomcat Agent 적용.md 파일을 참고하여 톰캣 설치 및 세팅 완료 후 아래의 명령어 실행
 ```shell
 cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent\apache-tomcat-9.0.89\bin
 startup.bat
