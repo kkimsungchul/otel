@@ -151,19 +151,14 @@ pip3 install opentelemetry-exporter-prometheus
 # 플라스크 실행
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
---metric_export_interval=15000 \
+--service_name=python-roll-dice-service \
+--metric_export_interval=1000 \
 --traces_exporter=otlp \
---metrics_exporter=prometheus \
+--metrics_exporter=otlp \
 --logs_exporter=otlp \
 --exporter_otlp_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_traces_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_protocol=grpc \
 python3 -m flask run -p 8080
-
-export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
-export OTEL_METRIC_EXPORT_INTERVAL=15000
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
-export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-opentelemetry-instrument python3 -m flask run -p 8080
 
