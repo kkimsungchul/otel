@@ -15,6 +15,7 @@
         + [otel 변수 설정](#otel-변수-설정)
         + [SpringBoot 프로젝트 실행](#springboot-프로젝트-실행)
     * [JAVA(SpringBoot) (SDK) 실행](#javaspringboot-sdk-실행)
+    * [JAVA(Tomcat) (Agent) 실행](#javatomcat-agent-실행) 
     * [Python(SDK) 실행](#pythonsdk-실행)
         + [파이썬 가상환경 설정](#파이썬-가상환경-설정)
         + [pip 업데이트](#pip-업데이트)
@@ -92,8 +93,15 @@ java -jar otel-sdk-test-springboot.jar
 ## JAVA(SpringBoot) (SDK) 실행
 ```shell
 cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
-
 ```
+
+## JAVA(Tomcat) (Agent) 실행
+```shell
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent\apache-tomcat-9.0.89\bin
+startup.bat
+```
+
+
 ---
 ## Python(SDK) 실행
 
