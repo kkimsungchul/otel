@@ -1,0 +1,22 @@
+# 프로메테우스 서버 재실행
+brew services restart prometheus
+
+# 콜렉터 실행
+/Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-test-python-memory/leakage-config.yaml
+
+# 플라스크 실행
+export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+opentelemetry-instrument \
+--service_name=python-hi-service \
+--metric_export_interval=1000 \
+--traces_exporter=otlp \
+--metrics_exporter=otlp \
+--logs_exporter=otlp \
+--exporter_otlp_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_traces_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
+--exporter_otlp_protocol=grpc \
+python3 -m flask run -p 5000
+
+# http 요청
+watch -n 0.1 'curl -v 127.0.0.1:5000/leakable'
