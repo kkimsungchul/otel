@@ -39,7 +39,7 @@ public class OtelTestApplication {
     public OpenTelemetry openTelemetry() {
         Resource resource = Resource.getDefault()
                 .toBuilder()
-                .put(ResourceAttributes.SERVICE_NAME, "dice-server")    //서비스명 설정
+                .put(ResourceAttributes.SERVICE_NAME, "java-custom-dice-service")    //서비스명 설정
                 .put(ResourceAttributes.SERVICE_VERSION, "0.1.0")       //서비스 버전 설정
                 .build();
 

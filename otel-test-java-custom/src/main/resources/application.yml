@@ -6,6 +6,8 @@ server:
   port: 19090
 
 otel:
+  service:
+    name: java-springboot-otel-test-custom
   traces:
     exporter: otlp
   metrics:

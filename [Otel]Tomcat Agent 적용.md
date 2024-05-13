@@ -12,10 +12,21 @@
 
 ## Windows 환경
 ### catalina.bat 파일 수정
-- setlocal부분 바로 밑에 set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar" 옵션 추가
+- setlocal부분 바로 밑에 옵션 추가
+
 ```shell
 setlocal
 set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar"
+set CATALINA_OPTS=%CATALINA_OPTS% -Dotel.resource.attributes=service.name=tomcat_service,service.namespace=TOMCAT
+```
+
+- set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar" <br>
+※ tomcat에 opentelemetry agent 추가
+
+- set CATALINA_OPTS=%CATALINA_OPTS% -Dotel.resource.attributes=service.name=tomcat_service,service.namespace=TOMCAT <br>
+※ 아래와 같이 job name 에 내용 추가, 추가하지 않을 경우 job 정보는 job="unknown_service:java" 로 나옴
+```shell
+http_server_request_duration_seconds_bucket{http_request_method="GET",http_response_status_code="200",http_route="/index.jsp",instance="32a78fa6-3d8b-47f4-9d1c-826476aa5d4d",job="TOMCAT/tomcat_service",network_protocol_version="1.1",url_scheme="http",le="0.005"} 1
 ```
 
 ### Tomcat 실행

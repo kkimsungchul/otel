@@ -76,6 +76,7 @@ set OTEL_METRIC_EXPORT_INTERVAL=1000
 set OTEL_TRACES_EXPORTER=otlp
 set OTEL_METRICS_EXPORTER=otlp
 set OTEL_LOGS_EXPORTER=otlp
+set OTEL_SERVICE_NAME =Springboot-agent-test
 set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317
 set OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:4317
 set OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4317
@@ -86,13 +87,14 @@ set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 ### SpringBoot 프로젝트 실행
 ```shell
 cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
-java -jar otel-sdk-test-springboot.jar
+java -jar otel-test-springboot.jar
 ```
 ---
 
 ## JAVA(SpringBoot) (SDK) 실행
 ```shell
 cd C:\Users\sung\Desktop\otel\OTel-git\otel-java-agent
+java -jar otel-sdk-test-springboot.jar
 ```
 
 ## JAVA(Tomcat) (Agent) 실행
@@ -174,9 +176,22 @@ flask run -p 18080
 ### python 환경 접속
 - http://localhost:18080/python/rolldice
 
+### tomcat 환경 접속
+- http://localhost:9080/
+
 ### 로그 확인
 ```shell
 cd C:\Users\sung\Desktop\개발\otel\test\otel\otel-collector
 ```
 - 아래의 파일 확인<br>
 example.log
+
+### 프로메테우스 실행
+```shell
+prometheus.exe
+```
+
+### 프로메테우스 메트릭 데이터 및 접속 확인
+- 메트릭 : http://localhost:9090/
+- 접속 : http://localhost:9090/
+
