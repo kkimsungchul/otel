@@ -2,7 +2,6 @@ package sungchul.com.otel.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import io.opentelemetry.api.OpenTelemetry;
@@ -50,7 +49,6 @@ public class DiceService {
                 .startSpan();
         try(Scope scope = childSpan.makeCurrent()) {
             childSpan.setAttribute("hihi","bye");
-
             return ThreadLocalRandom.current().nextInt(this.min, this.max + 1);
         } finally {
             childSpan.end();

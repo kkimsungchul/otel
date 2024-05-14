@@ -4,7 +4,6 @@ import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.LongCounter;
 import io.opentelemetry.api.metrics.LongHistogram;
 import io.opentelemetry.api.metrics.Meter;
-import io.opentelemetry.api.metrics.ObservableDoubleGauge;
 import io.opentelemetry.api.trace.SpanKind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +52,6 @@ public class RollController {
             InetAddress inetAddress = InetAddress.getLocalHost();
             hostName = inetAddress.getHostName();
             address = inetAddress.getHostAddress();
-//            Random random = new Random();
-//            int randomNumber = random.nextInt(10000) + 1;
-//            Thread.sleep(randomNumber);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -79,22 +74,11 @@ public class RollController {
                 .build();
         counter.add(1, attrs);
 
-        //히스토그램 추가
         LongHistogram histogram = meter.histogramBuilder("dice-lib.rolls")
                 .ofLongs() // Required to get a LongHistogram, default is DoubleHistogram
                 .setDescription("A distribution of the value of the rolls.")
                 .setUnit("points")
                 .build();
-        histogram.record(1,attrs);
-
-//        Runtime rt = Runtime.getRuntime();
-//        long total = rt.totalMemory()/1024;
-//        long free = rt.freeMemory()/1024;
-//        ObservableDoubleGauge gauge = meter.gaugeBuilder("jvm.memory.used")
-//                .setDescription("memory used")
-//                        .setUnit("mmmmm")
-//                .buildWithCallback(measurement -> measurement.record(total - free));
-
 
 
         // Make the span the current span

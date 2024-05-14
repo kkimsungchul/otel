@@ -1,5 +1,8 @@
 [ 공식문서 따라하기 ]
 
+# 라이브러리
+https://javadoc.io/doc/io.opentelemetry
+
 # java 예제
 	https://opentelemetry.io/docs/languages/java/getting-started/
 	https://opentelemetry.io/docs/languages/java/instrumentation/

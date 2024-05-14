@@ -33,14 +33,4 @@ dependencies {
     //prometheus로 바로 전송 collector
     implementation 'io.opentelemetry:opentelemetry-exporter-prometheus:1.38.0-alpha'
 
-
-//    implementation 'io.opentelemetry.contrib:opentelemetry-jmx-metrics:1.35.0-alpha'
-
-
-    implementation "io.opentelemetry.instrumentation:opentelemetry-resources:2.3.0-alpha"
-
-
-    implementation group: 'io.opentelemetry', name: 'opentelemetry-sdk-extension-auto-config', version: '0.6.0'
-
-    implementation('io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.3.0')
 }

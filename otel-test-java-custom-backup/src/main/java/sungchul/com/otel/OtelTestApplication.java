@@ -2,7 +2,6 @@ package sungchul.com.otel;
 
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
-import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.context.propagation.TextMapPropagator;
@@ -10,9 +9,7 @@ import io.opentelemetry.exporter.logging.LoggingMetricExporter;
 import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
-import io.opentelemetry.instrumentation.resources.*;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
-import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
 import io.opentelemetry.sdk.metrics.InstrumentSelector;
@@ -44,20 +41,6 @@ public class OtelTestApplication {
                 .put(ResourceAttributes.SERVICE_NAME, "java-custom-dice-service")    //서비스명 설정
                 .put(ResourceAttributes.SERVICE_VERSION, "0.1.0")       //서비스 버전 설정
                 .build();
-
-//    @Bean
-//        public OpenTelemetry openTelemetry() {
-//            Resource resource = Resource.getDefault()
-//                    .merge(ContainerResource.get())
-//                    .merge(HostResource.get())
-//                    .merge(OsResource.get())
-//                    .merge(ProcessResource.get())
-//                    .merge(ProcessRuntimeResource.get())
-//                    .merge(Resource.create(Attributes.builder()
-//                            .put(ResourceAttributes.SERVICE_NAME, "java-custom-dice-service")    //서비스명 설정
-//                            .put(ResourceAttributes.SERVICE_VERSION, "0.1.0")       //서비스 버전 설정
-//                            .build()
-//                    ));
 
         //아래의 주석은 어플리케이션의 콘솔에 Otel 정보를 출력할 때 사용함
 /*
@@ -135,7 +118,7 @@ public class OtelTestApplication {
                     ).build()
                 ).setResource(resource)
                 .build();
-        //OpenTelemetry openTelemetry = AutoConfiguredOpenTelemetrySdk.initialize().getOpenTelemetrySdk();
+
         OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
                 .setMeterProvider(sdkMeterProvider)
