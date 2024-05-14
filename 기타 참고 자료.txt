@@ -11,6 +11,9 @@ https://www.youtube.com/watch?v=EZmUxMtx5Fc - [NHN FORWARD 22] OpenTelemetry를 
 # 오픈텔레메트리, 프로메테우스, 그라파나 연동
 https://grafana.com/blog/2023/07/20/a-practical-guide-to-data-collection-with-opentelemetry-and-prometheus/ - A practical guide to data collection with OpenTelemetry and Prometheus
 
+# 그라파나 , 키바나
+https://youwin0322.tistory.com/22
+
 # 오픈텔레메트리 <-> 프로메테우스
 https://www.asserts.ai/blog/opentelemetry-histograms-with-prometheus/
 

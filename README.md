@@ -13,11 +13,10 @@
   * [OpenTelemetry 최종 활용 단계 예상도](#opentelemetry-최종-활용-단계-예상도)
 
 ## 일정
+#### 5월 8일 ~ 5월 17일
 - 사전 조사
   - OpenTelemetry 란
   - OpenTelemetry 활용 방안
-  - 대리와 사원 둘이서 얼만큼 진행 가능한지 역량 파악
-
  
 - 로컬 환경 구축
   - 테스트 어플리케이션 개발 
@@ -30,17 +29,37 @@
     - OpenTelemetry collector 
   - prometheus 환경 구성
     - 로컬 환경 구성 
-  - Grafana 환경 구성 <미확실>
 
+#### 5월 20일 ~ 6월 14일
+- 테스트 어플리케이션 정리 및 데이터 추가
+  - 성능 분석 및 AIOps 에 사용할 수 있는 어플리케이션 데이터
+  - 분석에 사용할 데이터 포함
+  - job , service name 등의 OpenTelemetry 속성 정보 포함
 
-- 도커 or K8s에 적용 
+- prometheus 사용 방법
+  - prometheus 개념 정리
+  - prometheus 모니터링 방법
 
-- AIOps 적용 방안
+#### 6월 17일 ~  7월 12일
+- AIOps 도입 및 적용 가능 부분 분석
+- AIOps 적용
+- K8s 적용 
 
+#### 7월 1일 ~ 
 - 산출물 작성
   - 개발 및 적용 가이드
   - 도입 가능 시스템
-  - 시스템에 바로 적용 가능한 소스 (JAVA / Python)
+  - 시스템에 바로 적용 가능한 소스 (JAVA / Python) 
+
+#### 미정
+- 테스트 환경 패키징
+  - 테스트 어플리케이션
+  - OpenTelemetry collector
+  - prometheus
+
+- Grafana 도입
+- Kibana 도입
+
 
 ---
 ## repository 디렉토리 설명
