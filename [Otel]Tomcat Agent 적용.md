@@ -18,6 +18,7 @@
 setlocal
 set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar"
 set CATALINA_OPTS=%CATALINA_OPTS% -Dotel.resource.attributes=service.name=tomcat_service,service.namespace=TOMCAT
+set JAVA_OPTS=%JAVA_OPTS% -Duser.language=en
 ```
 
 - set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar" <br>

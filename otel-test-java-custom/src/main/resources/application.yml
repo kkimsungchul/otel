@@ -19,4 +19,4 @@ otel:
       endpoint: 127.0.0.1:4317
   metric:
     export:
-      interval: 10000 #옵션이 적용 안됨
+      interval: 1000 #옵션이 적용 안됨
