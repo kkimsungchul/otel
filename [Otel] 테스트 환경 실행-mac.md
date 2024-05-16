@@ -8,9 +8,30 @@ git clone https://github.com/kkimsungchul/otel.git
 - python 3.x
 - ~user-path는 본인이 사용할 경로를 설정
 
+
+## collector 설치
+```shell
+curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
+tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
+```
+## collector 권한부여
+```shell
+chmod +x /Users/jihyoun/Otel/otelcol
+```
+
+## collector 경로로 이동
+```shell
+cd 2024/otel/otel-collector
+```
+
+## customconfig.yaml 파일 검증
+```shell
+./otelcol validate --config=customconfig.yaml
+```
+
 ## collector 실행
 ```shell
-/Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-collector//otel-collector-config.yaml
+./otelcol --config=customconfig.yaml
 ```
 ---
 ## JAVA(SpringBoot) (agent) 실행
@@ -35,16 +56,25 @@ cd /Users/jihyoun/2024/otel/otel-java-agent
 java -jar otel-test-springboot.jar
 ```
 ---
+### JAVA(SpringBoot) (SDK) 실행
+```shell
+cd /Users/jihyoun/2024/otel/otel-java-agent
+java -jar otel-sdk-test-springboot.jar
+```
+---
+### JAVA(Tomcat) (Agent) 실행
+```shell
+cd /Downloads/apache-tomcat-9.0.89/bin/
+./startup.sh
+```
+---
 ## Python(SDK) 실행
 
 ### 파이썬 가상환경 설정
 ```shell
-Pycharm > Settings > Python Interpreter
-> Virtualenv Environment
-> Location
- path = /Users/jihyoun/2024/otel/otel-test-python/venv 
-> Base Interpreter
- python v3.11
+cd /Users/jihyoun/2024/otel/otel-test-pytyon-run
+python3 -m venv venv
+source venv/bin/activate
 ```
 ### pip 업데이트
 ```shell
@@ -56,30 +86,18 @@ pip3 install --upgrade pip
 pip3 install flask
 ```
 
-### opentelemetry-distro  설치
-※ Python Interpreter에서 수동으로도 설치 가능
+### 오픈텔레메트리 필요 라이브러리 설치
 ```shell
 pip3 install opentelemetry-distro
 opentelemetry-bootstrap -a install
-```
-### opentelemetry-exporter-otlp 설치
-```shell
 pip3 install opentelemetry-exporter-otlp
+pip3 install opentelemetry-exporter-otlp-proto-grpc
+pip3 install opentelemetry-api
+pip3 install opentelemetry-sdk
+pip3 install opentelemetry-instrumentation-flask
+pip3 install opentelemetry-exporter-prometheus install flask
 ```
-### collector 설치
-```shell
-curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
-tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
-```
-### collector 권한부여
-```shell
-chmod +x /Users/jihyoun/Otel/otelcol
-```
-### collector 실행
 
-```shell
-/Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-test-python/tmp/otel-collector-config.yaml
-```
 
 ### 플라스크 실행(mac)
 ### 트레이스, 메트릭, 로그 확인
@@ -96,7 +114,8 @@ opentelemetry-instrument \
 ```shell
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
---metric_export_interval=15000 \
+--service_name=python-roll-dice-service \
+--metric_export_interval=1000 \
 --traces_exporter=otlp \
 --metrics_exporter=otlp \
 --logs_exporter=otlp \
@@ -105,21 +124,36 @@ opentelemetry-instrument \
 --exporter_otlp_metrics_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_protocol=grpc \
-python3 -m flask run -p 8080
+python3 -m flask run -p 18080
 ```
 ---
 ## 테스트
 
-### SrpingBoot 환경 접속
-- localhost:8080/rolldice
+### SpringBoot(agent) 환경 접속
+- http://localhost:8080/java/rolldice
+
+### SpringBoot(sdk) 환경 접속
+- http://localhost:19090/java-custom/rolldice?rolls=6
 
 ### python 환경 접속
-- http://localhost:9090/rolldice
+- http://localhost:18080/python/rolldice
+
+### tomcat 환경 접속
+- http://localhost:9080/
 
 ### 로그 확인
 ```shell
-cd /Users/jihyoun/
+cd /Users/jihyoun/2024/otel/otel-collector/example.log
 ```
 - 아래의 파일 확인<br>
 ※ root 경로(jihyoun)에 log파일 생성됨
 example.log
+
+## 프로메테우스 실행
+```shell
+./prometheus --config.file=prometheus.yml
+```
+
+## 프로메테우스 메트릭 데이터 및 접속 확인
+- 메트릭: http://localhost:9090/
+- 접속: http://localhost:9090/

@@ -160,5 +160,4 @@ opentelemetry-instrument \
 --exporter_otlp_traces_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_logs_endpoint=http://127.0.0.1:4317 \
 --exporter_otlp_protocol=grpc \
-python3 -m flask run -p 8080
-
+python3 -m flask run -p 18080
