@@ -23,12 +23,12 @@
         + [opentelemetry 필요 라이브러리 설치](#opentelemetry-필요-라이브러리-설치)
         + [플라스크 실행(windows)](#플라스크-실행windows)
     * [테스트](#테스트)
-        + [SrpingBoot(agent) 환경 접속](#srpingbootagent-환경-접속)
-        + [SrpingBoot(sdk) 환경 접속](#srpingbootsdk-환경-접속)
+        + [SpringBoot(agent) 환경 접속](#springbootagent-환경-접속)
+        + [SpringBoot(sdk) 환경 접속](#springbootsdk-환경-접속)
         + [python 환경 접속](#python-환경-접속)
         + [로그 확인](#로그-확인)
 
-# windows 
+# windows Spring
 
 ## 코드 내려받기
 ```git
@@ -167,10 +167,10 @@ flask run -p 18080
 ---
 ## 테스트
 
-### SrpingBoot(agent) 환경 접속
+### SpringBoot(agent) 환경 접속
 - http://localhost:8080/java/rolldice
 
-### SrpingBoot(sdk) 환경 접속
+### SpringBoot(sdk) 환경 접속
 - http://localhost:19090/java-custom/rolldice?rolls=12
 
 ### python 환경 접속
