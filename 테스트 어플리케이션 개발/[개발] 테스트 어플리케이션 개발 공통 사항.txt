@@ -1,0 +1,83 @@
+[ 테스트 어플리케이션 개발 ]
+
+# 공통 테이블 구현 사항
+
+## log_api 테이블 정의
+Table name : log_api
+seq					AUTOINCREMENT
+user_ip				VARCHAR(15)
+user_id				VARCHAR(30)
+start_time			DATE DEFAULT SYSDATE
+end_time			DATE DEFAULT SYSDATE
+call_url			VARCHAR(100)
+call_url_parameter	VARCHAR(300)
+
+
+### H2 Database create
+CREATE TABLE log_api (
+    seq INT AUTO_INCREMENT PRIMARY KEY,
+    user_ip VARCHAR(15),
+    user_id VARCHAR(30),
+    start_time DATE DEFAULT CURRENT_DATE(),
+    end_time DATE DEFAULT CURRENT_DATE(),
+    call_url VARCHAR(100),
+    call_url_parameter VARCHAR(300)
+);
+
+
+### SQLite3 
+CREATE TABLE IF NOT EXISTS log_api (
+	seq INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_ip VARCHAR(15),
+	user_id VARCHAR(30),
+	start_time DATE DEFAULT (datetime('now', 'localtime')),
+	end_time DATE DEFAULT (datetime('now', 'localtime')),
+	call_url VARCHAR(100),
+	call_url_parameter VARCHAR(300)
+);
+
+
+## board 테이블 정의
+
+Table name : board
+seq					AUTOINCREMENT
+title				VARCHAR(30)
+content				VARCHAR(2000)
+create_date			DATE DEFAULT SYSDATE
+update_date			DATE DEFAULT SYSDATE
+
+
+### H2 Database create
+CREATE TABLE board (
+    seq INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(30),
+    content VARCHAR(2000),
+    create_date DATE DEFAULT CURRENT_DATE(),
+    update_date DATE DEFAULT CURRENT_DATE()
+);
+
+
+
+### SQLite3 
+CREATE TABLE IF NOT EXISTS  board (
+	seq INTEGER PRIMARY KEY AUTOINCREMENT,
+	title VARCHAR(30),
+	content VARCHAR(2000),
+	create_date DATETIME DEFAULT (datetime('now', 'localtime')),
+	update_date DATETIME DEFAULT (datetime('now', 'localtime'))
+);
+
+
+
+# 공통 API 구현 사항
+	API 호출 : 
+		log_api 테이블에 api 호출 시간 insert & log 생성
+		log_api 테이블에 api 종료 시간 update & log 생성
+
+
+# board api 구현 사항
+	기본 사항 : board 테이블 초기 데이터 100만건 
+	URL : /{개발언어}/boards/{가져올 게시글 개수}
+		ex) localhost:9090/python/boards/10000000
+	Method : GET
+	result : 자유
