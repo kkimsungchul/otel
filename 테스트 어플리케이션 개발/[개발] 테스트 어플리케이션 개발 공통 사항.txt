@@ -88,18 +88,11 @@ update_date DATETIME DEFAULT (datetime('now', 'localtime'))
 		ex) localhost:9090/python/boards/10000000
 	2. log_api 테이블에 api 호출 시간 insert & log 생성
 		ex) 
-			INSERT INTO log_api(user_ip , user_id , start_time , call_url , call_url_parameter)
-			VALUES ("192.168.0.99" , "kimsungchul" , 202406061515, "/python/boards/" , "10000000")
+			INSERT INTO log_api(user_ip , user_id , call_url , call_url_parameter)
+			VALUES ("192.168.0.99" , "kimsungchul" , "/python/boards/" , "10000000")
 
-
-	seq					AUTOINCREMENT
-	user_ip				VARCHAR(15)
-	user_id				VARCHAR(30)
-	start_time			DATE DEFAULT SYSDATE
-	end_time			DATE DEFAULT SYSDATE
-	call_url			VARCHAR(100)
-	call_url_parameter	VARCHAR(300)
 	3. select query 실행
 		ex) select * from board limit 10000000
 
 	4. log_api 테이블에 api 종료 시간 update & log 생성
+		UPDATE log_api SET end_time = 202406061533 where seq =10
