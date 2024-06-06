@@ -60,6 +60,30 @@ def database_data_insert():
     close_database_connection(cursor, conn)
 
 
+# log insert
+# insert 후 seq를 리턴함
+def log_insert(userIp , userId , callUrl , callUrlParameter):
+    conn, cursor = connect_to_database()
+    query = '''
+        INSERT INTO log_api(user_ip , user_id ,  call_url , call_url_parameter)
+        VALUES (?,?,?,?)    
+    '''
+    cursor.execute(query, (userIp, userId,callUrl,callUrlParameter))
+    seq = cursor.lastrowid
+    close_database_connection(cursor, conn)
+    return seq
+
+# log upodate
+def log_update(seq):
+    conn, cursor = connect_to_database()
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    query = '''
+        UPDATE log_api SET end_time = ? where seq = ?
+    '''
+    cursor.execute(query, (current_time, seq))
+    cursor.fetchall()
+    close_database_connection(cursor, conn)
+
 def database_init():
     database_create()
     database_data_insert()
