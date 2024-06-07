@@ -1,0 +1,51 @@
+package com.kt.otelsdkspringboot01.domain;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Date;
+
+@Getter @Setter
+@ToString
+@Entity
+@Table(name = "log_api")
+@NoArgsConstructor
+@AllArgsConstructor
+public class LogApi {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long seq;
+
+    @Column(name = "user_ip", length = 15)
+    private String userIp;
+
+    @Column(name = "user_id", length = 30)
+    private String userId;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_time")
+    private Date startTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_time")
+    private Date endTime;
+
+    @Column(name = "call_url", length = 100)
+    private String callUrl;
+
+    @Column(name = "call_url_parameter", length = 300)
+    private String callUrlParameter;
+
+    @PrePersist
+    protected void onCreate() {
+        Date now = new Date();
+        if (this.startTime == null) {
+            this.startTime = now;
+        }
+        if (this.endTime == null) {
+            this.endTime = now;
+        }
+    }
+}
