@@ -21,12 +21,8 @@ public class LogService {
     public void save(){
 
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String ip = req.getHeader("X-FORWARDED-FOR");
-        System.out.println(ip);
-        if (ip == null) {
-            ip = req.getRemoteAddr();
-        }
-        System.out.println(ip);
+        String ip = req.getRemoteAddr();
+        System.out.println("## ip : " + ip);
         LogApi logApi = new LogApi();
         logApi.setUserId("kimsungchul");
         logApi.setUserIp(ip);
@@ -37,6 +33,8 @@ public class LogService {
     }
 
     public List<LogApi> all(){
-        return logRepository.all();
+        return logRepository.findAll();
     }
+
+
 }

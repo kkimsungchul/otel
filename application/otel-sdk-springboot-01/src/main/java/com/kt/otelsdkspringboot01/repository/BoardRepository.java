@@ -1,28 +1,17 @@
 package com.kt.otelsdkspringboot01.repository;
 
 import com.kt.otelsdkspringboot01.domain.Board;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import jakarta.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Repository
-@RequiredArgsConstructor
 @Transactional
-public class BoardRepository {
-    private final EntityManager em;
+public interface BoardRepository extends JpaRepository<Board,Long> {
 
+    Page<Board> findAll(Pageable pageable);
 
-    public List<Board> all(){
-        return em.createQuery("select b from Board b" , Board.class)
-                .getResultList();
-    }
-
-    public List<Board> findAll(){
-        return em.createQuery("select b from Board b" , Board.class)
-                .getResultList();
-    }
 }
