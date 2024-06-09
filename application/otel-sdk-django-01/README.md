@@ -2,9 +2,6 @@
 - python 3.12
 - sqlite3 database
 
-## 로그 조회
-localhost:8080
-
 ## 가상환경 생성 및 라이브러리 설치
 ### python version 3.12
 - pip install virtualenv
@@ -25,3 +22,9 @@ localhost:8080
 
 ## DB 적재
 - python manage.py boards
+
+## url
+### boards api
+localhost:8080/python/boards/{가져올 게시글 개수}
+### log_api
+localhost:8080/python/log/
