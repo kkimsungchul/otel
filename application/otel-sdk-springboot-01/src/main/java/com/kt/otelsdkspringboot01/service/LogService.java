@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -18,18 +21,24 @@ public class LogService {
     private final LogRepository logRepository;
 
 
-    public void save(){
-
+    public LogApi save(){
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         String ip = req.getRemoteAddr();
-        System.out.println("## ip : " + ip);
         LogApi logApi = new LogApi();
         logApi.setUserId("kimsungchul");
         logApi.setUserIp(ip);
         logApi.setCallUrl("api/test");
         logApi.setCallUrlParameter("?limit=10");
         logRepository.save(logApi);
-        System.out.println("logApi seq : " + logApi);
+//        System.out.println("logApi seq : " + logApi);
+        return logApi;
+    }
+
+    public void update(LogApi logApi){
+//        System.out.println("## log update");
+        LocalDateTime now = LocalDateTime.now();
+        logApi.setEndTime(now);
+        logRepository.save(logApi);
     }
 
     public List<LogApi> all(){

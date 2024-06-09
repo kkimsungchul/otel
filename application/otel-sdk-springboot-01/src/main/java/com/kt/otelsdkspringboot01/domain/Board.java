@@ -4,7 +4,8 @@ package com.kt.otelsdkspringboot01.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Getter @Setter
 @Entity
@@ -21,13 +22,11 @@ public class Board {
     @Column(name = "content", length = 2000, nullable = false)
     private String content;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "create_date", nullable = false)
-    private Date createDate;
+    private LocalDateTime createDate;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "update_date", nullable = false)
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
 }
 

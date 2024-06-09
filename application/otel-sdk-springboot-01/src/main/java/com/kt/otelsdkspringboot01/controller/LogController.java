@@ -22,7 +22,14 @@ public class LogController {
     //postman 사용하기 귀찮아서 일단은 get
     @GetMapping("/save")
     public void save(){
-        logService.save();
+        LogApi logApi = logService.save();
+        try {
+            Thread.sleep(5000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        logService.update(logApi);
+
     }
 
     @GetMapping("")

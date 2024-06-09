@@ -4,7 +4,7 @@ package com.kt.otelsdkspringboot01.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter @Setter
 @ToString
@@ -24,13 +24,11 @@ public class LogApi {
     @Column(name = "user_id", length = 30)
     private String userId;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_time")
-    private Date startTime;
+    private LocalDateTime startTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_time")
-    private Date endTime;
+        @Column(name = "end_time")
+    private LocalDateTime endTime;
 
     @Column(name = "call_url", length = 100)
     private String callUrl;
@@ -40,7 +38,7 @@ public class LogApi {
 
     @PrePersist
     protected void onCreate() {
-        Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
         if (this.startTime == null) {
             this.startTime = now;
         }

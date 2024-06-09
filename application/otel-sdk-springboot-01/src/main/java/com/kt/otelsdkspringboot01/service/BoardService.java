@@ -2,6 +2,7 @@ package com.kt.otelsdkspringboot01.service;
 
 
 import com.kt.otelsdkspringboot01.domain.Board;
+import com.kt.otelsdkspringboot01.domain.LogApi;
 import com.kt.otelsdkspringboot01.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -14,9 +15,20 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final LogService logService;
 
     public List<Board> all(){
+        LogApi logApi = logService.save();
         PageRequest pageRequest = PageRequest.of(0, 100);
-        return boardRepository.findAll(pageRequest).getContent();
+        List<Board> boardList = boardRepository.findAll(pageRequest).getContent();
+        logService.update(logApi);
+        return boardList;
+    }
+    public List<Board> all(int pageSize){
+        LogApi logApi = logService.save();
+        PageRequest pageRequest = PageRequest.of(0, pageSize);
+        List<Board> boardList = boardRepository.findAll(pageRequest).getContent();
+        logService.update(logApi);
+        return boardList;
     }
 }
