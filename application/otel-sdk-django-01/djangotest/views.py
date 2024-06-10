@@ -38,6 +38,7 @@ def get_data(request, num_items):
 def log_data(request):
     data = log_api.objects.all().values('seq',
                                         'user_ip',
+                                        'user_id',
                                         'start_time',
                                         'end_time',
                                         'call_url',
