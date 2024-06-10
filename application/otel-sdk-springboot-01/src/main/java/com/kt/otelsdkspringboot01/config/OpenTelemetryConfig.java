@@ -3,6 +3,7 @@ package com.kt.otelsdkspringboot01.config;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
 import io.opentelemetry.api.metrics.Meter;
+import io.opentelemetry.api.metrics.ObservableDoubleGauge;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
@@ -21,6 +22,10 @@ import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 import io.opentelemetry.semconv.ResourceAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class OpenTelemetryConfig {
@@ -52,7 +57,7 @@ public class OpenTelemetryConfig {
 //                                .setEndpoint("http://127.0.0.1:4317")
                                                 .build()
                                 )
-//                                .setInterval(Duration.ofMillis(500))
+                                .setInterval(Duration.ofMillis(500))
                                 .build())
                 .setResource(resource)
                 .build();
@@ -66,6 +71,8 @@ public class OpenTelemetryConfig {
                         ).build()
                 ).setResource(resource)
                 .build();
+
+
         OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
                 .setMeterProvider(sdkMeterProvider)
@@ -85,5 +92,28 @@ public class OpenTelemetryConfig {
     public Meter meter(OpenTelemetry openTelemetry) {
         return openTelemetry.getMeter("com.kt.otelsdkspringboot01");
     }
+
+//    @Bean
+//    public void setGauge (OpenTelemetry openTelemetry){
+//        Meter meter = openTelemetry.getMeter("com.kt.otelsdkspringboot01");
+//        ObservableDoubleGauge heapSizeGauge = meter.gaugeBuilder("jvm.memory.totalMemory")
+//                .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
+//        ObservableDoubleGauge heapMaxSizeGauge = meter.gaugeBuilder("jvm.memory.freeMemory")
+//                .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
+//        ObservableDoubleGauge heapFreeSizeGauge = meter.gaugeBuilder("jvm.memory.usedMemory")
+//                .buildWithCallback(measurement -> measurement.record(getMemory().get("usedMemory")));
+//    }
+//
+//    public Map<String,Double> getMemory(){
+//        Map<String,Double> memoryMap = new HashMap<>();
+//        //메모리는 byte 단위로 반환, 1024로 두번나누면 kb - mb 로 변환
+//        double totalMemory = Runtime.getRuntime().totalMemory()/1024/1024;
+//        double freeMemory =Runtime.getRuntime().freeMemory()/1024/1024;
+//        double usedMemory =totalMemory - freeMemory;
+//        memoryMap.put("totalMemory",totalMemory);
+//        memoryMap.put("usedMemory",usedMemory);
+//        memoryMap.put("freeMemory",freeMemory);
+//        return memoryMap;
+//    }
 
 }

@@ -47,6 +47,9 @@
 ※ maven 라이브러리
 - ps://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-logback-appender-1.0/2.3.0-alpha
 
+### 기타 참고 문서
+- https://deploy.equinix.com/blog/how-to-use-opentelemetry-for-observability-in-java/
+
 ---
 ## 프로젝트 개발 및 실행 환경
 - windows 10

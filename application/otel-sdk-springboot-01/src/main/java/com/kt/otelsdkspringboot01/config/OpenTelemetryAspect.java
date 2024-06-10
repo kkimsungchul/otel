@@ -4,6 +4,7 @@ import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.common.AttributesBuilder;
 import io.opentelemetry.api.metrics.LongCounter;
 import io.opentelemetry.api.metrics.Meter;
+import io.opentelemetry.api.metrics.ObservableDoubleGauge;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.Tracer;
@@ -19,6 +20,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Aspect
@@ -32,6 +35,8 @@ public class OpenTelemetryAspect {
     private Meter meter;
 
     private final LongCounter requestCounter;
+
+    private ObservableDoubleGauge gauge;
 
     private String hostName;
     @Autowired
@@ -95,6 +100,14 @@ public class OpenTelemetryAspect {
         requestCounter.add(1, attrsBuilder.build());
                 //.add(1, Labels.of("method", joinPoint.getSignature().getName()));
 
+        this.gauge = meter.gaugeBuilder("jvm.memory.totalMemory")
+                .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
+        this.gauge = meter.gaugeBuilder("jvm.memory.usedMemory")
+                .buildWithCallback(measurement -> measurement.record(getMemory().get("usedMemory")));
+        this.gauge = meter.gaugeBuilder("jvm.memory.freeMemory")
+                .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
+
+
         // Span을 현재 Scope에 연결
         try (Scope scope = span.makeCurrent()) {
             return joinPoint.proceed();
@@ -104,8 +117,18 @@ public class OpenTelemetryAspect {
         } finally {
             span.end();
         }
-
-
-
     }
+
+    public Map<String,Double> getMemory(){
+        Map<String,Double> memoryMap = new HashMap<>();
+        //메모리는 byte 단위로 반환, 1024로 두번나누면 kb - mb 로 변환
+        double totalMemory = Runtime.getRuntime().totalMemory()/1024/1024;
+        double freeMemory =Runtime.getRuntime().freeMemory()/1024/1024;
+        double usedMemory =totalMemory - freeMemory;
+        memoryMap.put("totalMemory",totalMemory);
+        memoryMap.put("usedMemory",usedMemory);
+        memoryMap.put("freeMemory",freeMemory);
+        return memoryMap;
+    }
+
 }

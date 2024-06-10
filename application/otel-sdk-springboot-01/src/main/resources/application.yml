@@ -46,3 +46,4 @@ otel:
   metric:
     export:
       interval: 1000 #옵션이 적용 안됨
+
