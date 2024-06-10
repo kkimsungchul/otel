@@ -27,4 +27,4 @@
 ### boards api
 localhost:8080/python/boards/{가져올 게시글 개수}
 ### log_api
-localhost:8080/python/log/
+localhost:8080/python/save/
