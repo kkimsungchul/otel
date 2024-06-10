@@ -97,6 +97,7 @@ public class RollController {
 
 
 
+
         // Make the span the current span
         try (Scope scope = span.makeCurrent()) {
             if (!rolls.isPresent()) {

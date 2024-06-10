@@ -15,7 +15,6 @@ spring:
         show_sql: true
         format_sql: true
     defer-datasource-initialization: true
-
   sql:
     init:
       mode: always
@@ -24,9 +23,26 @@ spring:
       enabled: true
       path: /h2-console
 
-server :
-  port : 8080
-
 logging.level:
   org.hibernate.sql : debug
   org.hibernate.type : trace
+
+server :
+  port : 8080
+
+
+otel:
+  service:
+    name: java-springboot-otel-test-custom
+  traces:
+    exporter: otlp
+  metrics:
+    exporter: otlp
+  logs:
+    exporter: otlp
+  exporter:
+    otlp:
+      endpoint: 127.0.0.1:4317
+  metric:
+    export:
+      interval: 1000 #옵션이 적용 안됨

@@ -14,3 +14,19 @@
 localhost:8080/log
 localhost:8080/log/save
 localhost:8080/board
+
+
+
+# 작업 순서
+
+# 라이브러리 추가
+    implementation 'io.opentelemetry:opentelemetry-api'
+    implementation 'io.opentelemetry:opentelemetry-sdk'
+    implementation 'io.opentelemetry:opentelemetry-exporter-logging'
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+    implementation 'io.opentelemetry.semconv:opentelemetry-semconv:1.25.0-alpha'
+    implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure'
+
+# OpenTelemetryConfig 클래스 생성
+
+# OpenTelemetryAspect 클래스 생성
