@@ -3,6 +3,16 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from .models import log_api, board
 from django.http import HttpResponse
+from django.shortcuts import render
+import grpc
+
+# import demo_pb2
+# import demo_pb2_grpc
+# def get_recommendations(product_ids):
+#     with grpc.insecure_channel('localhost:50051') as channel:
+#         stub = demo_pb2_grpc.RecommendationServiceStub(channel)
+#         response = stub.ListRecommendations(demo_pb2.ListRecommendationsRequest(product_ids=product_ids))
+#         return response
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -36,6 +46,7 @@ def get_data(request, num_items):
     return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
 
 def log_data(request):
+
     data = log_api.objects.all().values('seq',
                                         'user_ip',
                                         'user_id',
