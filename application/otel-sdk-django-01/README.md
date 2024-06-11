@@ -24,7 +24,25 @@
 - python manage.py boards
 
 ## url
+## 내부 접속 시
 ### boards api
-localhost:8080/python/boards/{가져올 게시글 개수}
+localhost:8000/boards/{가져올 게시글 개수}
 ### log_api
-localhost:8080/python/save/
+localhost:8000/save/
+
+## 외부 접속 시
+### boards api
+192.168.0.40:8000/boards/{가져올 게시글 개수}
+### log_api
+192.168.0.40:8000/save/
+
+
+## batch 파일 생성
+
+## nginx 설정
+### hosts 파일 수정
+- 192.168.0.52 java.sdk.otel-app.co.kr
+- 127.0.0.1 python.sdk.otel-app.co.kr
+
+### confing 파일 수정
+- C:\Users\HP\Downloads\nginx-1.26.1\conf\nginx.conf
