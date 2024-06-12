@@ -30,3 +30,15 @@ localhost:8080/board
 # OpenTelemetryConfig 클래스 생성
 
 # OpenTelemetryAspect 클래스 생성
+
+
+---
+# SpringBoot starter
+- https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/
+- https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-spring-boot-starter/2.4.0-alpha
+
+# log4j2 사용
+- https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/additional-instrumentations/
+- https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/log4j/log4j-appender-2.17/library/README.md
+- https://central.sonatype.com/artifact/io.opentelemetry.instrumentation/opentelemetry-log4j-appender-2.17
+ 

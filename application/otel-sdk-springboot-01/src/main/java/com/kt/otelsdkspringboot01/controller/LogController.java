@@ -3,7 +3,6 @@ package com.kt.otelsdkspringboot01.controller;
 
 import com.kt.otelsdkspringboot01.domain.LogApi;
 import com.kt.otelsdkspringboot01.service.LogService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +26,7 @@ public class LogController {
 
         LogApi logApi = logService.save();
         logger.info("### save in ### {}",logApi.toString());
+        logger.warn("### save in ### {}",logApi.toString());
         try {
             Thread.sleep(5000);
         }catch (Exception e){
@@ -38,6 +38,9 @@ public class LogController {
 
     @GetMapping("")
     public List<LogApi> logApiList(){
+        logger.info("### info save in ### logApiList");
+        logger.warn("### warn save in ### logApiList");
+        logger.info("### info save out ### logApiList");
         return logService.all();
     }
 }

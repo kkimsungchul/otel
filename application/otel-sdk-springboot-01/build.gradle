@@ -22,6 +22,13 @@ configurations {
 repositories {
     mavenCentral()
 }
+dependencyManagement {
+    imports {
+        mavenBom("io.opentelemetry:opentelemetry-bom:1.39.0")
+        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:2.4.0-alpha")
+    }
+}
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,17 +40,18 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    implementation 'io.opentelemetry:opentelemetry-api'
-    implementation 'io.opentelemetry:opentelemetry-sdk'
-    implementation 'io.opentelemetry:opentelemetry-exporter-logging'
-    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
-    implementation 'io.opentelemetry.semconv:opentelemetry-semconv:1.25.0-alpha'
-    implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure'
-    implementation 'org.apache.logging.log4j:log4j-core'
-    implementation 'io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.16:1.13.1-alpha'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
 
 
 
+    implementation "io.opentelemetry:opentelemetry-api"
+    implementation "io.opentelemetry:opentelemetry-sdk"
+    implementation "io.opentelemetry:opentelemetry-exporter-logging"
+    implementation "io.opentelemetry:opentelemetry-exporter-otlp"
+    implementation "io.opentelemetry.semconv:opentelemetry-semconv"
+    implementation "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure"
+    implementation "io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.17:2.4.0-alpha"
 }
 
 tasks.named('test') {
