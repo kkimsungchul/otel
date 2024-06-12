@@ -21,9 +21,8 @@
 - 로컬 환경 구축
   - 테스트 어플리케이션 개발 
     - JAVA(SpringBoot - agent)
-    - JAVA(SpringBoot - tomcat - agent)
     - JAVA(SpringBoot - SDK) 
-    - Python(flask - SDK) 
+    - Python(django - SDK) 
   - OpenTelemetry 환경 구성
     - OpenTelemetry agent
     - OpenTelemetry collector 
@@ -71,20 +70,14 @@
   - Agent 방식의 SpringBoot 실행 파일 (otel-test-springboot.jar)
   - OpenTelemetry 의 agent 파일 (opentelemetry-javaagent.jar)
 
+- [otel-sdk-django-01](application/otel-sdk-django-01)
+  - SDK 방식으로 사용할 Django 프로젝트
 
-- [otel-test-java](otel-test-java)
-  - Agent 방식으로 사용할 SpringBoot 프로젝트 파일
-
-- [otel-test-java-custom](otel-test-java-custom)
+- [otel-sdk-springboot-01](application/otel-sdk-springboot-01)
   - SDK 방식으로 사용할 SpringBoot 프로젝트 파일
 
-- [otel-test-python](otel-test-python)
-  - SDK 방식으로 사용할 Python 프로젝트 파일
-
-- [otel-test-pytyon-run](otel-test-pytyon-run)
-  - SDK 방식의 Python 실행 파일
-    - 위 python 파일과는 다른 파이썬 가상환경을 사용하며 테스트를 진행하기에 별도로 분리함
-
+- [nginx](application/nginx)
+  - 테스트 어플리케이션에서 사용할 Nginx
 
 ---
 
