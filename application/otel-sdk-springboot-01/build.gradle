@@ -39,6 +39,9 @@ dependencies {
     implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
     implementation 'io.opentelemetry.semconv:opentelemetry-semconv:1.25.0-alpha'
     implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    implementation 'io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.16:1.13.1-alpha'
+
 
 
 }

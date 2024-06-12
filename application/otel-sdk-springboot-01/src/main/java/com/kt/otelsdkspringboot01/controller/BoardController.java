@@ -4,6 +4,8 @@ package com.kt.otelsdkspringboot01.controller;
 import com.kt.otelsdkspringboot01.domain.Board;
 import com.kt.otelsdkspringboot01.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +16,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
-public class BoardContorller {
+public class BoardController {
 
     private final BoardService boardService;
-
+    private static final Logger logger = LogManager.getLogger(BoardController.class.getName());
 
     @GetMapping("")
     public List<Board> all(){

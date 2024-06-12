@@ -33,7 +33,7 @@ server :
 
 otel:
   service:
-    name: java-springboot-otel-test-custom
+    name: otel-sdk-springboot-01-app
   traces:
     exporter: otlp
   metrics:
