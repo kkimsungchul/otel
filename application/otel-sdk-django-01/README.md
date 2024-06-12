@@ -12,28 +12,6 @@ pip install django
 pip install opentelemetry-instrumentation-django
 ```
 
-## prometheus yml 파일 수정
-```
-global:
-  scrape_interval: 15s
-
-scrape_configs:
-  - job_name: "prometheus"
-    static_configs:
-    - targets: ["localhost:9090"]
-
-  - job_name: dice-service
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
-      
-  - job_name: "django-monitoring"
-    metrics_path: /metrics
-    static_configs:
-    - targets: 
-      - localhost:8000
-```
-
 ## Django 마이그레이션
 ### 마이그레이션 생성
 - python manage.py makemigrations djangotest
