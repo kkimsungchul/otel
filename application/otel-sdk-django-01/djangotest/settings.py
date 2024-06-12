@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangotest',
+    'pb',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [

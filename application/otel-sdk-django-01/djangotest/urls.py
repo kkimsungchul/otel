@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from .views import get_data, log_data, home
 
 urlpatterns = [
@@ -7,4 +7,5 @@ urlpatterns = [
     path('boards/<int:num_items>/', get_data, name='get_data'),
     path('save/', log_data, name='log_data'),
     path('', home, name='home'),
+    path('', include('django_prometheus.urls')),
 ]

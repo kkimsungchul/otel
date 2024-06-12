@@ -4,10 +4,35 @@
 
 ## 가상환경 생성 및 라이브러리 설치
 ### python version 3.12
-- pip install virtualenv
-- virtualenv venv --python=python3.12
-- venv\Scripts\activate
-- pip install django
+```
+pip install virtualenv
+virtualenv venv --python=python3.12
+venv\Scripts\activate
+pip install django
+pip install opentelemetry-instrumentation-django
+```
+
+## prometheus yml 파일 수정
+```
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+    - targets: ["localhost:9090"]
+
+  - job_name: dice-service
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
+      
+  - job_name: "django-monitoring"
+    metrics_path: /metrics
+    static_configs:
+    - targets: 
+      - localhost:8000
+```
 
 ## Django 마이그레이션
 ### 마이그레이션 생성
@@ -46,3 +71,8 @@ localhost:8000/save/
 
 ### confing 파일 수정
 - C:\Users\HP\Downloads\nginx-1.26.1\conf\nginx.conf
+
+## grpc 프로토콜 설정
+- cd djangotest
+- python -m grpc_tools.protoc -Ipb --python_out=pb --grpc_python_out=pb pb/demo.proto
+- demo_pb2_grpc.py의 import demo_pb2 as demo__pb2를 from . import demo_pb2 as demo__pb2
