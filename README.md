@@ -13,13 +13,13 @@
   * [OpenTelemetry 최종 활용 단계 예상도](#opentelemetry-최종-활용-단계-예상도)
 
 ## 일정
-#### 5월 8일 ~ 5월 24일
+#### 5월 8일 ~ 6월 7일
 - 사전 조사
   - OpenTelemetry 란
   - OpenTelemetry 활용 방안
  
-- 로컬 환경 구축
-  - 테스트 어플리케이션 개발 
+- 데모 환경 구축
+  - 데모 어플리케이션 테스트 
     - JAVA(SpringBoot - agent)
     - JAVA(SpringBoot - SDK) 
     - Python(django - SDK) 
