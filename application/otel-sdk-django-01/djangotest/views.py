@@ -21,12 +21,14 @@ request_duration = meter.create_histogram(
 
 
 def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]  # X-Forwarded-For 헤더는 콤마로 구분된 IP 목록을 포함할 수 있습니다.
-    else:
-        ip = request.META.get('REMOTE_ADDR')  # 직접 연결된 클라이언트의 경우 REMOTE_ADDR 사용
-    return ip
+    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    # if x_forwarded_for:
+    #     ip = x_forwarded_for.split(',')[0]  # X-Forwarded-For 헤더는 콤마로 구분된 IP 목록을 포함할 수 있습니다.
+    # else:
+    #     ip = request.META.get('REMOTE_ADDR')  # 직접 연결된 클라이언트의 경우 REMOTE_ADDR 사용
+
+    ip_address = request.META["HTTP_X_REAL_IP"]
+    return ip_address
 
 
 def get_data(request, num_items):

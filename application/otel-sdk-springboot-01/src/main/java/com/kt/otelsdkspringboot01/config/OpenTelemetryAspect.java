@@ -68,7 +68,8 @@ public class OpenTelemetryAspect {
         
         //호출된 URL의 정보 정의
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String ip = req.getRemoteAddr();
+        String ip = req.getHeader("x-forwarded-for");
+        System.out.println("ip : " + ip);
         String httpMethod = req.getMethod();
         String httpUrl = req.getRequestURL().toString();
         String httpUri = req.getRequestURI();

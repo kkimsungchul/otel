@@ -63,3 +63,19 @@ localhost:8000/save/
 - C:\Users\HP\Downloads\nginx-1.26.1\conf\nginx.conf
 
 https://github.com/dynatrace-oss/opentelemetry-metric-python/blob/main/example/basic_example.py
+
+---
+현재는 ip_address = request.META["HTTP_X_REAL_IP"] 로 IP를 가져오도록 하고있음
+
+다른 환경에서 안될 경우에는 아래의 내용을 참고 해서 적용
+pip install django-ipware
+```python
+from ipware.ip import get_ip
+
+def get_client_ip(request):
+    ip = get_ip(request)
+    if ip is not None:
+        print(ip)
+    else:
+        print ("없음")
+```
