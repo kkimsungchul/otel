@@ -41,4 +41,14 @@ localhost:8080/board
 - https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/additional-instrumentations/
 - https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/log4j/log4j-appender-2.17/library/README.md
 - https://central.sonatype.com/artifact/io.opentelemetry.instrumentation/opentelemetry-log4j-appender-2.17
- 
+
+
+# CPU 측정
+
+https://nangmandeveloper.tistory.com/12
+https://velog.io/@limsubin/Spring-Boot%EC%97%90%EC%84%9C-metric%EC%9D%84-%EC%A0%81%EC%9A%A9%ED%95%98%EC%9E%90
+https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator/3.3.0
+127.0.0.1:8080/actuator
+
+https://javadoc.io/doc/org.springframework.boot/spring-boot-actuator/latest/index.html
+https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.

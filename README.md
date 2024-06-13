@@ -76,14 +76,20 @@
   - Agent 방식의 SpringBoot 실행 파일 (otel-test-springboot.jar)
   - OpenTelemetry 의 agent 파일 (opentelemetry-javaagent.jar)
 
-- [otel-sdk-django-01](application/otel-sdk-django-01)
+- [application](application)
+  - 테스트 환경에서 실행할 어플리케이션을 모아놓은 디렉토리 
+
+- [application/otel-sdk-django-01](application/otel-sdk-django-01)
   - SDK 방식으로 사용할 Django 프로젝트
 
-- [otel-sdk-springboot-01](application/otel-sdk-springboot-01)
+- [application/otel-sdk-springboot-01](application/otel-sdk-springboot-01)
   - SDK 방식으로 사용할 SpringBoot 프로젝트 파일
 
-- [nginx](application/nginx)
+- [application/nginx](application/nginx)
   - 테스트 어플리케이션에서 사용할 Nginx
+
+- [application/otel-collector](application/otel-collector)
+  - 테스트 어플리케이션에서 사용할 collecot 
 
 ---
 

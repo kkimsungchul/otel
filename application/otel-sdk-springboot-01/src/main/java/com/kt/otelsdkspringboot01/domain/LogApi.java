@@ -21,7 +21,7 @@ public class LogApi {
     @Column(name = "user_ip", length = 15)
     private String userIp;
 
-    @Column(name = "user_id", length = 30)
+    @Column(name = "user_id", length = 60)
     private String userId;
 
     @Column(name = "start_time")

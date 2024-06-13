@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +24,20 @@ public class LogService {
 
     public LogApi save(){
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String ip = req.getRemoteAddr();
+        String ip = req.getHeader("x-forwarded-for");
+        System.out.println("ip : " + ip);
+        String httpMethod = req.getMethod();
+        String httpUrl = req.getRequestURL().toString();
+        String httpUri = req.getRequestURI();
+        String queryString = req.getQueryString();
+        String fullUrl = queryString == null ? httpUrl : httpUrl + "?" + queryString;
+        String uuid = UUID.randomUUID().toString();
+
         LogApi logApi = new LogApi();
-        logApi.setUserId("kimsungchul");
+        logApi.setUserId(uuid);
         logApi.setUserIp(ip);
-        logApi.setCallUrl("api/test");
-        logApi.setCallUrlParameter("?limit=10");
+        logApi.setCallUrl(fullUrl);
+        logApi.setCallUrlParameter(queryString);
         logRepository.save(logApi);
 //        System.out.println("logApi seq : " + logApi);
         return logApi;
