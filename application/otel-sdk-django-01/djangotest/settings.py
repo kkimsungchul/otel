@@ -4,7 +4,7 @@ import os
 # 환경 변수 설정
 os.environ['OTEL_EXPORTER_OTLP_INSECURE'] = 'true'
 os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'
-
+os.environ['OTEL_RESOURCE_ATTRIBUTES'] = f"service.name=django_app ,job=django_application"
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

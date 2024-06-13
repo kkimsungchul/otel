@@ -2,15 +2,27 @@
 - python 3.12
 - sqlite3 database
 
-## 가상환경 생성 및 라이브러리 설치
-### python version 3.12
+## 가상환경 생성 및 라이브러리 설치 (python 3.12)
+### 개별 패키지 설치를 통한 환경 설정
 ```
 pip install virtualenv
 virtualenv venv --python=python3.12
 venv\Scripts\activate
 pip install django
+pip install psutil
 pip install opentelemetry-instrumentation-django
+pip install opentelemetry-exporter-otlp-proto-grpc
+python manage.py runserver
 ```
+### requirements.txt 파일을 사용하여 의존성 관리
+```
+pip install virtualenv
+virtualenv venv --python=python3.12
+venv\Scripts\activate
+pip install -r requirements.txt
+python manage.py runserver
+```
+
 
 ## Django 마이그레이션
 ### 마이그레이션 생성
@@ -50,7 +62,4 @@ localhost:8000/save/
 ### confing 파일 수정
 - C:\Users\HP\Downloads\nginx-1.26.1\conf\nginx.conf
 
-## grpc 프로토콜 설정
-- cd djangotest
-- python -m grpc_tools.protoc -Ipb --python_out=pb --grpc_python_out=pb pb/demo.proto
-- demo_pb2_grpc.py의 import demo_pb2 as demo__pb2를 from . import demo_pb2 as demo__pb2
+https://github.com/dynatrace-oss/opentelemetry-metric-python/blob/main/example/basic_example.py

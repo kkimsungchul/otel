@@ -3,27 +3,21 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 
 # 메서드 임포트
-from logger.metrics import init_metrics
-
 from .models import log_api, board
 from django.http import HttpResponse
-from django.shortcuts import render
 
 # Python
-import os
-import random
-from concurrent import futures
-
 from opentelemetry import trace
 from opentelemetry import metrics
 
-tracer = trace.get_tracer("diceroller.tracer")
-meter = metrics.get_meter("diceroller.meter")
+tracer = trace.get_tracer("django-app.tracer")
+meter = metrics.get_meter("django-app.meter")
 
-print(tracer)
-print(meter)
-
-
+request_duration = meter.create_histogram(
+    "request_duration",
+    description="Request processing time in milliseconds",
+    unit="ms"
+)
 
 
 def get_client_ip(request):
@@ -34,17 +28,9 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')  # 직접 연결된 클라이언트의 경우 REMOTE_ADDR 사용
     return ip
 
+
 def get_data(request, num_items):
     start_time = timezone.now()
-
-    delayed_time = meter.create_counter(
-        "delayed.time",
-        description="The delayed.time by retrieve database",
-    )
-
-    rec_svc_metrics = {
-        "time": delayed_time,
-    }
 
     data = board.objects.all()[:num_items].values('seq',
                                                   'title',
@@ -64,14 +50,14 @@ def get_data(request, num_items):
         call_url=request.path,
         call_url_parameter=num_items
     )
-    print("======================")
-    print(start_time-end_time)
-    rec_svc_metrics["time"].add(1, {"delayed.time": 1})
+
+    duration = (end_time - start_time).total_seconds() * 1000  # 밀리초 단위로 변환
+    request_duration.record(duration, {"method": request.method, "path": request.path})
 
     return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
 
-def log_data(request):
 
+def log_data(request):
     data = log_api.objects.all().values('seq',
                                         'user_ip',
                                         'user_id',
@@ -82,7 +68,6 @@ def log_data(request):
 
     return JsonResponse(list(data), safe=False)
 
-def home(request):
-    with tracer.start_as_current_span("custom-span"):
 
-        return HttpResponse("Welcome to my Django app!")
+def home(request):
+    return HttpResponse("Welcome to my Django app!")
