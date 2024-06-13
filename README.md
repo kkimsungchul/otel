@@ -31,24 +31,32 @@
 
 #### 5월 20일 ~ 6월 21일
 - 테스트 어플리케이션 정리 및 데이터 추가
-  - 성능 분석 및 AIOps 에 사용할 수 있는 어플리케이션 데이터
-  - 분석에 사용할 데이터 포함
-  - job , service name 등의 OpenTelemetry 속성 정보 포함
+  - SDK - Java application
+  - SDK - Python application
+  - Agent - Java application
+  - 데이터 호출 어플리케이션 개발
+  - Opentelemetry 데모 실행
+  - 단위테스트 진행
 
 - prometheus 사용 방법
   - prometheus 개념 정리
   - prometheus 모니터링 방법
 
-#### 6월 17일 ~  7월 26일
-- AIOps 도입 및 적용 가능 부분 분석
-- AIOps 적용
-- K8s 적용 
+#### 6월 21일 ~  6월 28일
+- 시각화 툴 연동
+  - Prometheus - Metrics
+  - Jaeger - Tracing, Logging
+  - Graphana - 시각화
 
-#### 7월 1일 ~ 
+#### 6월 28일 ~ 7월 12일
+- 테스트 진행
+  - Opentelemetry + Test application 통합테스트 진행
+
+#### 7월 12일 ~ 7월 19일
 - 산출물 작성
-  - 개발 및 적용 가이드
-  - 도입 가능 시스템
-  - 시스템에 바로 적용 가능한 소스 (JAVA / Python) 
+  - 사용방법 및 가이드라인 문서 작성
+  - 수요지식회 발표자료 작성
+
 
 #### 미정
 - 테스트 환경 패키징
@@ -56,8 +64,6 @@
   - OpenTelemetry collector
   - prometheus
 
-- Grafana 도입
-- Kibana 도입
 
 
 ---
