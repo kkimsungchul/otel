@@ -1,11 +1,48 @@
 from pathlib import Path
 import os
+from django.utils.log import DEFAULT_LOGGING
+from .logger import getJSONLogger
 
 # 환경 변수 설정
 os.environ['OTEL_EXPORTER_OTLP_INSECURE'] = 'true'
 os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'
+OTLP_ENDPOINT = os.getenv('OTLP_GRPC_ENDPOINT', 'localhost:4317')
+
 os.environ['OTEL_RESOURCE_ATTRIBUTES'] = f"service.name=django_app ,job=django_application"
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django_app': {
+            'handlers': ['otlp'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    }
+}
+
+# Additional OpenTelemetry Setup
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+trace.set_tracer_provider(TracerProvider())
+span_exporter = OTLPSpanExporter(endpoint=OTLP_ENDPOINT)
+span_processor = BatchSpanProcessor(span_exporter)
+trace.get_tracer_provider().add_span_processor(span_processor)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -1,5 +1,8 @@
 import os
+import sys
 import psutil
+import logging
+from pythonjsonlogger import jsonlogger
 
 from django.core.wsgi import get_wsgi_application
 
@@ -117,6 +120,34 @@ ram_gauge = meter.create_observable_gauge(
     description="RAM memory usage",
     unit="1",
 )
+
+# 로깅 설정
+class CustomJsonFormatter(jsonlogger.JsonFormatter):
+    def add_fields(self, log_record, record, message_dict):
+        super().add_fields(log_record, record, message_dict)
+        current_span = trace.get_current_span()
+        span_context = current_span.get_span_context()
+        if span_context.is_valid:
+            log_record['otelTraceID'] = trace.format_trace_id(span_context.trace_id)
+            log_record['otelSpanID'] = trace.format_span_id(span_context.span_id)
+
+def getJSONLogger(name):
+    logger = logging.getLogger(name)
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = CustomJsonFormatter('%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] [trace_id=%(otelTraceID)s span_id=%(otelSpanID)s] - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    return logger
+
+# 환경 설정 초기화
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangotest.settings')
+# 로거 설정
+logger = getJSONLogger('django')
+logger.info('Starting WSGI application with OpenTelemetry tracing.')
+# WSGI 애플리케이션 초기화
+application = get_wsgi_application()
 
 # Django에 OpenTelemetry Instrumentation 적용
 # Django 애플리케이션에 자동 추적 기능 추가
