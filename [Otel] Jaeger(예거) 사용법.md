@@ -5,11 +5,12 @@
 
 
 ## 참고 링크
-- URL : httpstwofootdog.tistory.com67
+- URL : https://twofootdog.tistory.com/67
 - URL : https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
-- URL :https://afsdzvcx123.tistory.com/entry/%EC%9D%B8%ED%94%84%EB%9D%BC-Jaeger-OpenTelemetry-Grafana-%EC%97%B0%EB%8F%99
+- URL : https://afsdzvcx123.tistory.com/entry/%EC%9D%B8%ED%94%84%EB%9D%BC-Jaeger-OpenTelemetry-Grafana-%EC%97%B0%EB%8F%99
 - URL : https://tommypagy.tistory.com/618
-- 
+- URL : https://velog.io/@yange/Jaeger
+
 ## 다운로드 링크
 Binaries 파일로 다운로드
 - URL : https://www.jaegertracing.io/download/
@@ -53,3 +54,21 @@ jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector는 OpenTelemetry
     https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.85.0
     https://github.com/open-telemetry/opentelemetry-collector-releases/pull/396
     https://github.com/open-telemetry/opentelemetry.io/pull/3273
+	
+
+
+----
+콜렉터 - Jaeger 마이그레이션
+https://opentelemetry.io/blog/2023/jaeger-exporter-collector-migration/
+	
+데모에 있는 콜렉터 설정
+https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otelcollector/otelcol-config.yml
+
+위에 콜렉터 설정을 보고
+1. 예거 포트를 바꾸고
+2. 콜렉터에서 span 데이터를 익스포트를 otlp로 바꾸고
+3. 콜렉터에서 otlp 익스포터 설정을 해주면될듯
+
+----
+windows 에서 예거 사용
+https://www.jaegertracing.io/docs/1.58/windows/
