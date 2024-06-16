@@ -2,9 +2,15 @@ import os
 import sys
 import psutil
 import logging
+
+from opentelemetry.exporter.otlp.proto.grpc._log_exporter import OTLPLogExporter
 from pythonjsonlogger import jsonlogger
 
 from django.core.wsgi import get_wsgi_application
+
+from opentelemetry._logs import set_logger_provider
+from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
 
 from opentelemetry import trace
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
@@ -38,9 +44,22 @@ resource = Resource.create({
     "job": "django-service"  # 이렇게 job 이름을 설정할 수 있습니다.
 })
 
-# OpenTelemetry 설정
-trace.set_tracer_provider(TracerProvider())
-tracer_provider = trace.get_tracer_provider()
+# Logger provider: Opentelemetry 로깅 시스템에서 로그를 관리하는 컴포넌트
+logger_provider = LoggerProvider(resource=resource)
+set_logger_provider(logger_provider)
+
+# Log Exporter 설정
+# insecure=True: TLS를 사용하지 않고 데이터 전송
+# BatchLogRecordProcessor: 로그 레코드를 배치로 처리하여 네트워크 사용 최적화
+exporter = OTLPLogExporter(insecure=True)
+logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
+
+# LoggingHandler: 파이썬 표준 로깅 모듈과 opentelemetry 로깅 시스템 연결, 모든 로그 레벨(NOTSET) 로그 캡처
+handler = LoggingHandler(level=logging.NOTSET, logger_provider=logger_provider)
+
+# 파이썬의 루트 로거에 handler 추가, 모든 로그 이벤트가 opentelemetry 로깅 시스템을 통해 처리
+logging.getLogger().addHandler(handler)# OpenTelemetry 설정
+
 
 
 # Span Exporter 설정
@@ -52,8 +71,13 @@ span_exporter = OTLPSpanExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0
 # 리소스 사용을 최적화하고 네트워크 호출의 효율성을 높임
 span_processor = BatchSpanProcessor(span_exporter)
 
+# Trace Exporter 설정
 # 설정된 tracer_provider에 span_processor를 추가 -> tracer_provider가 생성하는 모든 스팬은
 # span_processor를 통해 처리되어 exporter로 전송됨
+
+trace.set_tracer_provider(TracerProvider())
+tracer_provider = trace.get_tracer_provider()
+
 tracer_provider.add_span_processor(span_processor)
 trace.get_tracer_provider().add_span_processor(span_processor)
 tracer = trace.get_tracer(__name__)
@@ -69,6 +93,7 @@ with tracer.start_as_current_span("operation", kind=SpanKind.INTERNAL) as span:
     span.set_attribute("http.uri", "httpUri")
     span.set_attribute("http.queryString", "queryString")
     span.set_attribute("http.fullUrl", "fullUrl")
+    logging.getLogger().error("This is a log message")
 
 # Metric Exporter 설정
 # 메트릭 데이터를 같은 엔드포인트로 전송, PeriodicExportingMetricReader를 사용하여 주기적으로 메트릭 수집 및 전송
@@ -121,35 +146,11 @@ ram_gauge = meter.create_observable_gauge(
     unit="1",
 )
 
-# 로깅 설정
-class CustomJsonFormatter(jsonlogger.JsonFormatter):
-    def add_fields(self, log_record, record, message_dict):
-        super().add_fields(log_record, record, message_dict)
-        current_span = trace.get_current_span()
-        span_context = current_span.get_span_context()
-        if span_context.is_valid:
-            log_record['otelTraceID'] = trace.format_trace_id(span_context.trace_id)
-            log_record['otelSpanID'] = trace.format_span_id(span_context.span_id)
-
-def getJSONLogger(name):
-    logger = logging.getLogger(name)
-    handler = logging.StreamHandler(sys.stdout)
-    formatter = CustomJsonFormatter('%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] [trace_id=%(otelTraceID)s span_id=%(otelSpanID)s] - %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-    return logger
-
-# 환경 설정 초기화
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangotest.settings')
-# 로거 설정
-logger = getJSONLogger('django')
-logger.info('Starting WSGI application with OpenTelemetry tracing.')
-# WSGI 애플리케이션 초기화
-application = get_wsgi_application()
-
 # Django에 OpenTelemetry Instrumentation 적용
 # Django 애플리케이션에 자동 추적 기능 추가
 # -> Django에서 발생하는 요청 및 응답을 자동으로 추적하여 관련 스팬 생성
+
 DjangoInstrumentor().instrument()
+
+# WSGI 애플리케이션 초기화
+application = get_wsgi_application()
