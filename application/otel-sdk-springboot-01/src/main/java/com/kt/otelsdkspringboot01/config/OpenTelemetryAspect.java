@@ -4,12 +4,14 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.common.AttributesBuilder;
 import io.opentelemetry.api.metrics.LongCounter;
+import io.opentelemetry.api.metrics.LongHistogram;
 import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.api.metrics.ObservableDoubleGauge;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
+import io.opentelemetry.context.Context;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,32 +98,40 @@ public class OpenTelemetryAspect {
                 .put("http.uri", httpUri)
                 .put("http.queryString", queryString)
                 .put("http.fullUrl", fullUrl);
-
+        Attributes attributes = attrsBuilder.build();
         Span span = tracer.spanBuilder(joinPoint.getSignature().getName())
-                .setSpanKind(SpanKind.SERVER)
+                .setSpanKind(SpanKind.SERVER)  // Use SERVER to indicate an incoming request
                 .startSpan();
+        span.setAllAttributes(attributes);
+        requestCounter.add(1, attributes);
 
-        span.setAllAttributes(attrsBuilder.build());
-
-        requestCounter.add(1, attrsBuilder.build());
+        LongHistogram histogram = meter.histogramBuilder("SpringBoot-app-histogram")
+                .ofLongs() // Required to get a LongHistogram, default is DoubleHistogram
+                .setDescription("SpringBoot-app-URL-histogram")
+                .setUnit("call count")
+                .build();
+        histogram.record(1,attributes);
 
         currentSpan.set(span);
 
-        this.gauge = meter.gaugeBuilder("jvm.memory.totalMemory")
+        // Make the span current so that it becomes the parent of future spans created in the same context
+        span.makeCurrent();
+
+        meter.gaugeBuilder("jvm.memory.totalMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
-        this.gauge = meter.gaugeBuilder("jvm.memory.usedMemory")
+        meter.gaugeBuilder("jvm.memory.usedMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("usedMemory")));
-        this.gauge = meter.gaugeBuilder("jvm.memory.freeMemory")
+        meter.gaugeBuilder("jvm.memory.freeMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
-        this.gauge = meter.gaugeBuilder("jvm.memory.heapUsage")
+        meter.gaugeBuilder("jvm.memory.heapUsage")
                 .buildWithCallback(measurement -> measurement.record(getHeapUsage()));
 
         io.micrometer.core.instrument.Meter cpuUsageMeter = meterRegistry.find("system.cpu.usage").meter();
-        this.gauge = meter.gaugeBuilder("system.cpu.usage")
+        meter.gaugeBuilder("system.cpu.usage")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("system.cpu.usage").gauge().value()));
 
         io.micrometer.core.instrument.Meter memoryUsageMeter = meterRegistry.find("jvm.memory.used").meter();
-        this.gauge = meter.gaugeBuilder("jvm.memory.used")
+        meter.gaugeBuilder("jvm.memory.used")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("jvm.memory.used").gauge().value() / 1024 / 1024));
     }
 

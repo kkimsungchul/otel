@@ -8,9 +8,12 @@ import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.propagation.ContextPropagators;
 import io.opentelemetry.context.propagation.TextMapPropagator;
 import io.opentelemetry.exporter.logging.LoggingMetricExporter;
+import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
+import io.opentelemetry.sdk.logs.SdkLoggerProvider;
+import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
 import io.opentelemetry.sdk.metrics.SdkMeterProvider;
 import io.opentelemetry.sdk.metrics.export.MetricReader;
 import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
@@ -60,15 +63,15 @@ public class OpenTelemetryConfig {
                 .setResource(resource)
                 .build();
 
-//        SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-//                .addLogRecordProcessor(
-//                        BatchLogRecordProcessor.builder(
-//                                OtlpGrpcLogRecordExporter.builder()
-//                            .setEndpoint("http://127.0.0.1:4317")
-//                                        .build()
-//                        ).build()
-//                ).setResource(resource)
-//                .build();
+        SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+                .addLogRecordProcessor(
+                        BatchLogRecordProcessor.builder(
+                                OtlpGrpcLogRecordExporter.builder()
+                            .setEndpoint("http://127.0.0.1:4317")
+                                        .build()
+                        ).build()
+                ).setResource(resource)
+                .build();
 
 
 
@@ -80,7 +83,7 @@ public class OpenTelemetryConfig {
         OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
                 .setMeterProvider(sdkMeterProvider)
-                //.setLoggerProvider(sdkLoggerProvider)
+                .setLoggerProvider(sdkLoggerProvider)
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
                 .buildAndRegisterGlobal();
 
