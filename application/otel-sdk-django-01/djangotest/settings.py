@@ -24,13 +24,13 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
-    'loggers': {
-        'django_app': {
-            'handlers': ['otlp'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    }
+    # 'loggers': {
+    #     'django_app': {
+    #         'handlers': ['otlp'],
+    #         'level': 'INFO',
+    #         'propagate': True,
+    #     },
+    # }
 }
 
 # Additional OpenTelemetry Setup
