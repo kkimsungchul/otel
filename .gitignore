@@ -1,5 +1,8 @@
 **/apache-tomcat-9.0.89/**
 
+# nginx 
+**/nginx.pid
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
