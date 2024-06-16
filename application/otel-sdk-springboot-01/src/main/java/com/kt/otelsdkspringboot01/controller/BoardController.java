@@ -2,6 +2,7 @@ package com.kt.otelsdkspringboot01.controller;
 
 import com.kt.otelsdkspringboot01.domain.Board;
 import com.kt.otelsdkspringboot01.service.BoardService;
+import com.kt.otelsdkspringboot01.utils.SpanUtils;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Context;
@@ -26,16 +27,12 @@ public class BoardController {
     private static final Logger logger = LogManager.getLogger(BoardController.class.getName());
 
     @Autowired
-    private Tracer tracer;
+    private SpanUtils spanUtils;
 
     @GetMapping("")
     public List<Board> all() {
-        // Create a child span
-        Span parentSpan = Span.current();
-        Span childSpan = tracer.spanBuilder("BoardController.all")
-                .setParent(Context.current().with(parentSpan))
-                .startSpan();
-
+        Span childSpan = spanUtils.getChildSpan("BoardController.all");
+        //새로 생성한 span이 상위 span과 일치하는지 확인
         try (Scope scope = childSpan.makeCurrent()) {
             // Your business logic
             return boardService.all();
@@ -50,11 +47,7 @@ public class BoardController {
     @GetMapping("/{pageSize}")
     public List<Board> all(@PathVariable int pageSize) {
         // Create a child span
-        Span parentSpan = Span.current();
-        Span childSpan = tracer.spanBuilder("BoardController.allWithPageSize")
-                .setParent(Context.current().with(parentSpan))
-                .startSpan();
-
+        Span childSpan = spanUtils.getChildSpan("BoardController.all/count");
         try (Scope scope = childSpan.makeCurrent()) {
             // Your business logic
             return boardService.all(pageSize);

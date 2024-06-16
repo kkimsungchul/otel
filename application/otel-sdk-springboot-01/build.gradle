@@ -40,18 +40,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-//    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-//    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
-
-
-
     implementation "io.opentelemetry:opentelemetry-api"
     implementation "io.opentelemetry:opentelemetry-sdk"
     implementation "io.opentelemetry:opentelemetry-exporter-logging"
     implementation "io.opentelemetry:opentelemetry-exporter-otlp"
     implementation "io.opentelemetry.semconv:opentelemetry-semconv"
     implementation "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure"
+//    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+//    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
 //    implementation "io.opentelemetry.instrumentation:opentelemetry-log4j-appender-2.17:2.4.0-alpha"
 }
 

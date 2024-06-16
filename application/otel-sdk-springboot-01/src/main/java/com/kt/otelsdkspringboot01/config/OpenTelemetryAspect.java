@@ -89,7 +89,8 @@ public class OpenTelemetryAspect {
         String queryString = req.getQueryString();
         String fullUrl = queryString == null ? httpUrl : httpUrl + "?" + queryString;
 
-        AttributesBuilder attrsBuilder = Attributes.builder()
+        //attribute 세팅
+        Attributes attributes = Attributes.builder()
                 .put("hostname", hostName)
                 .put("ip-address", ip)
                 .put("region", "korea")
@@ -97,14 +98,16 @@ public class OpenTelemetryAspect {
                 .put("http.url", httpUrl)
                 .put("http.uri", httpUri)
                 .put("http.queryString", queryString)
-                .put("http.fullUrl", fullUrl);
-        Attributes attributes = attrsBuilder.build();
+                .put("http.fullUrl", fullUrl)
+                .build();
+
         Span span = tracer.spanBuilder(joinPoint.getSignature().getName())
                 .setSpanKind(SpanKind.SERVER)  // Use SERVER to indicate an incoming request
                 .startSpan();
         span.setAllAttributes(attributes);
         requestCounter.add(1, attributes);
 
+        //histogram 세팅
         LongHistogram histogram = meter.histogramBuilder("SpringBoot-app-histogram")
                 .ofLongs() // Required to get a LongHistogram, default is DoubleHistogram
                 .setDescription("SpringBoot-app-URL-histogram")
@@ -113,10 +116,11 @@ public class OpenTelemetryAspect {
         histogram.record(1,attributes);
 
         currentSpan.set(span);
-
         // Make the span current so that it becomes the parent of future spans created in the same context
         span.makeCurrent();
 
+
+        //metric 세팅
         meter.gaugeBuilder("jvm.memory.totalMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
         meter.gaugeBuilder("jvm.memory.usedMemory")
@@ -125,14 +129,13 @@ public class OpenTelemetryAspect {
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
         meter.gaugeBuilder("jvm.memory.heapUsage")
                 .buildWithCallback(measurement -> measurement.record(getHeapUsage()));
-
         io.micrometer.core.instrument.Meter cpuUsageMeter = meterRegistry.find("system.cpu.usage").meter();
         meter.gaugeBuilder("system.cpu.usage")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("system.cpu.usage").gauge().value()));
-
         io.micrometer.core.instrument.Meter memoryUsageMeter = meterRegistry.find("jvm.memory.used").meter();
         meter.gaugeBuilder("jvm.memory.used")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("jvm.memory.used").gauge().value() / 1024 / 1024));
+
     }
 
     @After("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
