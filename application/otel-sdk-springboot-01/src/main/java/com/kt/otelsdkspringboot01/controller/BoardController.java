@@ -46,6 +46,7 @@ public class BoardController {
 
     @GetMapping("/{pageSize}")
     public List<Board> all(@PathVariable int pageSize) {
+        logger.info("HIHIHIHIHI");
         // Create a child span
         Span childSpan = spanUtils.getChildSpan("BoardController.all/count");
         try (Scope scope = childSpan.makeCurrent()) {

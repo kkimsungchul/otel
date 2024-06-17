@@ -134,7 +134,7 @@ try-with-resources 구문을 사용하면 컨텍스트 전환과 복원을 명�
 - https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/additional-instrumentations/
 - https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/log4j/log4j-appender-2.17/library/README.md
 - https://central.sonatype.com/artifact/io.opentelemetry.instrumentation/opentelemetry-log4j-appender-2.17
-
+- https://docs.honeycomb.io/send-data/logs/opentelemetry/sdk/java/
 
 ### CPU 측정
 https://nangmandeveloper.tistory.com/12

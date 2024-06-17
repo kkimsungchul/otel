@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: otel-agent-springboot-01
+
+otel:
+  sdk:
+    metrics:
+      period: 500
+    traces:
+      period: 500
+  service:
+    name: opentelemetry-sample
+  resource:
+    attributes:
+      deployment:
+        environment: dev
+      service:
+        name: opentelemetry-sample
+      env: dev
+  instrumentation:
+    micrometer:
+      enabled: true
+    spring-web:
+      enabled: true
+    spring-webmvc:
+      enabled: true
+    spring-webflux:
+      enabled: true
+    kafka:
+      enabled: true
+  exporter:
+    otlp:
+      endpoint: http://127.0.0.1:4318 # Opentelemetry Collector ????
+  metrics:
+    exporter: otlp, logging
+  logs:
+    exporter: otlp
+  traces:
+    exporter: otlp
+  log:
+    level: debug

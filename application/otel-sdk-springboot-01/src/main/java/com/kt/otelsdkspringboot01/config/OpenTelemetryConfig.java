@@ -11,6 +11,7 @@ import io.opentelemetry.exporter.logging.LoggingMetricExporter;
 import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
+import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
@@ -67,18 +68,13 @@ public class OpenTelemetryConfig {
                 .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(
                                 OtlpGrpcLogRecordExporter.builder()
-                            .setEndpoint("http://127.0.0.1:4317")
+//                            .setEndpoint("http://127.0.0.1:4317")
                                         .build()
                         ).build()
                 ).setResource(resource)
                 .build();
 
 
-
-        MetricReader periodicReader =
-                PeriodicMetricReader.builder(LoggingMetricExporter.create())
-                        .setInterval(Duration.ofMillis(METRIC_EXPORT_INTERVAL_MS))
-                        .build();
 
         OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
                 .setTracerProvider(sdkTracerProvider)
@@ -87,7 +83,7 @@ public class OpenTelemetryConfig {
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
                 .buildAndRegisterGlobal();
 
-//        OpenTelemetryAppender.install(openTelemetry);
+        OpenTelemetryAppender.install(openTelemetry);
         return openTelemetry;
     }
     

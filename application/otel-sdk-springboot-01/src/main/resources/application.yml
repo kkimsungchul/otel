@@ -33,7 +33,7 @@ logging:
         engine: info
     org.hibernate: info
     org.springframework: info
-    io.opentelemetry.exporter.logging.* : OFF
+    io.opentelemetry.exporter.logging.* : INFO
     root: INFO
     com.kt.otelsdkspringboot01 : INFO
 
@@ -52,15 +52,17 @@ otel:
   traces:
     exporter: otlp
   metrics:
-    exporter: otlp
+    exporter: otlp,logging
+    #period: 500
+    #interval: 1000 #옵션이 적용 안됨
   logs:
-    exporter: otlp
+    exporter: otlp,logging
   exporter:
     otlp:
       endpoint: 127.0.0.1:4317
-  metric:
-    export:
-      interval: 1000 #옵션이 적용 안됨
+
   instrumentation:
-    log4j-appender:
+    log4j2-appender:
       enabled: true
+  log :
+    level : info
