@@ -33,7 +33,7 @@ logging:
         engine: info
     org.hibernate: info
     org.springframework: info
-    io.opentelemetry.exporter.logging.* : INFO
+    #io.opentelemetry.exporter.logging.* : INFO
     root: INFO
     com.kt.otelsdkspringboot01 : INFO
 
@@ -45,24 +45,3 @@ management:
     web:
       exposure:
         include: "*"
-
-otel:
-  service:
-    name: otel-sdk-springboot-01-app
-  traces:
-    exporter: otlp
-  metrics:
-    exporter: otlp,logging
-    #period: 500
-    #interval: 1000 #옵션이 적용 안됨
-  logs:
-    exporter: otlp,logging
-  exporter:
-    otlp:
-      endpoint: 127.0.0.1:4317
-
-  instrumentation:
-    log4j2-appender:
-      enabled: true
-  log :
-    level : info

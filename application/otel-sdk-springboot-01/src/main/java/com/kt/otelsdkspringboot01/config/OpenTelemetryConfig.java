@@ -10,6 +10,7 @@ import io.opentelemetry.context.propagation.TextMapPropagator;
 import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
+import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
@@ -42,7 +43,7 @@ public class OpenTelemetryConfig {
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
                 .addSpanProcessor(BatchSpanProcessor.builder(
                                 OtlpGrpcSpanExporter.builder()
-//                            .setEndpoint("http://127.0.0.1:4317")
+                            .setEndpoint("http://127.0.0.1:9999")
                                         .build()
                         ).build()
                 ).setResource(resource)
@@ -53,7 +54,7 @@ public class OpenTelemetryConfig {
                         PeriodicMetricReader
                                 .builder(
                                         OtlpGrpcMetricExporter.builder()
-//                                .setEndpoint("http://127.0.0.1:4317")
+                                .setEndpoint("http://127.0.0.1:9999")
                                                 .build()
                                 )
                                 .setInterval(Duration.ofMillis(500))
@@ -64,9 +65,9 @@ public class OpenTelemetryConfig {
         SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
                 .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(
-                                OtlpGrpcLogRecordExporter.builder()
-//                            .setEndpoint("http://127.0.0.1:4317")
-                                        .build()
+                            OtlpGrpcLogRecordExporter.builder()
+                            .setEndpoint("http://127.0.0.1:9999")
+                            .build()
                         ).build()
                 ).setResource(resource)
                 .build();
@@ -80,7 +81,7 @@ public class OpenTelemetryConfig {
                 .setPropagators(ContextPropagators.create(TextMapPropagator.composite(W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
                 .buildAndRegisterGlobal();
 
-//        OpenTelemetryAppender.install(openTelemetry);
+        OpenTelemetryAppender.install(openTelemetry);
         return openTelemetry;
     }
     

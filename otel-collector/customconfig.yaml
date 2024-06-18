@@ -2,7 +2,7 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: 127.0.0.1:4317
+        endpoint: 127.0.0.1:9999
       http:
         endpoint: 127.0.0.1:4318
 
@@ -14,6 +14,12 @@ exporters:
     rotation:
   prometheus:
     endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+  
+  otlp/jaeger:
+    endpoint: 127.0.0.1:4317
+    tls :
+      insecure : true
+
 
 processors:
   batch:
@@ -26,7 +32,7 @@ service:
       processors: [batch]
     traces:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [otlp/jaeger,file]
       processors: [batch]
     metrics:
       receivers: [otlp]

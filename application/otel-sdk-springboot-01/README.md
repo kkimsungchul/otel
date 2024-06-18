@@ -136,6 +136,8 @@ try-with-resources 구문을 사용하면 컨텍스트 전환과 복원을 명�
 - https://central.sonatype.com/artifact/io.opentelemetry.instrumentation/opentelemetry-log4j-appender-2.17
 - https://docs.honeycomb.io/send-data/logs/opentelemetry/sdk/java/
 
+https://github.com/open-telemetry/opentelemetry-java-examples/blob/main/log-appender/src/main/java/io/opentelemetry/example/logappender/Application.java
+
 ### CPU 측정
 https://nangmandeveloper.tistory.com/12
 https://velog.io/@limsubin/Spring-Boot%EC%97%90%EC%84%9C-metric%EC%9D%84-%EC%A0%81%EC%9A%A9%ED%95%98%EC%9E%90
@@ -145,3 +147,7 @@ https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-
 ### Spring actuator 사용
 https://javadoc.io/doc/org.springframework.boot/spring-boot-actuator/latest/index.html
 https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.
+
+
+### autoconfigure
+https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md
