@@ -129,14 +129,13 @@ try-with-resources 구문을 사용하면 컨텍스트 전환과 복원을 명�
 - https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/
 - https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-spring-boot-starter/2.4.0-alpha
 
-### log4j2 사용
-- 현재 적용이 안됨
-- https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/additional-instrumentations/
-- https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/log4j/log4j-appender-2.17/library/README.md
-- https://central.sonatype.com/artifact/io.opentelemetry.instrumentation/opentelemetry-log4j-appender-2.17
-- https://docs.honeycomb.io/send-data/logs/opentelemetry/sdk/java/
+### logback 사용
+※ log4j2 사용시 적용이 잘 안되는 부분이 있음. logback 권장
+- https://opentelemetry.io/docs/languages/java/instrumentation/#log-appenders
+- 라이브러리 추가
+- java config 파일 수정
+- logback.xml 파일 생성
 
-https://github.com/open-telemetry/opentelemetry-java-examples/blob/main/log-appender/src/main/java/io/opentelemetry/example/logappender/Application.java
 
 ### CPU 측정
 https://nangmandeveloper.tistory.com/12

@@ -10,7 +10,7 @@ import io.opentelemetry.context.propagation.TextMapPropagator;
 import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogRecordExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
-import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
+import io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
