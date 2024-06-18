@@ -12,13 +12,13 @@ otel:
     traces:
       period: 500
   service:
-    name: opentelemetry-sample
+    name: otel-agent-springboot-01-service
   resource:
     attributes:
       deployment:
         environment: dev
       service:
-        name: opentelemetry-sample
+        name: otel-agent-springboot-01
       env: dev
   instrumentation:
     micrometer:
@@ -33,7 +33,8 @@ otel:
       enabled: true
   exporter:
     otlp:
-      endpoint: http://127.0.0.1:4318 # Opentelemetry Collector ????
+      protocol : grpc
+      endpoint: http://127.0.0.1:9999 # Opentelemetry Collector ????
   metrics:
     exporter: otlp, logging
   logs:
