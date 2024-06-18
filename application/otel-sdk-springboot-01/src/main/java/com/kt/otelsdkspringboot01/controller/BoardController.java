@@ -31,6 +31,7 @@ public class BoardController {
 
     @GetMapping("")
     public List<Board> all() {
+        logger.info("### HIHIHIHIHI");
         Span childSpan = spanUtils.getChildSpan("BoardController.all");
         //새로 생성한 span이 상위 span과 일치하는지 확인
         try (Scope scope = childSpan.makeCurrent()) {
@@ -46,7 +47,7 @@ public class BoardController {
 
     @GetMapping("/{pageSize}")
     public List<Board> all(@PathVariable int pageSize) {
-        logger.info("HIHIHIHIHI");
+        logger.info("### HIHIHIHIHI");
         // Create a child span
         Span childSpan = spanUtils.getChildSpan("BoardController.all/count");
         try (Scope scope = childSpan.makeCurrent()) {
