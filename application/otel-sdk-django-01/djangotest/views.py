@@ -9,6 +9,7 @@ from django.http import HttpResponse
 # Python
 from opentelemetry import trace
 from opentelemetry import metrics
+from opentelemetry.trace import SpanKind
 
 tracer = trace.get_tracer("django-app.tracer")
 meter = metrics.get_meter("django-app.meter")
@@ -21,54 +22,66 @@ request_duration = meter.create_histogram(
 
 
 def get_client_ip(request):
-    # x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    # if x_forwarded_for:
-    #     ip = x_forwarded_for.split(',')[0]  # X-Forwarded-For 헤더는 콤마로 구분된 IP 목록을 포함할 수 있습니다.
-    # else:
-    #     ip = request.META.get('REMOTE_ADDR')  # 직접 연결된 클라이언트의 경우 REMOTE_ADDR 사용
-
     ip_address = request.META["HTTP_X_REAL_IP"]
     return ip_address
 
 
 def get_data(request, num_items):
-    start_time = timezone.now()
+    with tracer.start_as_current_span("get_data", kind=SpanKind.SERVER) as span:
+        # span.set_attribute("operation", "get_data")
+        print('get_data_span')
+        start_time = timezone.now()
 
-    data = board.objects.all()[:num_items].values('seq',
-                                                  'title',
-                                                  'content',
-                                                  'create_date',
-                                                  'update_date')
-    data_list = list(data)
-    end_time = timezone.now()
+        # 데이터 조회를 위한 자식 스팬 생성
+        with tracer.start_as_current_span("fetch_data", kind=SpanKind.INTERNAL) as child_span:
+            print('fetch_data_span')
+            child_span.set_attribute("num_items", num_items)
+            data = board.objects.all()[:num_items].values('seq',
+                                                          'title',
+                                                          'content',
+                                                          'create_date',
+                                                          'update_date')
+            data_list = list(data)
 
-    client_ip = get_client_ip(request)
+        end_time = timezone.now()
+        duration = (end_time - start_time).total_seconds() * 1000  # 밀리초 단위로 변환
 
-    log_api.objects.create(
-        user_ip=client_ip,
-        user_id=get_random_string(30),
-        start_time=start_time,
-        end_time=end_time,
-        call_url=request.path,
-        call_url_parameter=num_items
-    )
+        # 부모 스팬에 결과 속성 추가
+        span.set_attribute("http.status_code", 200)
+        span.set_attribute("operation_duration_ms", duration)
+        print('parent/attribute')
 
-    duration = (end_time - start_time).total_seconds() * 1000  # 밀리초 단위로 변환
-    request_duration.record(duration, {"method": request.method, "path": request.path})
+        client_ip = get_client_ip(request)
 
-    return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
+        log_api.objects.create(
+            user_ip=client_ip,
+            user_id=get_random_string(30),
+            start_time=start_time,
+            end_time=end_time,
+            call_url=request.path,
+            call_url_parameter=num_items
+        )
+
+        request_duration.record(duration, {"method": request.method, "path": request.path})
+
+        return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
 
 
 def log_data(request):
-    data = log_api.objects.all().values('seq',
-                                        'user_ip',
-                                        'user_id',
-                                        'start_time',
-                                        'end_time',
-                                        'call_url',
-                                        'call_url_parameter')
+    with tracer.start_as_current_span("log_data", kind=SpanKind.SERVER) as span:
 
-    return JsonResponse(list(data), safe=False)
+        data = log_api.objects.all().values('seq',
+                                            'user_ip',
+                                            'user_id',
+                                            'start_time',
+                                            'end_time',
+                                            'call_url',
+                                            'call_url_parameter')
+        # 부모 스팬에 결과 속성 추가
+        span.set_attribute("http.status_code", 200)
+        print('2parent/attribute')
+
+        return JsonResponse(list(data), safe=False)
 
 
 def home(request):

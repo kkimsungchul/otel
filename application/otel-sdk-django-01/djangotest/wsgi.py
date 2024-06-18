@@ -35,6 +35,7 @@ from opentelemetry.metrics import (
 from opentelemetry import metrics
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangotest.settings')
 
+# WSGI 애플리케이션 초기화
 application = get_wsgi_application()
 
 # 리소스 설정: 여기에서 'job' 라벨을 지정합니다.
@@ -65,7 +66,7 @@ logging.getLogger().addHandler(handler)# OpenTelemetry 설정
 # Span Exporter 설정
 # opentelemetry span 데이터를 otlp를 사용하여 지정된 엔드포인트로 전송
 # endpoint: 데이터 전송할 서버의 주소와 포트 지정
-span_exporter = OTLPSpanExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0.0.1:4317'))
+span_exporter = OTLPSpanExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0.0.1:9999'))
 
 # batchspanprocessor: 수집된 스팬 데이터를 일정량 또는 일정 시간 간격으로 배치 처리하여 설정된 exporter를 통해 전송
 # 리소스 사용을 최적화하고 네트워크 호출의 효율성을 높임
@@ -76,9 +77,6 @@ span_processor = BatchSpanProcessor(span_exporter)
 # span_processor를 통해 처리되어 exporter로 전송됨
 
 trace.set_tracer_provider(TracerProvider())
-tracer_provider = trace.get_tracer_provider()
-
-tracer_provider.add_span_processor(span_processor)
 trace.get_tracer_provider().add_span_processor(span_processor)
 tracer = trace.get_tracer(__name__)
 
@@ -97,9 +95,8 @@ with tracer.start_as_current_span("operation", kind=SpanKind.INTERNAL) as span:
 
 # Metric Exporter 설정
 # 메트릭 데이터를 같은 엔드포인트로 전송, PeriodicExportingMetricReader를 사용하여 주기적으로 메트릭 수집 및 전송
-metric_exporter = OTLPMetricExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0.0.1:4317'))
+metric_exporter = OTLPMetricExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0.0.1:9999'))
 metric_reader = PeriodicExportingMetricReader(metric_exporter)
-
 meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
 
 metrics.set_meter_provider(meter_provider)
@@ -152,5 +149,5 @@ ram_gauge = meter.create_observable_gauge(
 
 DjangoInstrumentor().instrument()
 
-# WSGI 애플리케이션 초기화
-application = get_wsgi_application()
+
+
