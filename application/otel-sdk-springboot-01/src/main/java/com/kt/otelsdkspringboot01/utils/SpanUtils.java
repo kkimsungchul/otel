@@ -12,10 +12,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SpanUtils {
 
-    @Autowired
-    private final Tracer tracer;
 
-    public Span getChildSpan(String spanName){
+
+    public Span getChildSpan(String spanName,Tracer tracer){
         Span parentSpan = Span.current();
         Span childSpan = tracer.spanBuilder(spanName)
                 .setParent(Context.current().with(parentSpan))

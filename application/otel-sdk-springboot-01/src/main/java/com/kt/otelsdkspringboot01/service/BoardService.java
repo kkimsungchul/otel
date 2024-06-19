@@ -26,27 +26,41 @@ public class BoardService {
     @Autowired
     private SpanUtils spanUtils;
 
+    @Autowired
+    private final Tracer tracer;
+
     public List<Board> all(){
-        Span childSpan = spanUtils.getChildSpan("BoardService.all");
+        Span childSpan = spanUtils.getChildSpan("BoardService.all",tracer);
+        List<Board> boardList = null;
         try (Scope scope = childSpan.makeCurrent()) {
             LogApi logApi = logService.save();
             PageRequest pageRequest = PageRequest.of(0, 100);
-            List<Board> boardList = boardRepository.findAll(pageRequest).getContent();
+            boardList = boardRepository.findAll(pageRequest).getContent();
             logService.update(logApi);
-            return boardList;
+
         } catch (Exception e) {
             childSpan.recordException(e);
             throw e;
         } finally {
             childSpan.end();
         }
+        return boardList;
     }
     public List<Board> all(int pageSize){
-        Span childSpan = spanUtils.getChildSpan("BoardService.all/count");
-        LogApi logApi = logService.save();
-        PageRequest pageRequest = PageRequest.of(0, pageSize);
-        List<Board> boardList = boardRepository.findAll(pageRequest).getContent();
-        logService.update(logApi);
+        Span childSpan = spanUtils.getChildSpan("BoardService.all/count",tracer);
+        List<Board> boardList =null;
+        try (Scope scope = childSpan.makeCurrent()) {
+            LogApi logApi = logService.save();
+            PageRequest pageRequest = PageRequest.of(0, pageSize);
+            boardList = boardRepository.findAll(pageRequest).getContent();
+            logService.update(logApi);
+        } catch (Exception e) {
+            childSpan.recordException(e);
+            throw e;
+        } finally {
+            childSpan.end();
+        }
+
         return boardList;
     }
 }

@@ -29,10 +29,12 @@ public class BoardController {
     @Autowired
     private SpanUtils spanUtils;
 
+    @Autowired
+    private final Tracer tracer;
     @GetMapping("")
     public List<Board> all() {
         logger.info("### HIHIHIHIHI");
-        Span childSpan = spanUtils.getChildSpan("BoardController.all");
+        Span childSpan = spanUtils.getChildSpan("BoardController.all", tracer);
         //새로 생성한 span이 상위 span과 일치하는지 확인
         try (Scope scope = childSpan.makeCurrent()) {
             // Your business logic
@@ -49,7 +51,7 @@ public class BoardController {
     public List<Board> all(@PathVariable int pageSize) {
         logger.info("### HIHIHIHIHI");
         // Create a child span
-        Span childSpan = spanUtils.getChildSpan("BoardController.all/count");
+        Span childSpan = spanUtils.getChildSpan("BoardController.all/count", tracer);
         try (Scope scope = childSpan.makeCurrent()) {
             // Your business logic
             return boardService.all(pageSize);
