@@ -3,43 +3,4 @@ spring:
     name: otel-agent-springboot-01
 
 server:
-  port: 6060
-
-otel:
-  sdk:
-    metrics:
-      period: 500
-    traces:
-      period: 500
-  service:
-    name: otel-agent-springboot-01-service
-  resource:
-    attributes:
-      deployment:
-        environment: dev
-      service:
-        name: otel-agent-springboot-01
-      env: dev
-  instrumentation:
-    micrometer:
-      enabled: true
-    spring-web:
-      enabled: true
-    spring-webmvc:
-      enabled: true
-    spring-webflux:
-      enabled: true
-    kafka:
-      enabled: true
-  exporter:
-    otlp:
-      protocol : grpc
-      endpoint: http://127.0.0.1:9999 # Opentelemetry Collector ????
-  metrics:
-    exporter: otlp, logging
-  logs:
-    exporter: otlp
-  traces:
-    exporter: otlp
-  log:
-    level: debug
+  port: 5050
