@@ -28,13 +28,11 @@ def get_client_ip(request):
 
 def get_data(request, num_items):
     with tracer.start_as_current_span("get_data", kind=SpanKind.SERVER) as span:
-        # span.set_attribute("operation", "get_data")
-        print('get_data_span')
+
         start_time = timezone.now()
 
         # 데이터 조회를 위한 자식 스팬 생성
         with tracer.start_as_current_span("fetch_data", kind=SpanKind.INTERNAL) as child_span:
-            print('fetch_data_span')
             child_span.set_attribute("num_items", num_items)
             data = board.objects.all()[:num_items].values('seq',
                                                           'title',
@@ -49,7 +47,6 @@ def get_data(request, num_items):
         # 부모 스팬에 결과 속성 추가
         span.set_attribute("http.status_code", 200)
         span.set_attribute("operation_duration_ms", duration)
-        print('parent/attribute')
 
         client_ip = get_client_ip(request)
 
@@ -64,10 +61,36 @@ def get_data(request, num_items):
 
         request_duration.record(duration, {"method": request.method, "path": request.path})
 
-        return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
+        if num_items <= 100:
+            return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
 
+        else:
+            return HttpResponse(f"Successfully fetched {num_items} data items in {duration:.2f} ms", status=200)
+
+
+def get_data_all(request):
+    with tracer.start_as_current_span("get_data_all", kind=SpanKind.SERVER) as span:
+        start_time = timezone.now()  # 처리 시작 시간 기록
+
+        # 데이터 조회를 위한 자식 스팬 생성
+        with tracer.start_as_current_span("fetch_data", kind=SpanKind.INTERNAL) as child_span:
+            data = board.objects.all().values('seq', 'title', 'content', 'create_date', 'update_date')
+            data_list = list(data)  # 데이터 리스트 생성
+            num_items = len(data_list)
+            child_span.set_attribute("num_items", num_items)
+
+        end_time = timezone.now()  # 처리 종료 시간 기록
+        duration = (end_time - start_time).total_seconds() * 1000  # 처리 시간을 밀리초 단위로 변환
+
+        # 부모 스팬에 결과 속성 추가
+        span.set_attribute("http.status_code", 200)
+        span.set_attribute("operation_duration_ms", duration)
+
+        # 성공 메시지와 함께 처리 시간 반환
+        return HttpResponse(f"Successfully fetched {num_items} data in {duration:.2f} ms", status=200)
 
 def log_data(request):
+    # Spankind.Server: 서버가 클라이언트의 요청을 받고 처리하는 전체 과정
     with tracer.start_as_current_span("log_data", kind=SpanKind.SERVER) as span:
 
         data = log_api.objects.all().values('seq',
@@ -79,7 +102,6 @@ def log_data(request):
                                             'call_url_parameter')
         # 부모 스팬에 결과 속성 추가
         span.set_attribute("http.status_code", 200)
-        print('2parent/attribute')
 
         return JsonResponse(list(data), safe=False)
 

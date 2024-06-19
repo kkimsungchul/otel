@@ -80,26 +80,28 @@ def get_client_ip(request):
 # API 설명
 
 ---
-- 게시글 조회 및 로그 저장: localhost:8000/boards/{가져올 게시글 개수}
-- 로그 조회: localhost:8000/save/
+- 게시글 선택조회 및 로그 저장: localhost:8000/board/{가져올 게시글 개수} 
+- 게시글 전체조회: localhost:8000/board/
+- 로그 조회: localhost:8000/log/
 ## url
 ## 내부 접속 시
 ### boards api
-localhost:8000/boards/{가져올 게시글 개수}
+localhost:8000/board/{가져올 게시글 개수}
 ### log_api
-localhost:8000/save/
+localhost:8000/log/
 
 ## 외부 접속 시
 ### boards api
-192.168.0.40:8000/boards/{가져올 게시글 개수}
+192.168.0.40:8000/board/{가져올 게시글 개수}
 ### log_api
-192.168.0.40:8000/save/
+192.168.0.40:8000/log/
 # 작업순서
 ## settings.py
 - exporter, service name, metric 수집 주기 설정
-```python
+- otlp port: 9999, jaeger port: 4317로 변경
+``` python
 # 환경 변수 설정
-os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'localhost:4317'
+os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'localhost:9999'
 os.environ['OTEL_SERVICE_NAME'] = 'django_app'
 
 os.environ['OTEL_EXPORTER_OTLP_INSECURE'] = 'true'
@@ -109,10 +111,11 @@ os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'
 
 ## urls.py
 * 게시글 조회 및 로그 저장, 로그 조회 url 
-```python
+``` python
 urlpatterns = [
-    path('boards/<int:num_items>/', get_data, name='get_data'),
-    path('save/', log_data, name='log_data'),
+    path('board/', get_data_all, name='get_data_all'),
+    path('board/<int:num_items>/', get_data, name='get_data'),
+    path('log/', log_data, name='log_data'),
     path('', home, name='home'),
 ]
 ```
@@ -120,7 +123,7 @@ urlpatterns = [
 
 ## models.py
 * Django ORM을 이용하여 sqlite3의 DB 스키마 생성
-```python
+``` python
 class log_api(models.Model):
     seq = models.AutoField(primary_key=True)
     user_ip = models.CharField(max_length=15)
@@ -143,7 +146,7 @@ class board(models.Model):
 ### Resource 설정
 * service name, instance id, job 설정 가능
 * 기존: unknownjob 현재: django-service
-```python
+``` python
 # 리소스 설정: 여기에서 'job' 라벨을 지정합니다.
 resource = Resource.create({
     "service.name": "python.sdk.otel-app.co.kr",
@@ -153,7 +156,7 @@ resource = Resource.create({
 ```
 
 ### Logger 설정
-```python
+``` python
 # Logger provider: Opentelemetry 로깅 시스템에서 로그를 관리하는 컴포넌트
 logger_provider = LoggerProvider(resource=resource)
 set_logger_provider(logger_provider)
@@ -172,7 +175,7 @@ logging.getLogger().addHandler(handler)# OpenTelemetry 설정
 ```
 
 ### Tracer 설정
-```python
+``` python
 # Span Exporter 설정
 # opentelemetry span 데이터를 otlp를 사용하여 지정된 엔드포인트로 전송
 # endpoint: 데이터 전송할 서버의 주소와 포트 지정
@@ -207,7 +210,7 @@ with tracer.start_as_current_span("operation", kind=SpanKind.INTERNAL) as span:
     logging.getLogger().error("This is a log message")
 ```
 ### Metric 설정
-```python
+``` python
 # Metric Exporter 설정
 # 메트릭 데이터를 같은 엔드포인트로 전송, PeriodicExportingMetricReader를 사용하여 주기적으로 메트릭 수집 및 전송
 metric_exporter = OTLPMetricExporter(endpoint=os.getenv('OTLP_GRPC_ENDPOINT', '127.0.0.1:4317'))
@@ -223,7 +226,7 @@ meter = metrics.get_meter(__name__, version="0.1")
 ### CPU와 메모리 사용량 측정
 * 오픈텔레메트리에서 게이지 메트릭에 제공되는 Observation 라이브러리 사용
 * cpu사용량과 ram 사용량을 수집하는 콜백 함수를 만들어서 각 cpu 코어의 사용률과 ram 사용률 실시간 업데이트
-```python
+``` python
 # CallBack function for Async Counter
 # Callback to gather cpu usage
 def get_cpu_usage_callback(_: CallbackOptions):
