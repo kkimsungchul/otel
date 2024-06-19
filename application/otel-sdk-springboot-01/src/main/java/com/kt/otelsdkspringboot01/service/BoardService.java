@@ -6,9 +6,8 @@ import com.kt.otelsdkspringboot01.domain.LogApi;
 import com.kt.otelsdkspringboot01.repository.BoardRepository;
 import com.kt.otelsdkspringboot01.utils.SpanUtils;
 import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,11 +25,8 @@ public class BoardService {
     @Autowired
     private SpanUtils spanUtils;
 
-    @Autowired
-    private final Tracer tracer;
-
     public List<Board> all(){
-        Span childSpan = spanUtils.getChildSpan("BoardService.all",tracer);
+        Span childSpan = spanUtils.getChildSpan("BoardService.all");
         List<Board> boardList = null;
         try (Scope scope = childSpan.makeCurrent()) {
             LogApi logApi = logService.save();
@@ -46,8 +42,11 @@ public class BoardService {
         }
         return boardList;
     }
+
+
+    //@WithSpan
     public List<Board> all(int pageSize){
-        Span childSpan = spanUtils.getChildSpan("BoardService.all/count",tracer);
+        Span childSpan = spanUtils.getChildSpan("BoardService.all/count");
         List<Board> boardList =null;
         try (Scope scope = childSpan.makeCurrent()) {
             LogApi logApi = logService.save();

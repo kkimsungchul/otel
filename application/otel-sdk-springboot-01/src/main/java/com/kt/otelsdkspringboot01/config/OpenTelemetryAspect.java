@@ -53,7 +53,7 @@ public class OpenTelemetryAspect {
     private final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final long NO_HEAP_LIMIT = -1;
 
-    private static final ThreadLocal<Span> currentSpan = new ThreadLocal<>();
+
 
     @Autowired
     public OpenTelemetryAspect(Meter meter) {
@@ -105,6 +105,9 @@ public class OpenTelemetryAspect {
                 .setSpanKind(SpanKind.SERVER)  // Use SERVER to indicate an incoming request
                 .startSpan();
         span.setAllAttributes(attributes);
+        Context context = Context.current().with(span);
+        Scope scope = context.makeCurrent();
+
         requestCounter.add(1, attributes);
 
         //histogram 세팅
@@ -115,9 +118,10 @@ public class OpenTelemetryAspect {
                 .build();
         histogram.record(1,attributes);
 
-        currentSpan.set(span);
-        // Make the span current so that it becomes the parent of future spans created in the same context
-        span.makeCurrent();
+
+
+//        // Make the span current so that it becomes the parent of future spans created in the same context
+//        span.makeCurrent();
 
 
         //metric 세팅
@@ -136,6 +140,7 @@ public class OpenTelemetryAspect {
         meter.gaugeBuilder("jvm.memory.used")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("jvm.memory.used").gauge().value() / 1024 / 1024));
 
+        ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().setAttribute("otelScope", scope);
     }
 
     @After("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
@@ -144,13 +149,14 @@ public class OpenTelemetryAspect {
             + "@annotation(org.springframework.web.bind.annotation.PutMapping) || "
             + "@annotation(org.springframework.web.bind.annotation.DeleteMapping)")
     public void endSpan(JoinPoint joinPoint) {
-        Span span = currentSpan.get();
+        Span span = Span.current();
         if (span != null) {
-            try {
-                span.end();
-            } finally {
-                currentSpan.remove();
-            }
+            span.end();
+        }
+        // Retrieve and close the scope
+        Scope scope = (Scope) ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getAttribute("otelScope");
+        if (scope != null) {
+            scope.close();
         }
         logger.info("### end span ###");
     }

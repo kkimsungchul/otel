@@ -95,28 +95,4 @@ public class OpenTelemetryConfig {
     public Meter meter(OpenTelemetry openTelemetry) {
         return openTelemetry.getMeter("com.kt.otelsdkspringboot01");
     }
-
-//    @Bean
-//    public void setGauge (OpenTelemetry openTelemetry){
-//        Meter meter = openTelemetry.getMeter("com.kt.otelsdkspringboot01");
-//        ObservableDoubleGauge heapSizeGauge = meter.gaugeBuilder("jvm.memory.totalMemory")
-//                .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
-//        ObservableDoubleGauge heapMaxSizeGauge = meter.gaugeBuilder("jvm.memory.freeMemory")
-//                .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
-//        ObservableDoubleGauge heapFreeSizeGauge = meter.gaugeBuilder("jvm.memory.usedMemory")
-//                .buildWithCallback(measurement -> measurement.record(getMemory().get("usedMemory")));
-//    }
-//
-//    public Map<String,Double> getMemory(){
-//        Map<String,Double> memoryMap = new HashMap<>();
-//        //메모리는 byte 단위로 반환, 1024로 두번나누면 kb - mb 로 변환
-//        double totalMemory = Runtime.getRuntime().totalMemory()/1024/1024;
-//        double freeMemory =Runtime.getRuntime().freeMemory()/1024/1024;
-//        double usedMemory =totalMemory - freeMemory;
-//        memoryMap.put("totalMemory",totalMemory);
-//        memoryMap.put("usedMemory",usedMemory);
-//        memoryMap.put("freeMemory",freeMemory);
-//        return memoryMap;
-//    }
-
 }
