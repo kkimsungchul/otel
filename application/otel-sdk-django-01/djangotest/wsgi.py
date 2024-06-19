@@ -52,15 +52,14 @@ set_logger_provider(logger_provider)
 # Log Exporter 설정
 # insecure=True: TLS를 사용하지 않고 데이터 전송
 # BatchLogRecordProcessor: 로그 레코드를 배치로 처리하여 네트워크 사용 최적화
-exporter = OTLPLogExporter(insecure=True)
-logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
+logger_exporter = OTLPLogExporter(insecure=True)
+logger_provider.add_log_record_processor(BatchLogRecordProcessor(logger_exporter))
 
 # LoggingHandler: 파이썬 표준 로깅 모듈과 opentelemetry 로깅 시스템 연결, 모든 로그 레벨(NOTSET) 로그 캡처
-handler = LoggingHandler(level=logging.NOTSET, logger_provider=logger_provider)
+handler = LoggingHandler(level=logging.INFO, logger_provider=logger_provider)
 
 # 파이썬의 루트 로거에 handler 추가, 모든 로그 이벤트가 opentelemetry 로깅 시스템을 통해 처리
-logging.getLogger().addHandler(handler)# OpenTelemetry 설정
-
+logging.getLogger().addHandler(handler) # OpenTelemetry 설정
 
 
 # Span Exporter 설정
