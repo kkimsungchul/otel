@@ -4,8 +4,6 @@ import com.kt.otelsdkspringboot01.domain.Board;
 import com.kt.otelsdkspringboot01.service.BoardService;
 import com.kt.otelsdkspringboot01.utils.SpanUtils;
 import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
