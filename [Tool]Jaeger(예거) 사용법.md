@@ -2,8 +2,6 @@
 
 # 목차
 
-
-
 ## 참고 링크
 - URL : https://twofootdog.tistory.com/67
 - URL : https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
@@ -30,12 +28,43 @@ jaeger-all-in-one.exe
 ## OpenTelemetry 연동
 참고 링크 : https://www.jaegertracing.io/docs/1.21/opentelemetry/
 
-## 오류
+## OpenTelemetry collector 설정 변경
+- jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector는 OpenTelemetry SDK와 Jaeger 백엔드 사이에 배포할 필요가 없어짐
+- jaeger와 어플리케이션이 직접 통신은 가능하나 OpenTelemetry collector를 사용하여 통신할 경우 OpenTelemetry collector 설정을 변경
+- exporters 설정에서 jaeger만 사용하는 부분이 사라지고 "otlp/jaeger" 로 변경되었음 
+```yaml
+exporters:
+  logging :
+    verbosity: detailed
+  file: # the File Exporter, to ingest logs to local file
+    path: example.log
+    rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+  
+  otlp/jaeger:
+    endpoint: 127.0.0.1:4317
+    tls :
+      insecure : true
+service:
+  pipelines:
+    logs/dev:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp/jaeger,file]
+      processors: [batch]
+```
+
+
+## OpenTelemetry collector 에서 jaeger export 변경 사항 내용
+
 ```text
 * error decoding 'exporters': unknown type: "jaeger" for id: "jaeger" (valid values: [logging otlp prometheus prometheusremotewrite debug nop otlphttp file kafka opencensus zipkin])
 2024/06/04 01:07:29 collector server run finished with error: failed to get config: cannot unmarshal the configuration: 1 error(s) decoding:
 ```
-jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector는 OpenTelemetry SDK와 Jaeger 백엔드 사이에 배포할 필요가 없어짐
 
 - 2023년 11월
 
