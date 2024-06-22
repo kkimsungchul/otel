@@ -3,3 +3,8 @@ opentelemetry-semantic-conventions==0.46b0
 opentelemetry-api==1.25.0
 opentelemetry-sdk==1.25.0
 Django~=5.0.6
+opentelemetry-distro
+opentelemetry-exporter-otlp
+opentelemetry-instrumentation-django
+opentelemetry-instrumentation-system-metrics
+waitress

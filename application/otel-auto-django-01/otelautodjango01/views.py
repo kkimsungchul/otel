@@ -5,6 +5,9 @@ from django.utils.crypto import get_random_string
 # 메서드 임포트
 from .models import log_api, board
 from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger("otelautodjango01")
 
 def get_client_ip(request):
     # ip_address = request.META["HTTP_X_REAL_IP"]
@@ -13,7 +16,8 @@ def get_client_ip(request):
 
 
 def get_data(request, num_items):
-
+    print("???")
+    logger.info("## test message~~")
     start_time = timezone.now()
 
     data = board.objects.all()[:num_items].values('seq',

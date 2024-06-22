@@ -14,14 +14,14 @@
 
 ## 일정
 
-| 기간               | 항목                     | 세부내용                                                                                                                                                                                                                  |
-|------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 5월 08일 ~ 5월 10일  |사전 조사    | - OpenTelemetry 란 <br/>- OpenTelemetry 활용 방안                                                                                                                                                                          |
-| 5월 10일 ~ 5월 20일  |데모 환경 구축 | - 데모 어플리케이션 테스트<br/>- JAVA(SpringBoot - agent)<br/>- JAVA(SpringBoot - SDK)<br/>- Python(django - SDK) <br/>- OpenTelemetry 환경 구성<br/>- OpenTelemetry agent<br/>- OpenTelemetry collector<br/>- prometheus 환경 구성<br/>- 로컬 환경 구성 |
-| 5월 20일 ~ 6월 21일  |테스트 어플리케이션 정리 및 데이터 추가 |- 테스트 어플리케이션 정리 및 데이터 추가<br/>- SDK - Java application<br/>- SDK - Python application<br/>- Agent - Java application<br/>- 데이터 호출 어플리케이션 개발<br/>- Opentelemetry 데모 실행<br/>- 단위테스트 진행|
-| 6월 21일 ~ 6월 28일  |시각화 툴 연동 |- Prometheus - Metrics<br/>- Jaeger - Tracing, Logging<br/>- Graphana - 시각화|
-| 6월 28일 ~ 7월 12일  |테스트 진행 |- Opentelemetry + Test application 통합테스트 진행|
-| 7월 12일 ~ 7월 19일  |산출물 작성 |- 사용방법 및 가이드라인 문서 작성<br/>- 수요지식회 발표자료 작성|
+| 기간               | 항목                                | 세부내용                                                                                                                                                                                                                                              |
+|------------------|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 5월 08일 ~ 5월 10일  | - 사전 조사                           | - OpenTelemetry 란 <br/>- OpenTelemetry 활용 방안                                                                                                                                                                                                      |
+| 5월 10일 ~ 5월 20일  | - 데모 환경 구축                        | - 데모 어플리케이션 테스트<br/>- JAVA(SpringBoot - agent)<br/>- JAVA(SpringBoot - SDK)<br/>- Python(django - SDK) <br/>- OpenTelemetry 환경 구성<br/>- OpenTelemetry agent<br/>- OpenTelemetry collector<br/>- prometheus 환경 구성<br/>- 로컬 환경 구성                   |
+| 5월 20일 ~ 6월 21일  | - 테스트 어플리케이션 정리 및 데이터 추가          | - 테스트 어플리케이션 정리 및 데이터 추가<br/>- SDK - Java application<br/>- SDK - Python application<br/>- Agent - Java application<br/>- Auto - Java application<br/>- Auto - Python application<br/>- 데이터 호출 어플리케이션 개발<br/>- Opentelemetry 데모 실행<br/>- 단위테스트 진행 |
+| 6월 21일 ~ 6월 28일  | - 시각화 툴 연동<br> - Apache JMeter 사용 | - Prometheus - Metrics<br/>- Jaeger - Tracing, Logging<br/>- Graphana - 시각화                                                                                                                                                                       |
+| 6월 28일 ~ 7월 12일  | - 테스트 진행                          | - Opentelemetry + Test application 통합테스트 진행                                                                                                                                                                                                       |
+| 7월 12일 ~ 7월 19일  | - 산출물 작성                          | - 사용방법 및 가이드라인 문서 작성<br/>- 수요지식회 발표자료 작성                                                                                                                                                                                                          |
 #### 5월 8일 ~ 5월 10일
 - 사전 조사
   - OpenTelemetry 란
@@ -44,7 +44,8 @@
   - SDK - Java application
   - SDK - Python application
   - Agent - Java application
-  - 데이터 호출 어플리케이션 개발
+  - Auto - Java application
+  - Auto - Python application 
   - Opentelemetry 데모 실행
   - 단위테스트 진행
 
@@ -53,6 +54,7 @@
   - Prometheus - Metrics
   - Jaeger - Tracing, Logging
   - Graphana - 시각화
+- Apache JMeter 사용
 
 #### 6월 28일 ~ 7월 12일
 - 테스트 진행
@@ -84,6 +86,15 @@
 
 - [application/otel-sdk-springboot-01](application/otel-sdk-springboot-01)
   - SDK 방식으로 사용할 SpringBoot 프로젝트 파일
+
+- [application/otel-agent-springboot-01](application/otel-agent-springboot-01)
+  - Agent 방식으로 사용할 SpringBoot 프로젝트 파일
+
+- [application/otel-auto-django-01](application/otel-auto-django-01)
+  - Auto 방식으로 사용할 Django 프로젝트 파일
+
+- [application/otel-auto-springboot-01](application/otel-auto-springboot-01)
+  - Auto 방식으로 사용할 SpringBoot 프로젝트 파일
 
 - [application/nginx](application/nginx)
   - 테스트 어플리케이션에서 사용할 Nginx

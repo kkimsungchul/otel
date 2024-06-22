@@ -37,14 +37,16 @@ opentelemetry-instrument --traces_exporter console --metrics_exporter none pytho
 
 ---
 ### waitress 로 실행
+- opentelemetry-instrumentation-system-metrics 이거 있어야 CPU , Memory를 자동으로 보냄
 
 python -m venv venv
 venv\Scripts\activate
 pip install --upgrade pip
 pip install django
 pip install opentelemetry-distro opentelemetry-exporter-otlp
-opentelemetry-bootstrap -a install
+pip install opentelemetry-instrumentation-system-metrics
 pip install opentelemetry-instrumentation-django
+opentelemetry-bootstrap -a install
 pip install waitress
 python.exe -m pip install --upgrade pip
 
@@ -57,7 +59,7 @@ python manage.py boards
 
 
 set DJANGO_SETTINGS_MODULE=otelautodjango01.settings
-opentelemetry-instrument --log_level info --traces_exporter console,otlp --metrics_exporter console,otlp --metric_export_interval 500 --logs_exporter console,otlp --service_name auto-python-service --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8000 otelautodjango01.wsgi:application
+opentelemetry-instrument --log_level info --traces_exporter console,otlp --metrics_exporter console,otlp --metric_export_interval 500 --logs_exporter console,otlp --service_name auto-python-service --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8001 otelautodjango01.wsgi:application
 
 - 여러줄로 확인
 ```text
@@ -67,7 +69,7 @@ opentelemetry-instrument
 --metrics_exporter console,otlp 
 --metric_export_interval 500 
 --logs_exporter console,otlp 
---service_name auto-python-service 
+--service_name otel-auto-django-01 
 --exporter_otlp_endpoint http://127.0.0.1:9999 
 --exporter_otlp_protocol=grpc 
 waitress-serve --port=8000 otelautodjango01.wsgi:application

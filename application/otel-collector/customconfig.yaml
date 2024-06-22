@@ -10,7 +10,7 @@ exporters:
   logging :
     verbosity: detailed
   file: # the File Exporter, to ingest logs to local file
-    path: example.log
+    path: example.json
     rotation:
   prometheus:
     endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP

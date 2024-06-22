@@ -38,3 +38,6 @@ connection : 프로메테우스 접속 URL:port
 9. Add visualization 클릭
 10. 화면 설정 후 우측 상단의 Save 클릭
 11. 대시보드 이름 및 설명 저장
+
+## Jaeger(예거) 연동
+- 프로메테우스 연동 방법과 똑같으며 connection 부분만 jaeger URL로 변경
