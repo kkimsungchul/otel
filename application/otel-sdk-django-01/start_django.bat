@@ -15,13 +15,13 @@ REM Install the requirements
 echo ## pip install -r requirements.txt
 pip install -r requirements.txt
 
-REM Make migrations for the djangotest app
-echo ## python manage.py makemigrations djangotest
-python manage.py makemigrations djangotest
+REM Make migrations for the otelsdkdjango01 app
+echo ## python manage.py makemigrations otelsdkdjango01
+python manage.py makemigrations otelsdkdjango01
 
-REM Apply the migrations for the djangotest app
-echo ## python manage.py migrate djangotest
-python manage.py migrate djangotest
+REM Apply the migrations for the otelsdkdjango01 app
+echo ## python manage.py migrate otelsdkdjango01
+python manage.py migrate otelsdkdjango01
 
 REM Show all migrations
 echo ## python manage.py showmigrations
@@ -36,8 +36,8 @@ REM echo ## python manage.py runserver
 REM python manage.py runserver
 
 REM Run the Django with waitress
-echo ## waitress-serve --port=8000 djangotest.wsgi:application
-waitress-serve --port=8000 djangotest.wsgi:application
+echo ## waitress-serve --port=8000 otelsdkdjango01.wsgi:application
+waitress-serve --port=8000 otelsdkdjango01.wsgi:application
 
 REM Deactivate the virtual environment
 echo ## call venv\Scripts\deactivate

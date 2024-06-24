@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
-from djangotest.models import board
+from otelsdkdjango01.models import board
 from django.utils import timezone
 
 class Command(BaseCommand):

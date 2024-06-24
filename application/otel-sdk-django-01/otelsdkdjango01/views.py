@@ -22,18 +22,18 @@ request_duration = meter.create_histogram(
 
 
 def get_client_ip(request):
-    ip_address = request.META["HTTP_X_REAL_IP"]
+    # ip_address = request.META["HTTP_X_REAL_IP"]
+    ip_address = "127.0.0.1"
     return ip_address
 
 
 def get_data(request, num_items):
-    with tracer.start_as_current_span("get_data", kind=SpanKind.SERVER) as span:
+    with tracer.start_as_current_span("GET board/<int:num_items>/", kind=SpanKind.SERVER) as span:
 
         start_time = timezone.now()
 
         # 데이터 조회를 위한 자식 스팬 생성
-        with tracer.start_as_current_span("fetch_data", kind=SpanKind.INTERNAL) as child_span:
-            child_span.set_attribute("num_items", num_items)
+        with tracer.start_as_current_span("INSERT_BOARD", kind=SpanKind.INTERNAL) as child_span_select:
             data = board.objects.all()[:num_items].values('seq',
                                                           'title',
                                                           'content',
@@ -41,31 +41,42 @@ def get_data(request, num_items):
                                                           'update_date')
             data_list = list(data)
 
+            # 자식 스팬에 결과 속성 추가
+            child_span_select.set_attribute("db.system", "sqlite")
+            child_span_select.set_attribute("span.kind", "client")
+            child_span_select.set_attribute("num_items", num_items)
+
         end_time = timezone.now()
         duration = (end_time - start_time).total_seconds() * 1000  # 밀리초 단위로 변환
-
-        # 부모 스팬에 결과 속성 추가
-        span.set_attribute("http.status_code", 200)
-        span.set_attribute("operation_duration_ms", duration)
-
         client_ip = get_client_ip(request)
 
-        log_api.objects.create(
-            user_ip=client_ip,
-            user_id=get_random_string(30),
-            start_time=start_time,
-            end_time=end_time,
-            call_url=request.path,
-            call_url_parameter=num_items
-        )
+        # 부모 스팬에 결과 속성 추가
+        span.set_attribute("http.method", "GET")
+        span.set_attribute("http.status_code", 200)
+        span.set_attribute("http.target", "/board/10/")
+        span.set_attribute("operation_duration_ms", duration)
 
-        request_duration.record(duration, {"method": request.method, "path": request.path})
+        with tracer.start_as_current_span("SELECT_LOG", kind=SpanKind.INTERNAL) as child_span_insert:
+            log_api.objects.create(
+                user_ip=client_ip,
+                user_id=get_random_string(30),
+                start_time=start_time,
+                end_time=end_time,
+                call_url=request.path,
+                call_url_parameter=num_items
+            )
 
-        if num_items <= 100:
-            return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
+            request_duration.record(duration, {"method": request.method, "path": request.path})
 
-        else:
-            return HttpResponse(f"Successfully fetched {num_items} data items in {duration:.2f} ms", status=200)
+            # 자식 스팬에 결과 속성 추가
+            child_span_insert.set_attribute("db.system", "sqlite")
+            child_span_insert.set_attribute("span.kind", "client")
+
+            if num_items <= 100:
+                return JsonResponse(data_list, safe=False)  # 데이터를 JSON 형식으로 반환
+
+            else:
+                return HttpResponse(f"Successfully fetched {num_items} data items in {duration:.2f} ms", status=200)
 
 
 def get_data_all(request):

@@ -33,7 +33,7 @@ from opentelemetry.metrics import (
 )
 
 from opentelemetry import metrics
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangotest.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'otelsdkdjango01.settings')
 
 # WSGI 애플리케이션 초기화
 application = get_wsgi_application()

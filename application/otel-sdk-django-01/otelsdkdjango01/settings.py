@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djangotest',
+    'otelsdkdjango01',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djangotest.urls'
+ROOT_URLCONF = 'otelsdkdjango01.urls'
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'djangotest.wsgi.application'
+WSGI_APPLICATION = 'otelsdkdjango01.wsgi.application'
 
 
 # Database
