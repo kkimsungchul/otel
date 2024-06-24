@@ -49,6 +49,12 @@ dependencies {
     implementation "io.opentelemetry:opentelemetry-sdk-extension-autoconfigure"
     implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:2.5.0-alpha'
 
+    //implementation 'io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter'
+
+    //아래의 라이브러리 추가시 별도 설정 없이 JPA 계측 가능
+    implementation 'io.opentelemetry.instrumentation:opentelemetry-spring-boot:2.4.0-alpha'
+
+
     implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.4.0'
     implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations-support:2.4.0-alpha'
 

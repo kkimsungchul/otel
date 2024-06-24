@@ -205,3 +205,20 @@ https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.
 
 ### autoconfigure
 https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md
+
+---
+org.springframework.boot.autoconfigure.AutoConfiguration.imports
+```text
+io.opentelemetry.instrumentation.spring.autoconfigure.OpenTelemetryAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.annotations.InstrumentationAnnotationsAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.kafka.KafkaInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.mongo.MongoClientInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.logging.OpenTelemetryAppenderAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.jdbc.JdbcInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.micrometer.MicrometerBridgeAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.r2dbc.R2dbcInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.web.SpringWebInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.webflux.SpringWebfluxInstrumentationAutoConfiguration
+io.opentelemetry.instrumentation.spring.autoconfigure.instrumentation.webmvc.SpringWebMvc6InstrumentationAutoConfiguration
+
+```
