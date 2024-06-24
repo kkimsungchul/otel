@@ -37,12 +37,12 @@
 - http://localhost:6060/board/2
 
 ### django - sdk
-- http://localhost/python/boards/10/
-- http://localhost:8000/boards/10/
+- http://localhost/python/board/10/
+- http://localhost:8000/board/10/
 
 ### django - auto
-- http://localhost/python/boards/10/
-- http://localhost:8001/boards/10/
+- http://localhost/python/board/10/
+- http://localhost:8001/board/10/
 
 #### collector
 - http://localhost/otlp/metrics
