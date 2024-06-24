@@ -37,9 +37,13 @@ REM Run the Django development server
 REM echo ## set DJANGO_SETTINGS_MODULE=otelautodjango01.settings
 set DJANGO_SETTINGS_MODULE=otelautodjango01.settings
 
+REM Run the Django development server with logs_exporter
+REM echo ## OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+
 REM Run the Django with waitress
-echo ## opentelemetry-instrument --log_level info --traces_exporter console,otlp --metrics_exporter console,otlp --metric_export_interval 500 --logs_exporter console,otlp --service_name otel-auto-django-01 --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8001 otelautodjango01.wsgi:application
-opentelemetry-instrument --log_level info --traces_exporter console,otlp --metrics_exporter console,otlp --metric_export_interval 500 --logs_exporter console,otlp --service_name otel-auto-django-01 --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8001 otelautodjango01.wsgi:application
+echo ## opentelemetry-instrument --log_level info --traces_exporter otlp --metrics_exporter otlp --metric_export_interval 500 --logs_exporter otlp --service_name otel-auto-django-01 --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8001 otelautodjango01.wsgi:application
+opentelemetry-instrument --log_level info --traces_exporter otlp --metrics_exporter otlp --metric_export_interval 500 --logs_exporter otlp --service_name otel-auto-django-01 --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc waitress-serve --port=8001 otelautodjango01.wsgi:application
 
 REM Deactivate the virtual environment
 echo ## call venv\Scripts\deactivate
