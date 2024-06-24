@@ -1,4 +1,4 @@
-## Java - metric 정리
+## Java - metric 정리(agent)
 
 #### db_client_connections_create_time_milliseconds
 - 설명: 새로운 데이터베이스 클라이언트 연결을 생성하는 데 소요된 시간을 측정하는 히스토그램 메트릭입니다.
@@ -114,7 +114,8 @@
 - 설명: BatchLogRecordProcessor에서 처리된 로그의 총 수를 측정합니다. 높은 처리량으로 인해 버려진 경우에는 dropped=true로 표시됩니다.
 - 유형: counter (증가하는 값)
 - 값: 처리된 로그 수와 해당 로그의 처리 여부(dropped 여부)
-- processedSpans_total
+
+#### processedSpans_total
 - 설명: BatchSpanProcessor에서 처리된 스팬의 총 수를 측정합니다. 높은 처리량으로 인해 버려진 경우에는 dropped=true로 표시됩니다.
 - 유형: counter (증가하는 값)
 - 값: 처리된 스팬 수와 해당 스팬의 처리 여부(dropped 여부)
