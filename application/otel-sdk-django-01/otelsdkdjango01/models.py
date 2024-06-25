@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 
 # SQLAlchemy Base
 Base = declarative_base()
@@ -27,7 +26,6 @@ class board(Base):
 
 # SQLite 엔진 생성
 engine = create_engine('sqlite:///example.db')
-SQLAlchemyInstrumentor().instrument(engine=engine)
 
 # 데이터베이스 테이블 생성
 Base.metadata.create_all(engine)
