@@ -1,14 +1,18 @@
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
-from otelsdkdjango01.models import board
+from otelsdkdjango01.models import board, Session
 from django.utils import timezone
 
 class Command(BaseCommand):
     help = 'Populates the database with random items'
 
     def handle(self, *args, **options):
-        if board.objects.exists():
+
+        session = Session()
+
+        if session.query(board).first() is not None:
             self.stdout.write(self.style.WARNING('Database already populated. No new data inserted.'))
+            session.close()
             return
 
         print("## Database data insert start")
@@ -22,8 +26,12 @@ class Command(BaseCommand):
         ]
         print("## Database data insert end")
         try:
-            board.objects.bulk_create(items)
+            session.bulk_save_objects(items)
+            session.commit()
         except Exception as e:
+            session.rollback()
             print("An error occurred:", e)
+        finally:
+            session.close()
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database.'))
