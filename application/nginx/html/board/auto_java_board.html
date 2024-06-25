@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Data</title>
+    <title>auto-java Board Data</title>
     <style>
         table {
             width: 100%;
@@ -45,7 +45,7 @@
 
             var pageCount = getQueryParam('pageCount') || 1; // Default to 1 if no parameter is provided
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost/java/board/' + pageCount, true);
+            xhr.open('GET', 'http://localhost/auto-java/board/' + pageCount, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);

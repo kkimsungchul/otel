@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agent-java Board Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Board Data</h1>
+    <table id="boardTable">
+        <thead>
+            <tr>
+                <th>Seq</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Create Date</th>
+                <th>Update Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to get the value of a query parameter by name
+            function getQueryParam(param) {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            var pageCount = getQueryParam('pageCount') || 1; // Default to 1 if no parameter is provided
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost/agent-java/board/' + pageCount, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var tableBody = document.getElementById('boardTable').getElementsByTagName('tbody')[0];
+                    data.forEach(function(item) {
+                        var row = document.createElement('tr');
+                        
+                        var seqCell = document.createElement('td');
+                        seqCell.textContent = item.seq;
+                        row.appendChild(seqCell);
+                        
+                        var titleCell = document.createElement('td');
+                        titleCell.textContent = item.title;
+                        row.appendChild(titleCell);
+                        
+                        var contentCell = document.createElement('td');
+                        contentCell.textContent = item.content;
+                        row.appendChild(contentCell);
+                        
+                        var createDateCell = document.createElement('td');
+                        createDateCell.textContent = item.createDate;
+                        row.appendChild(createDateCell);
+                        
+                        var updateDateCell = document.createElement('td');
+                        updateDateCell.textContent = item.updateDate;
+                        row.appendChild(updateDateCell);
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    console.error('Error fetching data');
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Request error');
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>

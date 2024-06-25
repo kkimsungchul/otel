@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <title>auto-java User Data</title>
+</head>
+<body>
+<p id="returnData"></p>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var p = document.getElementById('returnData')
+        var xhr = new XMLHttpRequest();
+        var data='';
+        xhr.open('GET', 'http://localhost/auto-java/user');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // data = JSON.parse(xhr.responseText);
+            } else {
+                // data = JSON.parse(xhr.responseText);
+                console.error('Error fetching data');
+            }
+            console.log(xhr.responseText)
+            p.innerText =xhr.responseText
+        };
+        xhr.onerror = function() {
+            console.error('Request error');
+        };
+        xhr.send();
+    });
+</script>
+</body>
+</html>

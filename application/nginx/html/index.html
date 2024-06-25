@@ -19,44 +19,70 @@
     </style>
 </head>
 <body>
-	<h1>시각화 툴 이동</h1>
 
+    <h3>시각화 툴 이동</h3>
+    <a target="_blank" href="http://localhost/prometheus/graph">prometheus</a> <br>
+    <a target="_blank" href="http://localhost:16686/">jaeger</a><br>
+    <a target="_blank" href="http://localhost/otlp/metrics">otel metric</a><br>
+    <a target="_blank" href="http://localhost:3000/">grafana</a><br>
+    <hr>
 
-    <h1>어플리케이션 게시판 이동</h1>
-
-    <label for="boardSelect">게시판 선택:</label>
-    <select id="boardSelect">
-        <option value="http://localhost/test/sdk_java_board.html?pageCount=">SDK JAVA 게시판</option>
-        <option value="http://localhost/test/sdk_python_board.html?pageCount=">SDK Python 게시판</option>
-        <option value="http://localhost/test/auto_java_board.html?pageCount=">AUTO JAVA 게시판</option>
-        <option value="http://localhost/test/auto_python_board.html?pageCount=">AUTO Python 게시판</option>
-        <option value="http://localhost/test/agent_java_board.html?pageCount=">Agent JAVA 게시판</option>
+	<h3>사용자 페이지 이동</h3>
+    <label for="userPageSelect">게시판 선택:</label>
+    <select id="userPageSelect">
+        <option value="http://localhost/user/sdk_java_user.html">SDK Java user page</option>
+        <option value="http://localhost/user/sdk_python_user.html">SDK Python user page</option>
+        <option value="http://localhost/user/auto_java_user.html">AUTO Java user page</option>
+        <option value="http://localhost/user/auto_python_user.html">AUTO Python user page</option>
+        <option value="http://localhost/user/agent_java_user.html">Agent Java user page</option>
     </select>
-    <br>
+    <a id="userPageLink" target="_blank" href="#">페이지로 이동</a>
+    <hr>
 
+
+    <h3>어플리케이션 게시판 이동</h3>
+
+    <label for="boardPageSelect">게시판 선택:</label>
+    <select id="boardPageSelect">
+        <option value="http://localhost/board/sdk_java_board.html?pageCount=">SDK Java board</option>
+        <option value="http://localhost/board/sdk_python_board.html?pageCount=">SDK Python board</option>
+        <option value="http://localhost/board/auto_java_board.html?pageCount=">Auto Java board</option>
+        <option value="http://localhost/board/auto_python_board.html?pageCount=">Auto Python board</option>
+        <option value="http://localhost/board/agent_java_board.html?pageCount=">Agent Java board</option>
+    </select>
     <label for="pageCountInput">게시글 수 입력:</label>
     <input type="text" id="pageCountInput" min="1">
-    <a id="pageLink" href="#">페이지로 이동</a>
+    <a id="boardPageLink" target="_blank" href="#">페이지로 이동</a>
     <br>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var boardSelect = document.getElementById('boardSelect');
+            var boardPageSelect = document.getElementById('boardPageSelect');
             var pageCountInput = document.getElementById('pageCountInput');
-            var pageLink = document.getElementById('pageLink');
-
-            function updateLink() {
-                var selectedBoard = boardSelect.value;
+            var boardPageLink = document.getElementById('boardPageLink');
+            function updateBoardLink() {
+                var selectedBoard = boardPageSelect.value;
                 var pageCount = pageCountInput.value;
                 if (pageCount) {
-                    pageLink.href = selectedBoard + pageCount;
+                    boardPageLink.href = selectedBoard + pageCount;
                 } else {
-                    pageLink.href = '#';
+                    boardPageLink.href = '#';
                 }
             }
+            boardPageSelect.addEventListener('change', updateBoardLink);
+            pageCountInput.addEventListener('input', updateBoardLink);
 
-            boardSelect.addEventListener('change', updateLink);
-            pageCountInput.addEventListener('input', updateLink);
+            var userPageSelect = document.getElementById('userPageSelect');
+            var userPageLink = document.getElementById('userPageLink');
+            function updateUserLink() {
+                var selectedUser = userPageSelect.value;
+                console.log(selectedUser)
+
+                userPageLink.href = selectedUser;
+            }
+            userPageSelect.addEventListener('change', updateUserLink);
+
+
         });
     </script>
 </body>
