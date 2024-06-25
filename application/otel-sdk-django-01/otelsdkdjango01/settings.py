@@ -4,7 +4,7 @@ from django.utils.log import DEFAULT_LOGGING
 
 # 환경 변수 설정
 os.environ['OTEL_EXPORTER_OTLP_ENDPOINT'] = 'localhost:9999'
-os.environ['OTEL_SERVICE_NAME'] = 'django_app'
+os.environ['OTEL_SERVICE_NAME'] = 'otel-sdk-django-01'
 
 os.environ['OTEL_EXPORTER_OTLP_INSECURE'] = 'true'
 os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'

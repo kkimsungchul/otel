@@ -33,7 +33,7 @@ def get_data(request, num_items):
         start_time = timezone.now()
 
         # 데이터 조회를 위한 자식 스팬 생성
-        with tracer.start_as_current_span("INSERT_BOARD", kind=SpanKind.INTERNAL) as child_span_select:
+        with tracer.start_as_current_span("SELECT_BOARD", kind=SpanKind.INTERNAL) as child_span_select:
             data = board.objects.all()[:num_items].values('seq',
                                                           'title',
                                                           'content',
@@ -56,7 +56,7 @@ def get_data(request, num_items):
         span.set_attribute("http.target", "/board/10/")
         span.set_attribute("operation_duration_ms", duration)
 
-        with tracer.start_as_current_span("SELECT_LOG", kind=SpanKind.INTERNAL) as child_span_insert:
+        with tracer.start_as_current_span("INSERT_LOG", kind=SpanKind.INTERNAL) as child_span_insert:
             log_api.objects.create(
                 user_ip=client_ip,
                 user_id=get_random_string(30),
