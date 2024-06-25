@@ -50,6 +50,86 @@ Grafana UI에서 Create -> Dashboard로 이동하여 새로운 대시보드를 �
 패널을 추가하여 Prometheus와 Jaeger 데이터를 쿼리하고 시각화합니다.
 
 ---
+## Q2. 오픈텔레메트리 콜렉터에서 그라파나로 직접 데이터를 송신할 수 있는가?
+
+OpenTelemetry 수집기(Collector)에서 데이터를 Grafana로 직접 전송하는 것은 일반적이지 않습니다. 대신, OpenTelemetry 수집기에서 데이터를 Prometheus 같은 백엔드 시스템으로 전송하고, Grafana가 이 데이터를 시각화하는 방법을 사용합니다. 
+
+참고 링크
+- https://grafana.com/docs/agent/latest/flow/tasks/collect-opentelemetry-data/
+
+### OpenTelemetry 프로토콜 내보내기 구성
+구성 요소가 OpenTelemetry 데이터를 수신하려면 먼저 OpenTelemetry 데이터 내보내기를 담당하는 구성 요소가 있어야 합니다. OpenTelemetry 내보내기 구성 요소는 OpenTelemetry 데이터를 외부 시스템에 쓰기(내보내기)를 담당합니다. 
+이 작업에서는 otelcol.exporter.otlp 구성 요소를 사용하여 OTLP(OpenTelemetry Protocol)를 통해 OpenTelemetry 데이터를 서버로 보냅니다. 내보내기 구성요소가 정의된 후 다른 Grafana 에이전트 흐름 구성요소를 사용하여 데이터를 전달할 수 있습니다.
+
+#### 요약
+- 직접 전송 불가: OpenTelemetry 수집기에서 데이터를 Grafana로 직접 전송하는 것은 불가능합니다.
+- 백엔드 사용: OpenTelemetry 수집기에서 데이터를 Prometheus 같은 백엔드 시스템으로 전송하고, Grafana가 이 데이터를 시각화합니다.
+- 설정 방법: OpenTelemetry 수집기, Prometheus, Grafana의 설정 파일을 적절히 구성하여 데이터를 수집하고 시각화합니다.
+
+
+ 아래에 각 단계별 설정 방법을 설명합니다.
+
+### OpenTelemetry 수집기 설정
+OpenTelemetry 수집기를 설정하여 데이터를 수집하고 Prometheus로 전송하는 방법입니다.
+
+```
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "127.0.0.1:4317"
+      http:
+        endpoint: "127.0.0.1:4318"
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
+```
+
+이 설정 파일은 OpenTelemetry 수집기가 gRPC와 HTTP 프로토콜을 통해 데이터를 수신하고, 이를 Prometheus로 내보내도록 설정합니다.
+
+### Prometheus 설정
+
+#### Prometheus 설정 예시 (prometheus.yml)
+
+```
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'otel-collector'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['localhost:8889']
+```
+---
+
+### Grafana 설정
+Grafana에서 Prometheus를 데이터 소스로 설정하고, 시각화를 설정합니다.
+
+#### Grafana에서 Prometheus 데이터 소스 추가
+
+- Grafana 웹 UI로 이동합니다.
+- 왼쪽 사이드바에서 Configuration -> Data Sources로 이동합니다.
+- Add data source 버튼을 클릭하고, Prometheus를 선택합니다.
+- URL에 Prometheus 서버의 주소 (http://localhost:9090)를 입력합니다.
+
+#### 대시보드 생성
+- Grafana 대시보드에서 + 아이콘을 클릭하고 Dashboard를 선택합니다.
+- Add new panel을 클릭합니다.
+- 쿼리 편집기에서 데이터 소스로 Prometheus를 선택하고, 원하는 메트릭을 입력하여 시각화합니다.
+
+
+
+
+
+---
 
 ## 로깅
 ### logging example
