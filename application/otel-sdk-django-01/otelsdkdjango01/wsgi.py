@@ -40,7 +40,7 @@ application = get_wsgi_application()
 
 # 리소스 설정: 여기에서 'job' 라벨을 지정합니다.
 resource = Resource.create({
-    "service.name": "python.sdk.otel-app.co.kr",
+    "service.name": "otel-sdk-django-01",
     "service.instance.id": "Django-Testapplication",
     "job": "django-service"  # 이렇게 job 이름을 설정할 수 있습니다.
 })

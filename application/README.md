@@ -41,7 +41,7 @@
 - http://localhost:8000/board/10/
 
 ### django - auto
-- http://localhost/python/board/10/
+- http://localhost/auto-python/board/10/
 - http://localhost:8001/board/10/
 
 #### collector
