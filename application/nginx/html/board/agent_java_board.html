@@ -45,7 +45,8 @@
 
             var pageCount = getQueryParam('pageCount') || 1; // Default to 1 if no parameter is provided
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://localhost/agent-java/board/' + pageCount, true);
+            //xhr.open('GET', 'http://localhost/agent-java/board/' + pageCount, true);
+			xhr.open('GET', 'http://localhost/agent-java/board');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);

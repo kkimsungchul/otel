@@ -18,9 +18,30 @@ public class UserController {
 
     @GetMapping("")
     public String getUser() {
+		testA();
         logger.info("### getUser log start");
         String a = null;
         a.charAt(10);
+		testB();
         return a;
     }
+	
+	public String testA(){
+		try{
+			Thread.sleep(5000);			
+		}catch(Exception e){
+			
+		}
+
+		return "testA success";
+	}
+	
+	public String testB(){
+		try{
+			Thread.sleep(5000);			
+		}catch(Exception e){
+			
+		}
+		return "testB success";
+	}
 }
