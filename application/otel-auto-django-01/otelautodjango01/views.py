@@ -73,3 +73,12 @@ def log_data(request):
 
 def home(request):
     return HttpResponse("Welcome to my Django app!")
+
+
+def get_user(request):
+    try:
+        raise Exception('get_user error')
+    except Exception as e:                             # 예외가 발생했을 때 실행됨
+        print('error : ', e)
+        return e
+    return 'error~~'
