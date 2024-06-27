@@ -7,10 +7,6 @@ REM Activate the virtual environment
 echo ## call venv\Scripts\activate
 call venv\Scripts\activate
 
-REM Install the waitress
-echo ## pip install waitress
-pip install waitress
-
 REM Install the requirements
 echo ## pip install -r requirements.txt
 pip install -r requirements.txt
@@ -34,10 +30,6 @@ python manage.py boards
 REM Run the Django development server
 echo ## python manage.py runserver
 python manage.py runserver
-
-REM Run the Django with waitress
-REM echo ## waitress-serve --port=8000 otelsdkdjango01.wsgi:application
-REM waitress-serve --port=8000 otelsdkdjango01.wsgi:application
 
 REM Deactivate the virtual environment
 echo ## call venv\Scripts\deactivate

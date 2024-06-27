@@ -8,8 +8,8 @@ echo ## call venv\Scripts\activate
 call venv\Scripts\activate
 
 REM Install the requirements
-REM echo ## pip install -r requirements.txt
-REM pip install -r requirements.txt
+echo ## pip install -r requirements.txt
+pip install -r requirements.txt
 
 REM Install the requirements
 echo ## opentelemetry-bootstrap -a install
