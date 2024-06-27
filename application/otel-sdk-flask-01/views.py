@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
 from models import Board, LogAPI, db
-print(Board)
 from datetime import datetime
 import pytz, secrets, string
 from opentelemetry import trace, metrics
@@ -89,6 +88,13 @@ def log_data():
 
     return jsonify(data_list)
 
+@main_blueprint.route('/user/')
+def get_user():
+    try:
+        raise Exception('get_user error')
+    except Exception as e:  # 예외가 발생했을 때 실행됨
+        return e  # JSON 형식으로 에러 메시지와 500 상태 코드 반환
+    return 'error~~'
 
 @main_blueprint.route('/')
 def home():

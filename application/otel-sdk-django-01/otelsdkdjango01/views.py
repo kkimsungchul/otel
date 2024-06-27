@@ -147,3 +147,14 @@ def log_data(request):
 
 def home(request):
     return HttpResponse("Welcome to my Django app!")
+
+def get_user(request):
+    # Spankind.Server: 서버가 클라이언트의 요청을 받고 처리하는 전체 과정
+    with tracer.start_as_current_span("user_data", kind=SpanKind.SERVER) as span:
+
+        try:
+            raise Exception('get_user error')
+        except Exception as e:                             # 예외가 발생했을 때 실행됨
+            print('error : ', e)
+            return e
+        return 'error~~'

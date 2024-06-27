@@ -32,12 +32,12 @@ echo ## python manage.py boards
 python manage.py boards
 
 REM Run the Django development server
-REM echo ## python manage.py runserver
-REM python manage.py runserver
+echo ## python manage.py runserver
+python manage.py runserver
 
 REM Run the Django with waitress
-echo ## waitress-serve --port=8000 otelsdkdjango01.wsgi:application
-waitress-serve --port=8000 otelsdkdjango01.wsgi:application
+REM echo ## waitress-serve --port=8000 otelsdkdjango01.wsgi:application
+REM waitress-serve --port=8000 otelsdkdjango01.wsgi:application
 
 REM Deactivate the virtual environment
 echo ## call venv\Scripts\deactivate
