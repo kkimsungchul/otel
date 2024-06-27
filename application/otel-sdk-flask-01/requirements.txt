@@ -1,0 +1,9 @@
+opentelemetry-distro
+opentelemetry-instrumentation-flask
+opentelemetry-exporter-otlp
+opentelemetry-instrumentation-system-metrics
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+pytz
+psutil
