@@ -59,6 +59,15 @@ service:
 ```
 
 
+## tempo ,opentelemetry 내용
+https://nangman14.tistory.com/69
+
+## Tempo vs Jaeger
+https://www.reddit.com/r/grafana/comments/vy4beq/tempo_vs_jaeger/?rdt=45362
+https://signoz.io/blog/jaeger-vs-tempo/
+https://sysnet4admin.gitbook.io/cncf/blog-and-news-ko/blog/member/tracing
+https://codersociety.com/blog/articles/jaeger-vs-zipkin-vs-tempo
+
 ## OpenTelemetry collector 에서 jaeger export 변경 사항 내용
 
 ```text
