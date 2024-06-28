@@ -13,6 +13,7 @@ pip install -r requirements.txt
 
 REM Run the flask development server with logs_exporter
 set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+set OTEL_INSTRUMENTATION_HTTP_CAPTURE_HEADERS_SERVER_REQUEST="content-type,custom_request_header"
 
 REM Run the Flask application with OpenTelemetry instrumentation
 echo ## python app.py

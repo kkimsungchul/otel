@@ -17,6 +17,7 @@ opentelemetry-bootstrap -a install
 
 REM Run the flask development server with logs_exporter
 set OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+set OTEL_INSTRUMENTATION_HTTP_CAPTURE_HEADERS_SERVER_REQUEST="content-type,custom_request_header"
 
 REM Run the Flask application with OpenTelemetry instrumentation
 echo ## opentelemetry-instrument --log_level info --traces_exporter otlp --metrics_exporter otlp --metric_export_interval 500 --logs_exporter otlp --service_name otel-auto-flask-01 --exporter_otlp_endpoint http://127.0.0.1:9999 --exporter_otlp_protocol=grpc python app.py --port=5001
