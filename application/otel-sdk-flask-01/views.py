@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, Response
+from flask import Blueprint, request, jsonify
 from models import Board, LogAPI, db
 from datetime import datetime
 import pytz, secrets, string

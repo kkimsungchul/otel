@@ -42,8 +42,8 @@ def get_client_ip():
 
 @app.route('/board/<int:num_items>/', methods=['GET'])
 def get_data(num_items):
-    start_time = datetime.now()
 
+    start_time = datetime.now()
     BoardData = session.query(Board).limit(num_items).all()
 
     data_list = [
@@ -56,7 +56,6 @@ def get_data(num_items):
         }
         for item in BoardData
     ]
-
 
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds() * 1000
@@ -74,10 +73,15 @@ def get_data(num_items):
     session.add(LogData)
     session.commit()
 
+    if duration > 1000:
+        raise TimeoutError(f"Query took {duration:.2f} milliseconds, which exceeds the limit of 1 seconds.")
+
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
 @app.route('/board/', methods=['GET'])
 def get_data_all():
+
+    start_time = datetime.now()
 
     BoardData = session.query(Board).all()
     data_list = [
@@ -90,8 +94,15 @@ def get_data_all():
         }
         for item in BoardData
     ]
+    end_time = datetime.now()
+    duration = (end_time - start_time).total_seconds() * 1000
+    num_items = len(data_list)
+    session.commit()
 
-    return jsonify(data_list)
+    if duration > 1000:
+        raise TimeoutError(f"Query took {duration:.2f} milliseconds, which exceeds the limit of 1 seconds.")
+
+    return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
 @app.route('/log/', methods=['GET'])
 def log_data():
@@ -110,15 +121,14 @@ def log_data():
         for item in LogData
     ]
 
+    session.commit()
+
     return jsonify(data_list)
 
 @app.route('/user/')
 def get_user():
-    try:
         raise Exception('get_user error')
-    except Exception as e:  # 예외가 발생했을 때 실행됨
-        return e  # JSON 형식으로 에러 메시지와 500 상태 코드 반환
-    return 'error~~'
+
 @app.route('/')
 def home():
     return "Welcome to my Flask app!"
