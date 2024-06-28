@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from datetime import datetime
+import secrets, string
 
 # Flask 애플리케이션 초기화
 app = Flask(__name__)
@@ -10,6 +11,9 @@ app = Flask(__name__)
 # SQLAlchemy 설정
 engine = create_engine('sqlite:///example.db')
 Base = declarative_base()
+def get_random_string(length=12):
+    characters = string.ascii_letters + string.digits
+    return ''.join(secrets.choice(characters) for _ in range(length))
 
 class LogAPI(Base):
     __tablename__ = 'log_api'
@@ -60,7 +64,7 @@ def get_data(num_items):
 
     LogData = LogAPI(
         user_ip=client_ip,
-        user_id="random_user_id",
+        user_id=get_random_string(30),
         start_time=start_time,
         end_time=end_time,
         call_url=request.path,

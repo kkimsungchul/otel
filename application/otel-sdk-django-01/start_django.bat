@@ -11,13 +11,9 @@ REM Install the requirements
 echo ## pip install -r requirements.txt
 pip install -r requirements.txt
 
-REM Make migrations for the otelsdkdjango01 app
-echo ## python manage.py makemigrations otelsdkdjango01
-python manage.py makemigrations otelsdkdjango01
-
 REM Apply the migrations for the otelsdkdjango01 app
-echo ## python manage.py migrate otelsdkdjango01
-python manage.py migrate otelsdkdjango01
+echo ## python manage.py migrate
+python manage.py migrate
 
 REM Show all migrations
 echo ## python manage.py showmigrations

@@ -95,7 +95,7 @@ def get_data(request, num_items):
 
 def get_data_all(request):
 
-    with tracer.start_as_current_span("get_data_all", kind=SpanKind.SERVER) as span:
+    with tracer.start_as_current_span("GET board", kind=SpanKind.SERVER) as span:
         start_time = timezone.now()  # 처리 시작 시간 기록
 
         # 데이터 조회를 위한 자식 스팬 생성
@@ -119,7 +119,7 @@ def get_data_all(request):
 
 def log_data(request):
     # Spankind.Server: 서버가 클라이언트의 요청을 받고 처리하는 전체 과정
-    with tracer.start_as_current_span("log_data", kind=SpanKind.SERVER) as span:
+    with tracer.start_as_current_span("GET log", kind=SpanKind.SERVER) as span:
 
         LogData = session.query(log_api).all()
 
