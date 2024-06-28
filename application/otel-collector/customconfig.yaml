@@ -19,8 +19,9 @@ exporters:
     endpoint: 127.0.0.1:4317
     tls :
       insecure : true
-
-
+  otlphttp:
+#    endpoint: http://localhost:3100/otlp
+    endpoint : http://localhost:3100/loki/api/v1/push
 processors:
   batch:
 
@@ -28,7 +29,7 @@ service:
   pipelines:
     logs/dev:
       receivers: [otlp]
-      exporters: [otlp/jaeger,file]
+      exporters: [file,otlphttp]
       processors: [batch]
     traces:
       receivers: [otlp]
