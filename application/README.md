@@ -25,16 +25,16 @@
 - http://localhost
 
 #### spring - sdk
-- http://localhost/java/board/2
-- http://localhost:8080/board/2
+- http://localhost/java/board/10
+- http://localhost:8080/board/10
 
 #### spring - agent
-- http://localhost/agent-java/board/2
-- http://localhost:5050/board/2
+- http://localhost/agent-java/board/10
+- http://localhost:5050/board/10
 
 #### spring - auto
-- http://localhost/auto-java/board/2
-- http://localhost:6060/board/2
+- http://localhost/auto-java/board/10
+- http://localhost:6060/board/10
 
 ### django - sdk
 - http://localhost/python/board/10/
@@ -57,3 +57,6 @@
 
 #### grafana
 - http://localhost:3000 
+
+#### loki
+- http://localhost:3100 
