@@ -2,7 +2,7 @@
 https://youtu.be/EZmUxMtx5Fc?si=eLSLaShEMqekyrEy
 ※ 참고사항 해당영상은 2022년도 자료이며, 현재와는 다른내용이 있을 수 있음
 
-# why
+# WHY
 
 - 5:50
 옵저버빌리티 (관측성, 관찰 가능성) 
@@ -70,7 +70,7 @@ MSA 환경에서는 여러개의 컴포넌트들을 다 분석해야 할때는 �
 계측 수집부터 각종 API SDK등 다양한 도구를 제공하는 것을 목표로 삼고 있음
 호환성 높은 모니터링 플랫폼 개발이 가능함
 
-# how
+# HOW
 다른 시스템 혹은 애플리케이션을 모니터링해야 하므로 고가용성
 수많은 시스템을 모니터링 할 수 있는 능력이 필요함
 
@@ -117,5 +117,170 @@ Gateway콜렉터(span)
 Gateway콜렉터(log)
 
 30분부터 봐야함
+http_server_requests_seconds_*
+500대 에러 비율 확인 가능
+초당 리퀘스트 확인
+평균 응답시간 확인
 
-# next
+500대 에러발생
+-> 메트릭에서 확인
+-> 트레이서 부분 확인
+-> 트레이서 ID로 로그 조회
+
+
+# Q&A
+오픈텔레메트리 콜렉터에서 GRPC 로 리시버를 설정함
+메트릭 정보를 오픈텔레메트리로 보냈는데
+
+---
+https://www.youtube.com/watch?v=uKATqtjK2eo
+※ 해당 영상은 2021년9월 자료
+
+용어와 아키텍처 설명
+벤더 종속성이 없는 오픈소스기반에서의 옵저버빌리티 확보
+
+1:05
+옵저버빌리티 (관측가능성, 관찰가능성)
+시스템의 속성을 자세히 설명하는데 사용하는 용어
+도구들을 통해 시스템과 애플리케이션에서 발생하는 문제를 파악하는 것
+원격측정(Telemetry) data
+
+모니터링과 가장 큰 차이는
+모니터링은 시스템의 상태를 확인하는거고
+옵저버리리티는 시스템의 속성을 확인하고 원인분석을 통해서 장애의 근본 원인을 찾는것
+
+Logs : 타임스탬프
+Metrics : 키-밸류 태그를 가지는 집계/통계 데이터 (Gauge , Counter , Histogram 등)
+Traces : 개별 Request가 전체 시스템에 전파(propagate)될 때 경로에 대한 기록
+
+2:55
+Distributed Trace(분산 추적)
+시스템의 프로세스에서 특정 부분으 ㅣ지연(latency)를 알려주는 원격 측정 방법
+요청이 마이크로서비스 및 서버리스 아키텍처를 통해 전파될 때 이동하는 경로를 기록
+마이크로서비스 환경같은 최신 아키텍처에서 수많은 구성 요소간의 종속성과 관계를 측정하고
+지연 병목을 찾아내는 도구이기 때문에 옵저버빌리티에서 매우 중요함
+
+4:15
+오픈트레이싱(OpenTracing) + 오픈센서스(OpenCensus)  = 오픈텔레메트리
+오픈센서스 : 애플리케이션 메트릭과 분산 트레이스를 수집하기 위한 다양한 언어별 라이브러리 셋
+오픈트레이싱 : 분산추적을 위한 벤더 중립적인 API와 계측
+
+4:45
+오픈텔레메트리란
+옵저버빌리티에 필요한 데이터를 계측하고, 수집 내보내기를 해주는 도구
+
+다양한 언어 지원
+CSP : Azure , GCP , AWS 지원
+모니터링 벤더 : Lightstep , Datadog , Dynatrace , Honeycomb, New Relic , Splunk, Stackdriver
+벤더사에서는 대부분 오픈텔레메트리를 지원해주며, 해당 규격으로 개발을 하고 있음
+
+9:11
+컨텍스트 전파(Context Propagation)
+Core Concept : 서비스간 트레이스 전달 규약 (W3C, Zipkin B3)
+
+오픈텔레메트리의 핵심은 개발자가 보고싶을때 컨텍스트를 제공해주는 것
+
+10:15
+Trace : 서비스 요청에 대한 애플리케이션 또는 서비스 구조 확인하고,
+모든 서비스들 간 데이터 흐름을 시각화하여 아키텍처상의 병목 현상을 파악
+
+Span : 다양한 정보를 캡슐화(encapsulate)
+
+전체의 흐름을 트레이스로 보고
+그 안에 있는 정보들을 스팬, 스팬에는 부모 자식 스팬이 있음
+
+11:50
+Spans
+Name , Timestamp(start , finish)
+Attributes : 자유롭게 추가 가능한 키-벨류(Customer ID , Version , Host ID, 애플리케이션 버전 등)
+Events : 타임스탬프 문자열 형태의 tuple(name, timestamp , attributes)
+Links : span의 인과 관계
+SpanContext : Span이 참조하는데 필요한 정보
+TraceId : 전체 시스템 식별자, WorldWide 식별자(16 bytes array identifier)
+SpanID (ParendId) : 서비스 레벨에서의 글로벌 변수, Globally in a service(8 Bytes array identifier)
+TraceFlags : Optional , Sampling bit( 1 byte(8bit) , But only 1bit Used)
+TraceState : Optional 키-밸류( ex, 벤더 식별 정보)
+
+13:30
+W3C Trace Context
+상관 정보에 대한 전달 방법 표준
+TraceParent : trace-id(TraceId) , span-id(SpanId) , sampling flag(TraceFlags)
+TraceState
+
+Baggage : 메트릭, 추적 및 로그에 사용자가 원하는 컨텍스트와 정보를 추가하는데 사용
+ baggage : userId = alice , baggage : serverNode=node01
+ https://w3c.github.io/baggage/
+
+14:20
+컨텍스트 도식화
+UML다이어그램
+
+trace ID
+-> 스팬 시작 (trace ID , span ID)
+->> 자식 스팬 시작 (trace ID , parent span ID , span ID)
+->>> 자식 스팬 시작 (trace ID , parent span ID , span ID)
+위의 내용에서 trace ID는 모두 똑같음
+span ID는 해당 span의 고유 ID이며, parent span ID는 바로 상위의 span ID
+
+
+16:20
+오픈텔레메트리 아키텍처 설명
+
+17:50
+콜렉터 도식화
+
+18:40
+콜렉터 설명
+리시버 ,프로세스,익스포터
+
+메모리제약
+배치 제약
+샘플링 비율 (저장되는 트레이싱의 볼륨 설정)
+
+20:22
+파이프라인 구성 용이
+백엔드 선택 자유
+운영에 대한 용이성, 중앙에서 운영
+
+콜렉터 성능
+2018년도 구글 서밋에서 발표한 내용
+1 collector , 24 core 48GB
+초당 20만 Spans (17.3 billion span/day)
+57TB/day
+no dropped spans  (유실된 span이 하나도 없음)
+
+21:15
+자체 구축 데모 설명
+
+
+23:00
+Spring 구성 설명
+Actuator , prometheus 사용해서 어플리케이션에서 바로 툴로 전송
+
+24:30
+Spring 수동 설정 (SDK)
+어노테이션 사용방법 설명
+
+데모 시연
+
+30:30
+샘플링
+Span , Metric 에 key : value를 추가하게되면 데이터에 엄청난 비용이 발생할 수 있음
+자체적으로 샘플링을 해서 데이터 수집에 대한 비용을 낮출수 있음
+다만 샘플링 비율을 너무 높게 하면, 데이터 비용이 높고
+너무 낮게하면 오차가 너무 심함
+샘플링 값을 테스트 하여 원하는 샘플링 정책을 가져가는게 좋음
+
+32:00
+오픈텔레메트리 정리
+벤더 중립적인 단일 계측 라이브러리(자동 및 수동 계측 모두 지원)
+에이전트 또는 게이트웨이를 포함해 다양한 방법으로 배포할 수 있는 단일 콜렉터 바이너리
+환경 구성을 통해 데이터를 여러 대상에 병렬로 전송 가능
+데이터 수집을 보장하기 위한 개방형 표준 의미 규칙 (W3C 규칙)
+마이그레이션을 지원하기 위해 여러 컨텍스트 전파 형식을 병렬로 지원
+다양한 오픈소스와 상용 프로토콜 지원
+오픈트레이싱, 오픈센서스를 사용항 경험이 있으면 좋음
+플러그형 아키텍처로 추가 프로토콜과 포맷을 쉽게 추가 가능
+
+33:50
+레퍼런스 URL

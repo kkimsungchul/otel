@@ -77,6 +77,8 @@ limits_config:
 
 ### Opentelemetry Colector 의 yml 파일 수정
 - 파일명 : customconfig.yaml
+    - 설정 시 Loki의 API문서의 내용을 보면 http://127.0.0.1:3100/otlp/v1/logs 의 URL 전체를 입력하지 않고 otlp까지만 입력함
+    - 콜렉터에서 자동으로 엔드포인트 URL을 완성시킴
 ```yaml
 exporters:
   otlphttp:
@@ -89,6 +91,7 @@ service:
       exporters: [file,otlphttp]
     ...중략...
 ```
+
 
 ### Loki 실행
 - cmd에서 아래의 명령어 입력
