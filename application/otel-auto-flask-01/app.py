@@ -73,9 +73,6 @@ def get_data(num_items):
     session.add(LogData)
     session.commit()
 
-    if duration > 20000:
-        raise TimeoutError(f"Query took {duration:.2f} milliseconds, which exceeds the limit of 1 seconds.")
-
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
 @app.route('/board/', methods=['GET'])
@@ -98,9 +95,6 @@ def get_data_all():
     duration = (end_time - start_time).total_seconds() * 1000
     num_items = len(data_list)
     session.commit()
-
-    if duration > 1000:
-        raise TimeoutError(f"Query took {duration:.2f} milliseconds, which exceeds the limit of 1 seconds.")
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 

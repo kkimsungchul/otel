@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 content=get_random_string(2000),
                 create_date=timezone.now(),
                 update_date=timezone.now()
-            ) for _ in range(100000)
+            ) for _ in range(1000000)
         ]
         print("## Database data insert end")
         try:
