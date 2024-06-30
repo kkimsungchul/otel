@@ -5,7 +5,7 @@
 ## 참고 링크
 - URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
 - URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
-- 
+- URL : https://2hyes.tistory.com/76
 ## 다운로드 링크
 - URL : https://grafana.com/grafana/download
 - Windows Installer : https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.windows-amd64.msi
@@ -41,3 +41,31 @@ connection : 프로메테우스 접속 URL:port
 
 ## Jaeger(예거) 연동
 - 프로메테우스 연동 방법과 똑같으며 connection 부분만 jaeger URL로 변경
+
+## 알람기능 추가
+이메일, 슬랙, 텔레그램 등 이상 발생 시 알람 발송 가능
+- 구글 메일서버 사용하여 알람기능 추가
+- 2차 인증 메일인 경우 앱 비밀번호 부여
+    - https://myaccount.google.com/apppasswords
+
+- C:\grafana-v11.0.0\conf\defaults.ini 수정
+```
+#################################### SMTP / Emailing #####################
+[smtp]
+enabled = true
+host = smtp.gmail.com:587
+user = leejihyoun.ba@gmail.com
+# If the password contains # or ; you have to wrap it with triple quotes. Ex """#password;"""
+password = qdxd fhrz issz pxdu
+cert_file =
+key_file =
+skip_verify = false
+from_address = leejihyoun.ba@gmail.com
+from_name = Grafana
+ehlo_identity =
+startTLS_policy =
+enable_tracing = false
+```
+- Grafana(localhost:3000) > Alerting > Alert rules에 알람 룰 추가
+- Grafana(localhost:3000) > Alerting > Contact points에 메일 수신자 지정
+- 사내메일로도 발송 가능
