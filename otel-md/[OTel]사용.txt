@@ -210,3 +210,7 @@ https://jerryljh.tistory.com/113
 
 
 https://dongwook35.tistory.com/87
+
+kubernetes에 OpenTelemetry Collector, Grafana Tempo를 설치하고 tracing 구현해 보기
+https://luvstudy.tistory.com/237
+출처: https://luvstudy.tistory.com/237 [파란하늘의 지식창고:티스토리]
