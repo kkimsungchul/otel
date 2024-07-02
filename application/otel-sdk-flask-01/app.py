@@ -1,4 +1,5 @@
 import logging
+import os
 from flask import Flask
 from models import db
 from views import main_blueprint
@@ -18,6 +19,8 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 import psutil
 from opentelemetry.metrics import CallbackOptions, Observation
+
+os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'
 
 def create_app():
     app = Flask(__name__)
