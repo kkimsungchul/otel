@@ -16,11 +16,11 @@ public class ReplyService {
 
 
     @WithSpan
-    public boolean getReply() {
+    public boolean getReply(boolean flag) {
         try {
             Thread.sleep(300);
             authService.checkAuth();
-            userService.getUser();
+            userService.getUser(flag);
             Thread.sleep(1000);
             getReplyCount();
         }catch (Exception e){

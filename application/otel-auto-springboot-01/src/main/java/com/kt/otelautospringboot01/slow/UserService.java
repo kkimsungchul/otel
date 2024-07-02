@@ -11,8 +11,10 @@ public class UserService {
     private final LdapService ldapService;
 
     @WithSpan
-    public void getUser() throws Exception{
-        Thread.sleep(3500);
+    public void getUser(boolean flag) throws Exception{
+        if(flag){
+            Thread.sleep(3500);
+        }
         ldapService.getLdapUser();
     }
 }
