@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: log-system
+#  datasource :
+#    url:  jdbc:h2:~/log-system
+#    username : sa
+#    password :
+#    driver-class-name : org.h2.Driver
+#  jpa :
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        show_sql: false
+#        format_sql: false
+#    defer-datasource-initialization: true
+#  sql:
+#    init:
+#      mode: always
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+server:
+  port: 10040
+
+otel:
+  sdk:
+    metrics:
+      period: 500
+    traces:
+      period: 500
+  service:
+    name: log-system
+  resource:
+    attributes:
+      deployment:
+        environment: dev
+      service:
+        name: log-system
+      env: dev
+  instrumentation:
+    micrometer:
+      enabled: true
+    spring-web:
+      enabled: true
+    spring-webmvc:
+      enabled: true
+    spring-webflux:
+      enabled: true
+    kafka:
+      enabled: true
+  exporter:
+    otlp:
+      protocol : grpc
+      endpoint: http://127.0.0.1:9999 # Opentelemetry Collector ????
+  metrics:
+    exporter: otlp, logging
+  logs:
+    exporter: otlp
+  traces:
+    exporter: otlp
+  log:
+    level: debug
