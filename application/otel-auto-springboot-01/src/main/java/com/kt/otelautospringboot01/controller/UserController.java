@@ -35,6 +35,13 @@ public class UserController {
     @WithSpan
     @GetMapping("/slow")
     public boolean slowTest(){
-        return replyService.getReply();
+        return replyService.getReply(true);
+    }
+
+
+    @WithSpan
+    @GetMapping("/normal")
+    public boolean normalTest(){
+        return replyService.getReply(false);
     }
 }
