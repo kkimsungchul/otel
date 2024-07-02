@@ -17,7 +17,7 @@ meter = metrics.get_meter("django-app.meter")
 prefix = "sdk_djn_"
 
 request_duration = meter.create_histogram(
-    "request_duration",
+    prefix+"request_duration",
     description="Request processing time in milliseconds",
     unit="ms"
 )

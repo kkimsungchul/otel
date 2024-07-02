@@ -29,6 +29,8 @@ import java.net.UnknownHostException;
 public class OpenTelemetryAspect {
     private static final Logger logger = LogManager.getLogger(OpenTelemetryAspect.class.getName());
 
+    String prefix = "sdk_spr_";
+
     @Autowired
     private Tracer tracer;
 
@@ -42,7 +44,7 @@ public class OpenTelemetryAspect {
 
     @Autowired
     public OpenTelemetryAspect(Meter meter) {
-        this.requestCounter = meter.counterBuilder("requests_total")
+        this.requestCounter = meter.counterBuilder(prefix+"requests_total")
                 .setDescription("Total number of requests")
                 .setUnit("requests")
                 .build();
@@ -96,7 +98,7 @@ public class OpenTelemetryAspect {
         requestCounter.add(1, attributes);
 
         //histogram 세팅
-        LongHistogram histogram = meter.histogramBuilder("SpringBoot-app-histogram")
+        LongHistogram histogram = meter.histogramBuilder(prefix+"SpringBoot-app-histogram")
                 .ofLongs() // Required to get a LongHistogram, default is DoubleHistogram
                 .setDescription("SpringBoot-app-URL-histogram")
                 .setUnit("call count")

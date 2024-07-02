@@ -84,14 +84,14 @@ tracer = trace.get_tracer(__name__)
 # 특정 작업을 나타내는 스팬 시작 및 다양한 속성 추가
 with tracer.start_as_current_span("operation", kind=SpanKind.INTERNAL) as span:
     # 스팬에 속성 추가
-    span.set_attribute(prefix+"hostname", "hostName")
-    span.set_attribute(prefix+"ip-address", "ip")
-    span.set_attribute(prefix+"region", "korea")
-    span.set_attribute(prefix+"http.method", "httpMethod")
-    span.set_attribute(prefix+"http.url", "httpUrl")
-    span.set_attribute(prefix+"http.uri", "httpUri")
-    span.set_attribute(prefix+"http.queryString", "queryString")
-    span.set_attribute(prefix+"http.fullUrl", "fullUrl")
+    span.set_attribute("hostname", "hostName")
+    span.set_attribute("ip-address", "ip")
+    span.set_attribute("region", "korea")
+    span.set_attribute("http.method", "httpMethod")
+    span.set_attribute("http.url", "httpUrl")
+    span.set_attribute("http.uri", "httpUri")
+    span.set_attribute("http.queryString", "queryString")
+    span.set_attribute("http.fullUrl", "fullUrl")
     logging.getLogger().error("This is a log message")
 
 # Metric Exporter 설정

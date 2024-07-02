@@ -11,14 +11,16 @@ main_blueprint = Blueprint('main', __name__)
 tracer = trace.get_tracer(__name__)
 meter = metrics.get_meter(__name__)
 
+prefix = "sdk_fls_"
+
 request_counter = meter.create_counter(
-    name="request_count",
+    name=prefix+"request_count",
     description="Number of requests received",
     unit="1"
 )
 
 request_duration = meter.create_histogram(
-    "request_duration",
+    prefix+"request_duration",
     description="Request processing time in milliseconds",
     unit="ms"
 )
