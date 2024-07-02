@@ -42,6 +42,7 @@ public class OpenTelemetryConfig {
     private static final long METRIC_EXPORT_INTERVAL_MS = 800L;
     private static final Logger logger = LogManager.getLogger(OpenTelemetryConfig.class.getName());
 
+    String prefix = "sdk_prefix_Spring_";
     private final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final long NO_HEAP_LIMIT = -1;
 
@@ -53,7 +54,7 @@ public class OpenTelemetryConfig {
 
         Resource resource = Resource.getDefault()
                 .toBuilder()
-                .put(ResourceAttributes.SERVICE_NAME, "otel-sdk-springboot-01-service")    //서비스명 설정
+                .put(ResourceAttributes.SERVICE_NAME, prefix+"otel-sdk-springboot-01-service")    //서비스명 설정
                 .put(ResourceAttributes.SERVICE_VERSION, "1.0.0")       //서비스 버전 설정
                 .build();
 
@@ -107,30 +108,30 @@ public class OpenTelemetryConfig {
     //AOP에서 사용하기 위해 Bean 등록
     @Bean
     public Tracer tracer(OpenTelemetry openTelemetry) {
-        return openTelemetry.getTracer("com.kt.otelsdkspringboot01");
+        return openTelemetry.getTracer(prefix+"com.kt.otelsdkspringboot01");
     }
 
     @Bean
     public Meter meter(OpenTelemetry openTelemetry) {
-        return openTelemetry.getMeter("com.kt.otelsdkspringboot01");
+        return openTelemetry.getMeter(prefix+"com.kt.otelsdkspringboot01");
     }
 
 
 
     private void configureMetrics(Meter meter) {
-        meter.gaugeBuilder("jvm.memory.totalMemory")
+        meter.gaugeBuilder(prefix+"jvm.memory.totalMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("totalMemory")));
-        meter.gaugeBuilder("jvm.memory.usedMemory")
+        meter.gaugeBuilder(prefix+"jvm.memory.usedMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("usedMemory")));
-        meter.gaugeBuilder("jvm.memory.freeMemory")
+        meter.gaugeBuilder(prefix+"jvm.memory.freeMemory")
                 .buildWithCallback(measurement -> measurement.record(getMemory().get("freeMemory")));
-        meter.gaugeBuilder("jvm.memory.heapUsage")
+        meter.gaugeBuilder(prefix+"jvm.memory.heapUsage")
                 .buildWithCallback(measurement -> measurement.record(getHeapUsage()));
 //        io.micrometer.core.instrument.Meter cpuUsageMeter = meterRegistry.find("system.cpu.usage").meter();
-        meter.gaugeBuilder("system.cpu.usage")
+        meter.gaugeBuilder(prefix+"system.cpu.usage")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("system.cpu.usage").gauge().value()));
 //        io.micrometer.core.instrument.Meter memoryUsageMeter = meterRegistry.find("jvm.memory.used").meter();
-        meter.gaugeBuilder("jvm.memory.used")
+        meter.gaugeBuilder(prefix+"jvm.memory.used")
                 .buildWithCallback(measurement -> measurement.record(meterRegistry.get("jvm.memory.used").gauge().value() / 1024 / 1024));
     }
 
