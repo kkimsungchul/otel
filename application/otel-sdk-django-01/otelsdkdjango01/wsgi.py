@@ -37,12 +37,14 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'otelsdkdjango01.settings')
 
 # WSGI 애플리케이션 초기화
 application = get_wsgi_application()
+prefix = "sdk_djn_"
+
 
 # 리소스 설정: 여기에서 'job' 라벨을 지정합니다.
 resource = Resource.create({
     "service.name": "otel-sdk-django-01",
-    "service.instance.id": "Django-Testapplication",
-    "job": "django-service"  # 이렇게 job 이름을 설정할 수 있습니다.
+    "service.instance.id": prefix+"Django-Testapplication",
+    "job": prefix+"django-service"  # 이렇게 job 이름을 설정할 수 있습니다.
 })
 
 # Logger provider: Opentelemetry 로깅 시스템에서 로그를 관리하는 컴포넌트
@@ -82,14 +84,14 @@ tracer = trace.get_tracer(__name__)
 # 특정 작업을 나타내는 스팬 시작 및 다양한 속성 추가
 with tracer.start_as_current_span("operation", kind=SpanKind.INTERNAL) as span:
     # 스팬에 속성 추가
-    span.set_attribute("hostname", "hostName")
-    span.set_attribute("ip-address", "ip")
-    span.set_attribute("region", "korea")
-    span.set_attribute("http.method", "httpMethod")
-    span.set_attribute("http.url", "httpUrl")
-    span.set_attribute("http.uri", "httpUri")
-    span.set_attribute("http.queryString", "queryString")
-    span.set_attribute("http.fullUrl", "fullUrl")
+    span.set_attribute(prefix+"hostname", "hostName")
+    span.set_attribute(prefix+"ip-address", "ip")
+    span.set_attribute(prefix+"region", "korea")
+    span.set_attribute(prefix+"http.method", "httpMethod")
+    span.set_attribute(prefix+"http.url", "httpUrl")
+    span.set_attribute(prefix+"http.uri", "httpUri")
+    span.set_attribute(prefix+"http.queryString", "queryString")
+    span.set_attribute(prefix+"http.fullUrl", "fullUrl")
     logging.getLogger().error("This is a log message")
 
 # Metric Exporter 설정
@@ -116,13 +118,13 @@ def get_ram_usage_callback(_: CallbackOptions):
 
 
 requests_counter = meter.create_counter(
-    name="requests",
+    name=prefix+"requests",
     description="number of requests",
     unit="1"
 )
 
 requests_size = meter.create_histogram(
-    name="request_size_bytes",
+    name=prefix+"request_size_bytes",
     description="size of requests",
     unit="byte"
 )
@@ -130,14 +132,14 @@ requests_size = meter.create_histogram(
 
 cpu_gauge = meter.create_observable_gauge(
     callbacks=[get_cpu_usage_callback],
-    name="cpu_percent",
+    name=prefix+"cpu_percent",
     description="per-cpu usage",
     unit="1"
 )
 
 ram_gauge = meter.create_observable_gauge(
     callbacks=[get_ram_usage_callback],
-    name="ram_percent",
+    name=prefix+"ram_percent",
     description="RAM memory usage",
     unit="1",
 )

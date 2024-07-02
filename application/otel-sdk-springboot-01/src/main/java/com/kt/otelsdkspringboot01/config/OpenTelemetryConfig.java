@@ -42,7 +42,7 @@ public class OpenTelemetryConfig {
     private static final long METRIC_EXPORT_INTERVAL_MS = 800L;
     private static final Logger logger = LogManager.getLogger(OpenTelemetryConfig.class.getName());
 
-    String prefix = "sdk_prefix_Spring_";
+    String prefix = "sdk_spr_";
     private final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static final long NO_HEAP_LIMIT = -1;
 
@@ -54,7 +54,7 @@ public class OpenTelemetryConfig {
 
         Resource resource = Resource.getDefault()
                 .toBuilder()
-                .put(ResourceAttributes.SERVICE_NAME, prefix+"otel-sdk-springboot-01-service")    //서비스명 설정
+                .put(ResourceAttributes.SERVICE_NAME, "otel-sdk-springboot-01-service")    //서비스명 설정
                 .put(ResourceAttributes.SERVICE_VERSION, "1.0.0")       //서비스 버전 설정
                 .build();
 

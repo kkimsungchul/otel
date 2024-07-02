@@ -22,6 +22,8 @@ from opentelemetry.metrics import CallbackOptions, Observation
 
 os.environ['OTEL_METRIC_EXPORT_INTERVAL'] = '500'
 
+prefix = "sdk_fls_"
+
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///example.db'
@@ -33,8 +35,8 @@ def create_app():
     # OpenTelemetry 설정
     resource = Resource(attributes={
         "service.name": "otel-sdk-flask-01",
-        "service.instance.id": "Flask-Testapplication",
-        "job": "flask-service"
+        "service.instance.id": prefix+"Flask-Testapplication",
+        "job": prefix+"flask-service"
     })
 
     # Logger provider 설정
@@ -74,27 +76,27 @@ def create_app():
         yield Observation(ram_percent)
 
     requests_counter = meter.create_counter(
-        name="requests",
+        name=prefix+"requests",
         description="number of requests",
         unit="1"
     )
 
     requests_size = meter.create_histogram(
-        name="request_size_bytes",
+        name=prefix+"request_size_bytes",
         description="size of requests",
         unit="byte"
     )
 
     cpu_gauge = meter.create_observable_gauge(
         callbacks=[get_cpu_usage_callback],
-        name="cpu_percent",
+        name=prefix+"cpu_percent",
         description="per-cpu usage",
         unit="1"
     )
 
     ram_gauge = meter.create_observable_gauge(
         callbacks=[get_ram_usage_callback],
-        name="ram_percent",
+        name=prefix+"ram_percent",
         description="RAM memory usage",
         unit="1",
     )

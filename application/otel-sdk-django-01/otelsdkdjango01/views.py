@@ -14,6 +14,8 @@ from opentelemetry.trace import SpanKind
 tracer = trace.get_tracer("django-app.tracer")
 meter = metrics.get_meter("django-app.meter")
 
+prefix = "sdk_djn_"
+
 request_duration = meter.create_histogram(
     "request_duration",
     description="Request processing time in milliseconds",
@@ -51,7 +53,7 @@ def get_data(request, num_items):
             ]
 
             # 자식 스팬에 결과 속성 추가
-            child_span_select.set_attribute("db.system", "sqlite")
+            child_span_select.set_attribute(prefix+"db.system", "sqlite")
             child_span_select.set_attribute("span.kind", "client")
             child_span_select.set_attribute("num_items", num_items)
 
