@@ -31,6 +31,57 @@
   "liveNow": false,
   "panels": [
     {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 26,
+      "panels": [],
+      "title": "Tracing",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "jaeger",
+        "uid": "ddq5ibpr86h34f"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 27,
+      "targets": [
+        {
+          "datasource": {
+            "type": "jaeger",
+            "uid": "ddq5ibpr86h34f"
+          },
+          "query": "6a420ace52c67b4bcc0f1aa4ee97bc29",
+          "refId": "A"
+        }
+      ],
+      "title": "Service & Operation",
+      "type": "traces"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 25,
+      "panels": [],
+      "title": "Metric",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "prometheus",
         "uid": "edq5iach1srnke"
@@ -57,7 +108,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 0
+        "y": 13
       },
       "id": 19,
       "options": {
@@ -141,7 +192,7 @@
         "h": 8,
         "w": 13,
         "x": 11,
-        "y": 0
+        "y": 13
       },
       "id": 21,
       "options": {
@@ -276,8 +327,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "dark-red",
-                "value": null
+                "color": "dark-red"
               },
               {
                 "color": "green",
@@ -293,7 +343,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 21
       },
       "id": 2,
       "options": {
@@ -379,8 +429,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -396,7 +445,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 21
       },
       "id": 17,
       "options": {
@@ -448,8 +497,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -461,7 +509,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 29
       },
       "id": 23,
       "options": {
@@ -504,7 +552,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"0\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"0\", exported_job=\"otel-sdk-flask-01\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
@@ -522,7 +570,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"1\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"1\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -539,7 +587,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"2\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"2\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -556,7 +604,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"3\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"3\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -573,7 +621,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"4\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"4\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -590,7 +638,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"5\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"5\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -607,7 +655,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"6\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"6\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -624,7 +672,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"7\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"7\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -641,7 +689,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"8\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"8\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -658,7 +706,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"9\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"9\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -675,7 +723,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"10\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"10\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -692,7 +740,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"11\", exported_job=\"otel-sdk-flask-01\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"11\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -700,6 +748,74 @@
           "legendFormat": "cpu_number=\"11\"",
           "range": true,
           "refId": "M",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"12\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"12\"",
+          "range": true,
+          "refId": "N",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"13\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"13\"",
+          "range": true,
+          "refId": "O",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"14\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"14\"",
+          "range": true,
+          "refId": "P",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"15\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"15\"",
+          "range": true,
+          "refId": "Q",
           "useBackend": false
         }
       ],
@@ -754,8 +870,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -770,7 +885,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 29
       },
       "id": 24,
       "options": {
@@ -794,7 +909,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ram_percent_ratio",
+          "expr": "sdk_fls_ram_percent_ratio{exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -869,7 +984,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 37
       },
       "id": 10,
       "options": {
@@ -943,7 +1058,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 37
       },
       "id": 8,
       "options": {
@@ -1112,7 +1227,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 45
       },
       "id": 4,
       "options": {
@@ -1160,7 +1275,12 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "edq5iach1srnke"
@@ -1193,6 +1313,6 @@
   "timezone": "",
   "title": "Flask Monitoring",
   "uid": "flask-monitoring",
-  "version": 5,
+  "version": 11,
   "weekStart": ""
 }

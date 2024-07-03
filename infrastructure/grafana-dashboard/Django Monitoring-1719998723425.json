@@ -26,10 +26,36 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 16111,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 7,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "datasource": {
+        "type": "jaeger",
+        "uid": "ddq5ibpr86h34f"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 25,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "jaeger",
+            "uid": "ddq5ibpr86h34f"
+          },
+          "query": "d7b4c6708f68ecb38d0c0e2a8b5c3214",
+          "refId": "A"
+        }
+      ],
+      "title": "Panel Title",
+      "type": "traces"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -57,7 +83,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 0
+        "y": 13
       },
       "id": 19,
       "options": {
@@ -141,7 +167,7 @@
         "h": 8,
         "w": 13,
         "x": 11,
-        "y": 0
+        "y": 13
       },
       "id": 21,
       "options": {
@@ -293,7 +319,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 21
       },
       "id": 2,
       "options": {
@@ -396,7 +422,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 21
       },
       "id": 17,
       "options": {
@@ -461,7 +487,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 29
       },
       "id": 23,
       "options": {
@@ -489,13 +515,17 @@
             "type": "prometheus",
             "uid": "edq5iach1srnke"
           },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "flask_request_duration_seconds_sum{app_name=\"flask-monitoring\"} / flask_request_duration_seconds_count{app_name=\"flask-monitoring\"}",
-          "interval": "",
-          "legendFormat": "{{method}} {{endpoint}}",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"0\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"0\"",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         },
         {
           "datasource": {
@@ -504,13 +534,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"0\"}",
-          "format": "time_series",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"1\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"0\"",
+          "legendFormat": "cpu_number=\"1\"",
           "range": true,
           "refId": "B",
           "useBackend": false
@@ -522,12 +551,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"1\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"2\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"1\"",
+          "legendFormat": "cpu_number=\"2\"",
           "range": true,
           "refId": "C",
           "useBackend": false
@@ -539,12 +568,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"2\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"3\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"2\"",
+          "legendFormat": "cpu_number=\"3\"",
           "range": true,
           "refId": "D",
           "useBackend": false
@@ -556,12 +585,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"3\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"4\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"3\"",
+          "legendFormat": "cpu_number=\"4\"",
           "range": true,
           "refId": "E",
           "useBackend": false
@@ -573,12 +602,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"4\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"5\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"4\"",
+          "legendFormat": "cpu_number=\"5\"",
           "range": true,
           "refId": "F",
           "useBackend": false
@@ -590,12 +619,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"5\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"6\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"5\"",
+          "legendFormat": "cpu_number=\"6\"",
           "range": true,
           "refId": "G",
           "useBackend": false
@@ -607,12 +636,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"6\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"7\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"6\"",
+          "legendFormat": "cpu_number=\"7\"",
           "range": true,
           "refId": "H",
           "useBackend": false
@@ -624,12 +653,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"7\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"8\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"7\"",
+          "legendFormat": "cpu_number=\"8\"",
           "range": true,
           "refId": "I",
           "useBackend": false
@@ -641,12 +670,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"8\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"9\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"8\"",
+          "legendFormat": "cpu_number=\"9\"",
           "range": true,
           "refId": "J",
           "useBackend": false
@@ -658,12 +687,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"9\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"10\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"9\"",
+          "legendFormat": "cpu_number=\"10\"",
           "range": true,
           "refId": "K",
           "useBackend": false
@@ -675,12 +704,12 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"10\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"11\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"10\"",
+          "legendFormat": "cpu_number=\"11\"",
           "range": true,
           "refId": "L",
           "useBackend": false
@@ -692,14 +721,65 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "cpu_percent_ratio{cpu_number=\"11\"}",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"12\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"11\"",
+          "legendFormat": "cpu_number=\"12\"",
           "range": true,
           "refId": "M",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"13\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"13\"",
+          "range": true,
+          "refId": "N",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"14\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"14\"",
+          "range": true,
+          "refId": "O",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "edq5iach1srnke"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"15\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"15\"",
+          "range": true,
+          "refId": "P",
           "useBackend": false
         }
       ],
@@ -770,7 +850,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 29
       },
       "id": 24,
       "options": {
@@ -794,8 +874,9 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ram_percent_ratio",
+          "expr": "sdk_djn_ram_percent_ratio{exported_job=\"otel-sdk-django-01\"}",
           "fullMetaSearch": false,
+          "hide": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "ram_percent_ratio",
@@ -805,352 +886,6 @@
         }
       ],
       "title": "메모리 사용량",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "edq5iach1srnke"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 24
-      },
-      "id": 10,
-      "options": {
-        "legend": {
-          "calcs": [
-            "last"
-          ],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "rate(http_server_requests_seconds_sum{instance=\"$Application\", outcome=\"SUCCESS\", uri!=\"/health/server\"}[1m]) / rate(http_server_requests_seconds_count{instance=\"$Application\", outcome=\"SUCCESS\", uri!=\"/health/server\"}[1m])",
-          "interval": "",
-          "legendFormat": "{{method}} {{endpoint}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Requests Count",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "edq5iach1srnke"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 24
-      },
-      "id": 8,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "11.0.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "exemplar": false,
-          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.5'}",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "PR 50"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "exemplar": false,
-          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.9'}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "PR 90"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "exemplar": false,
-          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.99'}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "PR 99"
-        }
-      ],
-      "title": "Request Duration Distribution",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {
-            "byField": "endpoint"
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time 1": true,
-              "Time 2": true,
-              "Time 3": true,
-              "Value #PR 50": false,
-              "__name__ 1": true,
-              "__name__ 2": true,
-              "__name__ 3": true,
-              "app_name 1": true,
-              "app_name 2": true,
-              "app_name 3": true,
-              "instance 1": true,
-              "instance 2": true,
-              "instance 3": true,
-              "job 1": true,
-              "job 2": true,
-              "job 3": true,
-              "method 1": false,
-              "method 2": true,
-              "method 3": true,
-              "quantile 1": true,
-              "quantile 2": true,
-              "quantile 3": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "Value #PR 50": "PR 50 (s)",
-              "Value #PR 90": "PR 90 (s)",
-              "Value #PR 99": "PR 99 (s)",
-              "method 1": "Method"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "edq5iach1srnke"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 32
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [
-            "last"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
-        },
-        "tooltip": {
-          "maxHeight": 600,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "exemplar": true,
-          "expr": "flask_request_duration_seconds_sum{app_name=\"$app_name\"} / flask_request_duration_seconds_count{app_name=\"$app_name\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{endpoint}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Request Average Duration",
-      "transformations": [
-        {
-          "id": "seriesToColumns",
-          "options": {}
-        }
-      ],
       "type": "timeseries"
     }
   ],
@@ -1196,8 +931,8 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
-  "title": "Flask Monitoring",
-  "uid": "flask-monitoring",
-  "version": 3,
+  "title": "Django Monitoring",
+  "uid": "django-monitoring",
+  "version": 4,
   "weekStart": ""
 }
