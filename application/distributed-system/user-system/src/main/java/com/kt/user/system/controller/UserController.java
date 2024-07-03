@@ -23,6 +23,7 @@ public class UserController {
     @GetMapping("")
     public boolean getUser(){
         logger.info("## UserController in ");
+        userService.getSleepTime(100,500);
         return userService.getUserList();
 
     }

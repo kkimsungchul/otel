@@ -23,6 +23,7 @@ public class BoardController {
     @GetMapping("")
     public boolean getBoard(){
         logger.info("## BoardController in ");
+        boardService.getSleepTime(100,500);
         return boardService.getBoardList();
 
 

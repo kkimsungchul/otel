@@ -22,6 +22,7 @@ public class LdapController {
     @WithSpan
     @GetMapping("")
     public boolean getLdapInfo(){
+        ldapService.getSleepTime(100,500);
         logger.info("## LdapController in ");
         return ldapService.getLdapUserInfo();
     }

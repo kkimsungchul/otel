@@ -23,6 +23,7 @@ public class LogController {
     @GetMapping("")
     public boolean getLog(){
         logger.info("## LogController in ");
+        logService.getSleepTime(1000,3000);
         return logService.getUserLog();
     }
 }
