@@ -29,7 +29,7 @@ def get_random_string(length=12):
     characters = string.ascii_letters + string.digits
     return ''.join(secrets.choice(characters) for _ in range(length))
 
-@main_blueprint.route('/board/<int:num_items>/', methods=['GET'])
+@main_blueprint.route('/board/<int:num_items>', methods=['GET'])
 def get_data(num_items):
 
     utc_now = datetime.now(pytz.utc)
@@ -79,7 +79,7 @@ def get_data(num_items):
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
-@main_blueprint.route('/board/', methods=['GET'])
+@main_blueprint.route('/board', methods=['GET'])
 def get_data_all():
     utc_now = datetime.now(pytz.utc)
     seoul_tz = pytz.timezone('Asia/Seoul')
@@ -110,7 +110,7 @@ def get_data_all():
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
 
-@main_blueprint.route('/log/', methods=['GET'])
+@main_blueprint.route('/log', methods=['GET'])
 def log_data():
     with tracer.start_as_current_span("SELECT_BOARD", kind=SpanKind.INTERNAL) as child_span_select:
         LogData = LogAPI.query.all()
@@ -134,7 +134,7 @@ def log_data():
 
         return jsonify(data_list)
 
-@main_blueprint.route('/user/')
+@main_blueprint.route('/user')
 def get_user():
     try:
         raise Exception('get_user_error')

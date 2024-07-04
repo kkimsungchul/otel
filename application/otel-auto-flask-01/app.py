@@ -40,7 +40,7 @@ session = scoped_session(Session)
 def get_client_ip():
     return request.remote_addr or "127.0.0.1"
 
-@app.route('/board/<int:num_items>/', methods=['GET'])
+@app.route('/board/<int:num_items>', methods=['GET'])
 def get_data(num_items):
 
     start_time = datetime.now()
@@ -75,7 +75,7 @@ def get_data(num_items):
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
-@app.route('/board/', methods=['GET'])
+@app.route('/board', methods=['GET'])
 def get_data_all():
 
     start_time = datetime.now()
@@ -98,7 +98,7 @@ def get_data_all():
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
-@app.route('/log/', methods=['GET'])
+@app.route('/log', methods=['GET'])
 def log_data():
     LogData = session.query(LogAPI).all()
 
@@ -119,7 +119,7 @@ def log_data():
 
     return jsonify(data_list)
 
-@app.route('/user/')
+@app.route('/user')
 def get_user():
         raise Exception('get_user error')
 
