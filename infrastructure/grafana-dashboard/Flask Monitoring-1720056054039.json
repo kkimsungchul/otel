@@ -1,4 +1,73 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_JAEGER",
+      "label": "jaeger",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "jaeger",
+      "pluginName": "Jaeger"
+    },
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "jaeger",
+      "name": "Jaeger",
+      "version": "11.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "traces",
+      "name": "Traces",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -26,40 +95,65 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 16111,
   "graphTooltip": 0,
-  "id": 7,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "jaeger",
-        "uid": "ddq5ibpr86h34f"
-      },
+      "collapsed": true,
       "gridPos": {
-        "h": 13,
+        "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 25,
-      "pluginVersion": "11.0.0",
+      "id": 26,
+      "panels": [],
+      "title": "Tracing",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "jaeger",
+        "uid": "${DS_JAEGER}"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 27,
       "targets": [
         {
           "datasource": {
             "type": "jaeger",
-            "uid": "ddq5ibpr86h34f"
+            "uid": "${DS_JAEGER}"
           },
-          "query": "d7b4c6708f68ecb38d0c0e2a8b5c3214",
+          "query": "6a420ace52c67b4bcc0f1aa4ee97bc29",
           "refId": "A"
         }
       ],
-      "title": "Panel Title",
+      "title": "Service & Operation",
       "type": "traces"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 25,
+      "panels": [],
+      "title": "Metric",
+      "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -108,7 +202,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -143,7 +237,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -192,7 +286,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -209,7 +303,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -257,7 +351,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -341,7 +435,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -359,7 +453,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -444,7 +538,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -462,7 +556,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -474,8 +568,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -513,33 +606,30 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "flask_request_duration_seconds_sum{app_name=\"flask-monitoring\"} / flask_request_duration_seconds_count{app_name=\"flask-monitoring\"}",
+          "interval": "",
+          "legendFormat": "{{method}} {{endpoint}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"0\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"0\", exported_job=\"otel-sdk-flask-01\"}",
+          "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "cpu_number=\"0\"",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "edq5iach1srnke"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"1\"}",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "cpu_number=\"1\"",
           "range": true,
           "refId": "B",
           "useBackend": false
@@ -547,16 +637,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"2\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"1\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"2\"",
+          "legendFormat": "cpu_number=\"1\"",
           "range": true,
           "refId": "C",
           "useBackend": false
@@ -564,16 +654,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"3\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"2\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"3\"",
+          "legendFormat": "cpu_number=\"2\"",
           "range": true,
           "refId": "D",
           "useBackend": false
@@ -581,16 +671,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"4\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"3\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"4\"",
+          "legendFormat": "cpu_number=\"3\"",
           "range": true,
           "refId": "E",
           "useBackend": false
@@ -598,16 +688,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"5\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"4\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"5\"",
+          "legendFormat": "cpu_number=\"4\"",
           "range": true,
           "refId": "F",
           "useBackend": false
@@ -615,16 +705,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"6\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"5\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"6\"",
+          "legendFormat": "cpu_number=\"5\"",
           "range": true,
           "refId": "G",
           "useBackend": false
@@ -632,16 +722,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"7\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"6\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"7\"",
+          "legendFormat": "cpu_number=\"6\"",
           "range": true,
           "refId": "H",
           "useBackend": false
@@ -649,16 +739,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"8\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"7\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"8\"",
+          "legendFormat": "cpu_number=\"7\"",
           "range": true,
           "refId": "I",
           "useBackend": false
@@ -666,16 +756,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"9\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"8\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"9\"",
+          "legendFormat": "cpu_number=\"8\"",
           "range": true,
           "refId": "J",
           "useBackend": false
@@ -683,16 +773,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"10\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"9\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"10\"",
+          "legendFormat": "cpu_number=\"9\"",
           "range": true,
           "refId": "K",
           "useBackend": false
@@ -700,16 +790,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"11\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"10\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"11\"",
+          "legendFormat": "cpu_number=\"10\"",
           "range": true,
           "refId": "L",
           "useBackend": false
@@ -717,16 +807,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"12\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"11\", exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"12\"",
+          "legendFormat": "cpu_number=\"11\"",
           "range": true,
           "refId": "M",
           "useBackend": false
@@ -734,16 +824,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"13\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"12\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"13\"",
+          "legendFormat": "cpu_number=\"12\"",
           "range": true,
           "refId": "N",
           "useBackend": false
@@ -751,16 +841,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"14\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"13\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cpu_number=\"14\"",
+          "legendFormat": "cpu_number=\"13\"",
           "range": true,
           "refId": "O",
           "useBackend": false
@@ -768,18 +858,35 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_cpu_percent_ratio{cpu_number=\"15\"}",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"14\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "cpu_number=\"14\"",
+          "range": true,
+          "refId": "P",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "sdk_fls_cpu_percent_ratio{cpu_number=\"15\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "cpu_number=\"15\"",
           "range": true,
-          "refId": "P",
+          "refId": "Q",
           "useBackend": false
         }
       ],
@@ -789,7 +896,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "edq5iach1srnke"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -834,8 +941,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -870,13 +976,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "edq5iach1srnke"
+            "uid": "${DS_PROMETHEUS}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "sdk_djn_ram_percent_ratio{exported_job=\"otel-sdk-django-01\"}",
+          "expr": "sdk_fls_ram_percent_ratio{exported_job=\"otel-sdk-flask-01\"}",
           "fullMetaSearch": false,
-          "hide": false,
           "includeNullMetadata": true,
           "instant": false,
           "legendFormat": "ram_percent_ratio",
@@ -887,6 +992,352 @@
       ],
       "title": "메모리 사용량",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "rate(http_server_requests_seconds_sum{instance=\"$Application\", outcome=\"SUCCESS\", uri!=\"/health/server\"}[1m]) / rate(http_server_requests_seconds_count{instance=\"$Application\", outcome=\"SUCCESS\", uri!=\"/health/server\"}[1m])",
+          "interval": "",
+          "legendFormat": "{{method}} {{endpoint}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Requests Count",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 37
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": false,
+          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.5'}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "PR 50"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": false,
+          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.9'}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "PR 90"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": false,
+          "expr": "flask_request_duration_seconds{app_name=\"$app_name\", quantile='0.99'}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "PR 99"
+        }
+      ],
+      "title": "Request Duration Distribution",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "endpoint"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time 1": true,
+              "Time 2": true,
+              "Time 3": true,
+              "Value #PR 50": false,
+              "__name__ 1": true,
+              "__name__ 2": true,
+              "__name__ 3": true,
+              "app_name 1": true,
+              "app_name 2": true,
+              "app_name 3": true,
+              "instance 1": true,
+              "instance 2": true,
+              "instance 3": true,
+              "job 1": true,
+              "job 2": true,
+              "job 3": true,
+              "method 1": false,
+              "method 2": true,
+              "method 3": true,
+              "quantile 1": true,
+              "quantile 2": true,
+              "quantile 3": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #PR 50": "PR 50 (s)",
+              "Value #PR 90": "PR 90 (s)",
+              "Value #PR 99": "PR 99 (s)",
+              "method 1": "Method"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "flask_request_duration_seconds_sum{app_name=\"$app_name\"} / flask_request_duration_seconds_count{app_name=\"$app_name\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{endpoint}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Request Average Duration",
+      "transformations": [
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -895,15 +1346,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "edq5iach1srnke"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(flask_info{}, app_name)",
         "hide": 0,
@@ -931,8 +1377,8 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "",
-  "title": "Django Monitoring",
-  "uid": "django-monitoring",
-  "version": 4,
+  "title": "Flask Monitoring",
+  "uid": "flask-monitoring",
+  "version": 11,
   "weekStart": ""
 }
