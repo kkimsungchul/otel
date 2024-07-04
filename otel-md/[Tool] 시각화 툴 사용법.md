@@ -7,13 +7,6 @@
 
 ## Prometheus(프로메테우스)
 
-### 참고 자료
-- Prometheus 공식 웹사이트
-https://prometheus.io/docs/introduction/overview/
-
-- Prometheus GitHub 리포지토리
-https://github.com/prometheus/prometheus
-
 ### 프로메테우스란?
 Prometheus는 오픈 소스 시스템 모니터링 및 경고 도구입니다. Prometheus는 SoundCloud에서 시작되었으며, 현재는 CNCF(Cloud Native Computing Foundation)의 프로젝트로 관리되고 있습니다. Prometheus는 다음과 같은 주요 기능과 특징을 가지고 있습니다:
 
@@ -83,15 +76,15 @@ Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 �
 --storage.tsdb.max-block-duration=36h
 ```
 
+### 참고 자료
+- Prometheus 공식 웹사이트
+https://prometheus.io/docs/introduction/overview/
+
+- Prometheus GitHub 리포지토리
+https://github.com/prometheus/prometheus
+
 
 ## Jaeger(예거)
-
-### 참고 링크
-- URL : https://twofootdog.tistory.com/67
-- URL : https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
-- URL : https://afsdzvcx123.tistory.com/entry/%EC%9D%B8%ED%94%84%EB%9D%BC-Jaeger-OpenTelemetry-Grafana-%EC%97%B0%EB%8F%99
-- URL : https://tommypagy.tistory.com/618
-- URL : https://velog.io/@yange/Jaeger
 
 ### 다운로드 링크
 Binaries 파일로 다운로드
@@ -192,16 +185,15 @@ https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otelcollector
 windows 에서 예거 사용
 https://www.jaegertracing.io/docs/1.58/windows/
 
+### 참고 링크
+- URL : https://twofootdog.tistory.com/67
+- URL : https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
+- URL : https://afsdzvcx123.tistory.com/entry/%EC%9D%B8%ED%94%84%EB%9D%BC-Jaeger-OpenTelemetry-Grafana-%EC%97%B0%EB%8F%99
+- URL : https://tommypagy.tistory.com/618
+- URL : https://velog.io/@yange/Jaeger
+
 
 ## Loki(로키)
-
-### 참고링크
-  - opentelemetry collector 에서 사용하는 API
-    - https://grafana.com/docs/loki/latest/reference/loki-http-api/#ingest-logs-using-otlp
-  - Loki 설치 
-    - https://grafana.com/docs/loki/latest/setup/install/local/ 
-  - Loki - Opentelemetry 지원 문서
-    - https://grafana.com/docs/loki/latest/send-data/otel/ 
 
 ### 시작 전 참고사항
 - Loki의 3.0.0 버전부터 Opentelemetry 에서 바로 수신하는 기능을 제공해주며, 해당 문서는 3.0.0 버전 기준으로 작성되었습니다.
@@ -294,13 +286,15 @@ service:
 ```
 - 또는 start_loki.bat 파일 실행
 
+### 참고링크
+  - opentelemetry collector 에서 사용하는 API
+    - https://grafana.com/docs/loki/latest/reference/loki-http-api/#ingest-logs-using-otlp
+  - Loki 설치 
+    - https://grafana.com/docs/loki/latest/setup/install/local/ 
+  - Loki - Opentelemetry 지원 문서
+    - https://grafana.com/docs/loki/latest/send-data/otel/ 
 
 ## Grafana(그라파나)
-
-### 참고 링크
-- URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
-- URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
-- URL : https://2hyes.tistory.com/76
 
 ### 다운로드 링크
 - URL : https://grafana.com/grafana/download
@@ -364,3 +358,8 @@ enable_tracing = false
 - Grafana(localhost:3000) > Alerting > Alert rules에 알람 룰 추가
 - Grafana(localhost:3000) > Alerting > Contact points에 메일 수신자 지정
 - 사내메일로도 발송 가능
+
+### 참고 링크
+- URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
+- URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
+- URL : https://2hyes.tistory.com/76
