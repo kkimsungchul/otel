@@ -72,6 +72,7 @@ def get_data(num_items):
 
     session.add(LogData)
     session.commit()
+    session.close()
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
@@ -94,7 +95,9 @@ def get_data_all():
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds() * 1000
     num_items = len(data_list)
+
     session.commit()
+    session.close()
 
     return jsonify(data_list) if num_items <= 100 else f"Successfully fetched {num_items} data items in {duration:.2f} ms"
 
@@ -116,6 +119,7 @@ def log_data():
     ]
 
     session.commit()
+    session.close()
 
     return jsonify(data_list)
 

@@ -71,6 +71,8 @@ def get_data(num_items):
 
         db.session.add(LogData)
         db.session.commit()
+        db.session.close()
+
         request_duration.record(duration, {"method": request.method, "path": request.path})
 
         # 자식 스팬에 결과 속성 추가
@@ -102,7 +104,9 @@ def get_data_all():
 
     end_time = datetime.now(pytz.utc).astimezone(seoul_tz)
     duration = (end_time - start_time).total_seconds() * 1000  # 처리 시간을 밀리초 단위로 변환
+
     db.session.commit()
+    db.session.close()
 
     if duration > 1000:
         raise TimeoutError(f"Query took {duration:.2f} milliseconds, which exceeds the limit of 1 seconds.")
@@ -126,7 +130,9 @@ def log_data():
             }
             for item in LogData
         ]
+
         db.session.commit()
+        db.session.close()
 
         # 자식 스팬에 결과 속성 추가
         child_span_select.set_attribute("db.system", "sqlite")
