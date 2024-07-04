@@ -1,11 +1,20 @@
-# 시각화 툴 사용법
-- Prometheus
-- Jaeger
-- Loki
-- Grafana
+# 목차
+- Prometheus(프로메테우스)
+- Jaeger(예거)
+- Loki(로키)
+- Grafana(그라파나)
 
 
-# 프로메테우스란?
+## Prometheus(프로메테우스)
+
+### 참고 자료
+- Prometheus 공식 웹사이트
+https://prometheus.io/docs/introduction/overview/
+
+- Prometheus GitHub 리포지토리
+https://github.com/prometheus/prometheus
+
+### 프로메테우스란?
 Prometheus는 오픈 소스 시스템 모니터링 및 경고 도구입니다. Prometheus는 SoundCloud에서 시작되었으며, 현재는 CNCF(Cloud Native Computing Foundation)의 프로젝트로 관리되고 있습니다. Prometheus는 다음과 같은 주요 기능과 특징을 가지고 있습니다:
 
 ### 프로메테우스 구성 요소
@@ -27,10 +36,10 @@ Prometheus는 오픈 소스 시스템 모니터링 및 경고 도구입니다. P
 - 인프라스트럭처 모니터링: 클라우드 서비스, 컨테이너, 오케스트레이션 시스템(Kubernetes) 등을 모니터링합니다.
 
 
-# Prometheus(프로메테우스) 사용 방법
+###  프로메테우스 사용 방법
 
 ### 설치 파일 다운로드
-	https://prometheus.io/download/
+https://prometheus.io/download/
 
 ### prometheus.yml 설정
 ※ 프로메테우스 다운로드 후 압축을 푼다음, exe 파일이 있는 경로에 yml파일을 생성
@@ -51,10 +60,10 @@ scrape_configs:
 ```
 
 ### 실행
-	prometheus.exe
+prometheus.exe
 
 ### 접속
-	http://localhost:9090/
+http://localhost:9090/
 
 ### 데이터 저장 용량
 Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 있는지는 사용 가능한 디스크 용량과 설정에 따라 달라집니다. 실제로 Prometheus의 데이터 저장 용량에는 다음 요소들이 영향을 미칩니다
@@ -74,47 +83,34 @@ Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 �
 --storage.tsdb.max-block-duration=36h
 ```
 
-## 참고 자료
-- Prometheus 공식 웹사이트
 
-https://prometheus.io/docs/introduction/overview/
+## Jaeger(예거)
 
-- Prometheus GitHub 리포지토리
-
-https://github.com/prometheus/prometheus
-
-
-# Jaeger(예거) 사용법
-
-# 목차
-
-## 참고 링크
+### 참고 링크
 - URL : https://twofootdog.tistory.com/67
 - URL : https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
 - URL : https://afsdzvcx123.tistory.com/entry/%EC%9D%B8%ED%94%84%EB%9D%BC-Jaeger-OpenTelemetry-Grafana-%EC%97%B0%EB%8F%99
 - URL : https://tommypagy.tistory.com/618
 - URL : https://velog.io/@yange/Jaeger
 
-## 다운로드 링크
+### 다운로드 링크
 Binaries 파일로 다운로드
 - URL : https://www.jaegertracing.io/download/
 - Windows : https://github.com/jaegertracing/jaeger/releases/download/v1.57.0/jaeger-1.57.0-windows-amd64.tar.gz
 
-
-
-## 실행
+### 실행
 ```shell
 cd C:\Users\sung\Desktop\otel\jaeger-1.57.0-windows-amd64
 jaeger-all-in-one.exe 
 ```
 
-## 접속
+### 접속
 - URL : http://localhost:16686
 
-## OpenTelemetry 연동
+### OpenTelemetry 연동
 참고 링크 : https://www.jaegertracing.io/docs/1.21/opentelemetry/
 
-## OpenTelemetry collector 설정 변경
+### OpenTelemetry collector 설정 변경
 - jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector는 OpenTelemetry SDK와 Jaeger 백엔드 사이에 배포할 필요가 없어짐
 - jaeger와 어플리케이션이 직접 통신은 가능하나 OpenTelemetry collector를 사용하여 통신할 경우 OpenTelemetry collector 설정을 변경
 - exporters 설정에서 jaeger만 사용하는 부분이 사라지고 "otlp/jaeger" 로 변경되었음 
@@ -144,17 +140,16 @@ service:
       processors: [batch]
 ```
 
-
-## tempo ,opentelemetry 내용
+### tempo ,opentelemetry 내용
 https://nangman14.tistory.com/69
 
-## Tempo vs Jaeger
+### Tempo vs Jaeger
 https://www.reddit.com/r/grafana/comments/vy4beq/tempo_vs_jaeger/?rdt=45362
 https://signoz.io/blog/jaeger-vs-tempo/
 https://sysnet4admin.gitbook.io/cncf/blog-and-news-ko/blog/member/tracing
 https://codersociety.com/blog/articles/jaeger-vs-zipkin-vs-tempo
 
-## OpenTelemetry collector 에서 jaeger export 변경 사항 내용
+### OpenTelemetry collector 에서 jaeger export 변경 사항 내용
 
 ```text
 * error decoding 'exporters': unknown type: "jaeger" for id: "jaeger" (valid values: [logging otlp prometheus prometheusremotewrite debug nop otlphttp file kafka opencensus zipkin])
@@ -198,9 +193,9 @@ windows 에서 예거 사용
 https://www.jaegertracing.io/docs/1.58/windows/
 
 
-## [ Loki 사용 ]
+## Loki(로키)
 
-### 참고링크 :
+### 참고링크
   - opentelemetry collector 에서 사용하는 API
     - https://grafana.com/docs/loki/latest/reference/loki-http-api/#ingest-logs-using-otlp
   - Loki 설치 
@@ -211,7 +206,6 @@ https://www.jaegertracing.io/docs/1.58/windows/
 ### 시작 전 참고사항
 - Loki의 3.0.0 버전부터 Opentelemetry 에서 바로 수신하는 기능을 제공해주며, 해당 문서는 3.0.0 버전 기준으로 작성되었습니다.
 - 3.0.0 미만의 버전에서는 promtail을 사용하여 Opentelemetry 의 로그를 수신해야 합니다. 
-
 
 ### Loki 설치
 1. 아래의 URL 접속
@@ -300,31 +294,30 @@ service:
 ```
 - 또는 start_loki.bat 파일 실행
 
-# Grafana(그라파나) 사용법
 
-# 목차
+## Grafana(그라파나)
 
-## 참고 링크
+### 참고 링크
 - URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
 - URL : https://hstory0208.tistory.com/entry/Grafana-%EA%B7%B8%EB%9D%BC%ED%8C%8C%EB%82%98-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-Window
 - URL : https://2hyes.tistory.com/76
-## 다운로드 링크
+
+### 다운로드 링크
 - URL : https://grafana.com/grafana/download
 - Windows Installer : https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.windows-amd64.msi
 - Windows Binaries: https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.windows-amd64.zip
   - 아래의 내용은 Binaries 로 진행함
 
-
-## 실행
+### 실행
 - 경로 : grafana-v11.0.0\bin
 - 파일 : grafana-server.exe
 
-## 접속
+### 접속
 - URL : http://localhost:3000/
 - ID / PW : admin / admin
   - 처음 로그인 시 비밀번호를 변경하라고 나오는데, 스킵도 가능함
 
-## Prometheus(프로메테우스) 연동
+### Grafana & Prometheus 연동
 1. 좌측의 Connections 클릭
 2. Add new connection 클릭
 3. Prometheus 검색 후 클릭
@@ -341,10 +334,10 @@ connection : 프로메테우스 접속 URL:port
 10. 화면 설정 후 우측 상단의 Save 클릭
 11. 대시보드 이름 및 설명 저장
 
-## Jaeger(예거) 연동
+### Grafana & Jaeger 연동
 - 프로메테우스 연동 방법과 똑같으며 connection 부분만 jaeger URL로 변경
 
-## 알람기능 추가
+### 알람기능 추가
 이메일, 슬랙, 텔레그램 등 이상 발생 시 알람 발송 가능
 - 구글 메일서버 사용하여 알람기능 추가
 - 2차 인증 메일인 경우 앱 비밀번호 부여
