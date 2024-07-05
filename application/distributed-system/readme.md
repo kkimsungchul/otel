@@ -18,18 +18,19 @@ start_distributed-system.bat
   - http://localhost:10010/board
   - Method : GET
   - Result : Boolean
-- ldap-system
+- user-system
   - http://localhost:10020/user
   - Method : GET
   - Result : Boolean
-- log-system
+- ldap-system
   - http://localhost:10030/ldap
   - Method : GET
   - Result : Boolean
-- user-system
+- log-system
   - http://localhost:10040/log
   - Method : GET
   - Result : Boolean
+
 
 ## 데이터 흐름 순서
 - board 서비스를 호출하면 user 서비스 호출
