@@ -104,8 +104,8 @@ jaeger-all-in-one.exe
 참고 링크 : https://www.jaegertracing.io/docs/1.21/opentelemetry/
 
 ### OpenTelemetry collector 설정 변경
-- jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector는 OpenTelemetry SDK와 Jaeger 백엔드 사이에 배포할 필요가 없어짐
-- jaeger와 어플리케이션이 직접 통신은 가능하나 OpenTelemetry collector를 사용하여 통신할 경우 OpenTelemetry collector 설정을 변경
+- jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector없이 OpenTelemetry SDK와 Jaeger로 바로 데이터 전송이 가능함
+- jaeger와 어플리케이션이 직접 통신은 가능하나 OpenTelemetry collector를 사용하여 통신할 경우 OpenTelemetry collector 설정을 변경하여 사용해야 함 
 - exporters 설정에서 jaeger만 사용하는 부분이 사라지고 "otlp/jaeger" 로 변경되었음 
 ```yaml
 exporters:
