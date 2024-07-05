@@ -1,4 +1,4 @@
-# Otel 테스트 환경 실행
+# Otel 테스트 환경 실행(roll-dice)
 
 # 목차
 - [windows](#windows)
