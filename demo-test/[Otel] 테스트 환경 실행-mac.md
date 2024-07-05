@@ -1,43 +1,19 @@
-- [Mac](#mac)
-  * [코드 내려받기](#코드-내려받기)
-  * [사전 환경 구성 및 유의사항](#사전-환경-구성-및-유의사항)
-  * [collector 설치](#collector-설치)
-  * [collector 권한부여](#collector-권한부여)
-  * [collector 경로로 이동](#collector-경로로-이동)
-  * [customconfig.yaml 파일 검증](#customconfigyaml-파일-검증)
-  * [collector 실행](#collector-실행)
-  * [JAVA(SpringBoot) (agent) 실행](#javaspringboot-agent-실행)
-    + [otel 변수 설정](#otel-변수-설정)
-    + [SpringBoot 프로젝트 실행](#springboot-프로젝트-실행)
-    + [JAVA(SpringBoot) (SDK) 실행](#java-springboot-sdk-실행)
-    + [JAVA(Tomcat) (Agent) 실행](#java-tomcat-agent-실행)
-  * [Python(SDK) 실행](#python-sdk-실행)
-    + [파이썬 가상환경 설정](#파이썬-가상환경-설정)
-    + [pip 업데이트](#pip-업데이트)
-    + [플라스크 설치](#플라스크-설치)
-    + [오픈텔레메트리 필요 라이브러리 설치](#오픈텔레메트리-필요-라이브러리-설치)
-    + [플라스크 실행(mac)](#플라스크-실행mac)
-    + [트레이스, 메트릭, 로그 확인](#트레이스,-메트릭,-로그-확인)
-    + [플라스크 실행](#플라스크-실행)
-  * [테스트](#테스트)
-    + [SpringBoot(agent) 환경 접속](#springbootagent-환경-접속)
-    + [SpringBoot(sdk) 환경 접속](#springbootsdk-환경-접속)
-    + [python 환경 접속](#python-환경-접속)
-    + [tomcat 환경 접속](#tomcat-환경-접속)
-    + [로그 확인](#로그-확인)
-  * [프로메테우스 실행](#프로메테우스-실행)
-  * [프로메테우스 메트릭 데이터 및 접속 확인](#프로메테우스-메트릭-데이터-및-접속-확인)
-
 # Mac에서 Otel 테스트 환경 구성하기
+## 목차
+- [Otel git 코드 내려받기](#Otel_git_코드_내려받기)
+- [Otel Collector](#Otel_Collector)
+- [JAVA(SpringBoot) Agent 실행](#JAVASpringBoot_Agent_실행)
+- [Python(SDK) 실행](#PythonSDK_실행)
+  ---
 ## Otel git 코드 내려받기
 ```shell
 git clone https://github.com/kkimsungchul/otel.git
 ```
-## 환경 구성 및 유의사항
+## 환경 구성
 - java 17
 - python 3.x
-- ~user-path는 본인이 사용할 경로를 설정
-
+- ※ ~user-path는 본인이 사용할 경로를 설정
+---
 ## Otel Collector
 
 ### collector 설치
@@ -65,7 +41,7 @@ cd 2024/otel/otel-collector
 ./otelcol --config=customconfig.yaml
 ```
 ---
-## JAVA(SpringBoot) (agent) 실행
+## JAVA(SpringBoot) Agent 실행
 
 ### otel 변수 설정
 ```
@@ -86,13 +62,13 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 cd /Users/jihyoun/2024/otel/otel-java-agent
 java -jar otel-test-springboot.jar
 ```
----
+
 ### JAVA(SpringBoot) (SDK) 실행
 ```shell
 cd /Users/jihyoun/2024/otel/otel-java-agent
 java -jar otel-sdk-test-springboot.jar
 ```
----
+
 ### JAVA(Tomcat) (Agent) 실행
 ```shell
 cd /Downloads/apache-tomcat-9.0.89/bin/
@@ -128,7 +104,7 @@ pip3 install opentelemetry-sdk
 pip3 install opentelemetry-instrumentation-flask
 pip3 install opentelemetry-exporter-prometheus install flask
 ```
-
+---
 
 ## 플라스크 실행(mac)
 ### 트레이스, 메트릭, 로그 확인
