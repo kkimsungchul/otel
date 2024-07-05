@@ -1,4 +1,6 @@
 @echo off
+start cmd /k "cd ../../infrastructure/nginx && start_nginx.bat"
+start cmd /k "cd ../../infrastructure/loki && start_loki.bat"
 start cmd /k "cd ../../infrastructure/otel-collector && start_otelcol.bat"
 start cmd /k "cd ./board-system && start_board_system.bat"
 start cmd /k "cd ./ldap-system && start_ldap_system.bat"
