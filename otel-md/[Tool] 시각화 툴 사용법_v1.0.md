@@ -1,9 +1,10 @@
-# 목차
+# 시각화 툴 사용법
+## 목차
 - [Prometheus(프로메테우스)](#prometheus프로메테우스)
 - [Jaeger(예거)](#jaeger예거)
 - [Loki(로키)](#Loki로키)
 - [Grafana(그라파나)](#Grafana그라파나)
-
+---
 
 ## Prometheus(프로메테우스)
 
@@ -83,7 +84,7 @@ https://prometheus.io/docs/introduction/overview/
 - Prometheus GitHub 리포지토리
 https://github.com/prometheus/prometheus
 
-
+---
 ## Jaeger(예거)
 
 ### 다운로드 링크
@@ -169,7 +170,6 @@ https://codersociety.com/blog/articles/jaeger-vs-zipkin-vs-tempo
 	
 
 
-----
 콜렉터 - Jaeger 마이그레이션
 https://opentelemetry.io/blog/2023/jaeger-exporter-collector-migration/
 	
@@ -181,7 +181,7 @@ https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/otelcollector
 2. 콜렉터에서 span 데이터를 익스포트를 otlp로 바꾸고
 3. 콜렉터에서 otlp 익스포터 설정을 해주면될듯
 
-----
+
 windows 에서 예거 사용
 https://www.jaegertracing.io/docs/1.58/windows/
 
@@ -192,7 +192,7 @@ https://www.jaegertracing.io/docs/1.58/windows/
 - URL : https://tommypagy.tistory.com/618
 - URL : https://velog.io/@yange/Jaeger
 
-
+---
 ## Loki(로키)
 
 ### 시작 전 참고사항
@@ -293,7 +293,7 @@ service:
     - https://grafana.com/docs/loki/latest/setup/install/local/ 
   - Loki - Opentelemetry 지원 문서
     - https://grafana.com/docs/loki/latest/send-data/otel/ 
-
+---
 ## Grafana(그라파나)
 
 ### 다운로드 링크
