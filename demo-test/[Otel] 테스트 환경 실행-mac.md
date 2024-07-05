@@ -28,38 +28,39 @@
   * [프로메테우스 실행](#프로메테우스-실행)
   * [프로메테우스 메트릭 데이터 및 접속 확인](#프로메테우스-메트릭-데이터-및-접속-확인)
 
-# Mac
-## 코드 내려받기
+# Mac에서 Otel 테스트 환경 구성하기
+## Otel git 코드 내려받기
 ```shell
 git clone https://github.com/kkimsungchul/otel.git
 ```
-## 사전 환경 구성 및 유의사항
+## 환경 구성 및 유의사항
 - java 17
 - python 3.x
 - ~user-path는 본인이 사용할 경로를 설정
 
+## Otel Collector
 
-## collector 설치
+### collector 설치
 ```shell
 curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
 tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
 ```
-## collector 권한부여
+### collector 권한부여
 ```shell
 chmod +x /Users/jihyoun/Otel/otelcol
 ```
 
-## collector 경로로 이동
+### collector 경로로 이동
 ```shell
 cd 2024/otel/otel-collector
 ```
 
-## customconfig.yaml 파일 검증
+### customconfig.yaml 파일 검증
 ```shell
 ./otelcol validate --config=customconfig.yaml
 ```
 
-## collector 실행
+### collector 실행
 ```shell
 ./otelcol --config=customconfig.yaml
 ```
@@ -116,7 +117,7 @@ pip3 install --upgrade pip
 pip3 install flask
 ```
 
-### 오픈텔레메트리 필요 라이브러리 설치
+### 라이브러리 설치
 ```shell
 pip3 install opentelemetry-distro
 opentelemetry-bootstrap -a install
@@ -129,7 +130,7 @@ pip3 install opentelemetry-exporter-prometheus install flask
 ```
 
 
-### 플라스크 실행(mac)
+## 플라스크 실행(mac)
 ### 트레이스, 메트릭, 로그 확인
 ```shell
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
