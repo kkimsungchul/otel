@@ -37,20 +37,20 @@
 - http://localhost:6060/board/10
 
 #### django - sdk
-- http://localhost/django/board/10/
-- http://localhost:8000/board/10/
+- http://localhost/django/board/10
+- http://localhost:8000/board/10
 
 #### django - auto
-- http://localhost/auto-django/board/10/
-- http://localhost:8001/board/10/
+- http://localhost/auto-django/board/10
+- http://localhost:8001/board/10
  
 #### flask - sdk
-- http://localhost/flask/board/10/
-- http://localhost:5000/board/10/
+- http://localhost/flask/board/10
+- http://localhost:5000/board/10
 
 #### flask - auto
-- http://localhost/auto-flask/board/10/
-- http://localhost:5001/board/10/
+- http://localhost/auto-flask/board/10
+- http://localhost:5001/board/10
 
 #### collector
 - http://localhost/otlp/metrics

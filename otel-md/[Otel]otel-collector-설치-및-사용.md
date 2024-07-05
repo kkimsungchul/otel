@@ -21,8 +21,18 @@
 ## collector 설치
 - https://opentelemetry.io/docs/collector/installation/
 - https://github.com/open-telemetry/opentelemetry-collector-releases/releases/tag/v0.100.0
-- 윈도우용 다운로드 <br>
+- Windows <br>
 https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_windows_386.tar.gz
+
+- Mac <br>
+```shell
+curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
+tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
+```
+- Mac collector 권한 부여
+```shell
+chmod +x /Users/<Path>/otelcol
+```
 
 ## 설정 가이드
 - https://opentelemetry.io/docs/collector/configuration/
@@ -35,7 +45,7 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: 127.0.0.1:4317
+        endpoint: 127.0.0.1:9999
       http:
         endpoint: 127.0.0.1:4318
 
@@ -43,23 +53,30 @@ exporters:
   logging :
     verbosity: detailed
   file: # the File Exporter, to ingest logs to local file
-    path: example.log
+    path: example.json
     rotation:
   prometheus:
     endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+  
+  otlp/jaeger:
+    endpoint: 127.0.0.1:4317
+    tls :
+      insecure : true
+  otlphttp:
+    endpoint: http://127.0.0.1:3100/otlp
 
 processors:
   batch:
 
 service:
   pipelines:
-    logs/dev:
+    logs:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [file,otlphttp]
       processors: [batch]
     traces:
       receivers: [otlp]
-      exporters: [file]
+      exporters: [otlp/jaeger,file]
       processors: [batch]
     metrics:
       receivers: [otlp]
@@ -68,8 +85,21 @@ service:
 ```
 
 ## customconfig.yaml 파일 검증
+- Windows
+```shell
 otelcol validate --config=customconfig.yaml
+```
+- Mac
+```shell
+./otelcol validate --config=customconfig.yaml
+```
 
 ## collector 실행
+- Windows
+```shell
 otelcol --config=customconfig.yaml
-
+```
+- Mac
+```shell
+./otelcol --config=customconfig.yaml
+```

@@ -29,13 +29,21 @@ Prometheus는 오픈 소스 시스템 모니터링 및 경고 도구입니다. P
 - 애플리케이션 모니터링: 애플리케이션의 성능 메트릭과 오류를 모니터링합니다.
 - 인프라스트럭처 모니터링: 클라우드 서비스, 컨테이너, 오케스트레이션 시스템(Kubernetes) 등을 모니터링합니다.
 
+### 데이터 저장 용량
+Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 있는지는 사용 가능한 디스크 용량과 설정에 따라 달라집니다. 실제로 Prometheus의 데이터 저장 용량에는 다음 요소들이 영향을 미칩니다
+
+- 스크레이프 주기: 얼마나 자주 메트릭 데이터를 수집하는지
+- 타겟 수: 모니터링되는 타겟의 수와 각 타겟에서 수집되는 메트릭의 수
+- 데이터 압축: Prometheus는 효율적인 압축 알고리즘을 사용하여 데이터 저장 
+
 
 ###  프로메테우스 사용 방법
 
-### 설치 파일 다운로드
-https://prometheus.io/download/
+#### 설치 파일 다운로드
+- 다운로드 경로: https://prometheus.io/download/
+- Windows: https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.windows-amd64.zip
 
-### prometheus.yml 설정
+#### prometheus.yml 설정
 ※ 프로메테우스 다운로드 후 압축을 푼다음, exe 파일이 있는 경로에 yml파일을 생성
 
 ```yaml
@@ -47,25 +55,17 @@ scrape_configs:
     static_configs:
     - targets: ["localhost:9090"]
 
-  - job_name: dice-service          # 서비스 명
+  - job_name: service-application
     scrape_interval: 5s
     static_configs:
       - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
 ```
 
-### 실행
-prometheus.exe
+#### 실행
+- prometheus.exe
 
-### 접속
-http://localhost:9090/
-
-### 데이터 저장 용량
-Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 있는지는 사용 가능한 디스크 용량과 설정에 따라 달라집니다. 실제로 Prometheus의 데이터 저장 용량에는 다음 요소들이 영향을 미칩니다
-
-- 스크레이프 주기: 얼마나 자주 메트릭 데이터를 수집하는지
-- 타겟 수: 모니터링되는 타겟의 수와 각 타겟에서 수집되는 메트릭의 수
-- 데이터 압축: Prometheus는 효율적인 압축 알고리즘을 사용하여 데이터 저장 
-
+#### 접속
+- http://localhost:9090/
 
 ### 추가 설정 옵션 (prometheus 실행 시 전달할 수 있는 명령어)
 이 설정은 Prometheus가 30일 동안 최대 100GB의 데이터를 저장하도록 설정합니다. 실제로 이러한 설정 값은 모니터링 요구 사항에 맞게 조정해야 합니다.
@@ -134,7 +134,7 @@ service:
       processors: [batch]
 ```
 
-### tempo ,opentelemetry 내용
+### tempo, opentelemetry 내용
 https://nangman14.tistory.com/69
 
 ### Tempo vs Jaeger
@@ -265,7 +265,8 @@ limits_config:
 - 파일명 : customconfig.yaml
     - 설정 시 Loki의 API문서의 내용을 보면 http://127.0.0.1:3100/otlp/v1/logs 의 URL 전체를 입력하지 않고 otlp까지만 입력함
     - 콜렉터에서 자동으로 엔드포인트 URL을 완성시킴
-```yaml
+
+```
 exporters:
   otlphttp:
     endpoint: http://127.0.0.1:3100/otlp
