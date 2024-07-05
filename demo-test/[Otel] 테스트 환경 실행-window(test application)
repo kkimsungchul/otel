@@ -1,0 +1,33 @@
+# Otel 테스트 환경 실행(roll-dice)
+
+# 목차
+- [Otel 환경 구성](#otel-환경-구성)
+- [Otel Collector](#otel-collector)
+
+## windows Spring
+
+## Otel 환경 구성
+### git 코드 내려받기
+```git
+git clone https://github.com/kkimsungchul/otel.git
+```
+## 사전 환경 구성 및 유의사항
+- java 17 
+- python 3.x
+- 파이썬 경로에 한글이 있으면 안됨
+
+
+## Otel Collector
+
+### collector 경로 이동
+```shell
+cd C:\Users\sung\Desktop\otel\OTel-git\otel-collector
+```
+### customconfig.yaml 파일 검증
+```shell
+otelcol validate --config=customconfig.yaml
+````
+### collector 실행
+```shell
+otelcol --config=customconfig.yaml
+```
