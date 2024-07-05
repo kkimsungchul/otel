@@ -1,0 +1,51 @@
+3.12.3
+
+python -m venv venv
+venv\Scripts\activate
+pip install django
+pip install opentelemetry-instrumentation-django
+pip install -r requirements.txt
+
+
+pip install grpcio-tools==1.48.2
+	-> 오류발생
+		building 'grpc_tools._protoc_compiler' extension
+		error: Microsoft Visual C++ 14.0 or greater is required. 
+		Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+	-> 아래URL 접속 후 다운로드
+		https://visualstudio.microsoft.com/ko/visual-cpp-build-tools/
+
+		C++ 개발자 도구 설치
+	-> 윈도우 재시작
+
+	-> 안됨
+	https://github.com/Significant-Gravitas/AutoGPT/issues/1624
+
+	-> Dockerfile보면 버전이 다름 
+	python -m pip install grpcio-tools==1.59.2
+	이거로 설치
+	https://github.com/open-telemetry/opentelemetry-demo/tree/main/src/recommendationservice
+	위 URL에 있는 버전은 grpcio-tools==1.48.2
+
+	https://github.com/open-telemetry/opentelemetry-demo/blob/main/src/recommendationservice/Dockerfile
+	dockerfile에 있는 버전은 grpcio-tools==1.59.2
+
+	
+
+
+python manage.py makemigrations djangotest
+python manage.py migrate djangotest
+python manage.py showmigrations
+python manage.py runserver
+
+--애는 실행 안했음
+	python manage.py boards
+
+
+---
+
+* 2024.06.11
+- demo 연결(demo_pb2) 모듈 설치 안됨
+- 라이브러리 의존성 문제
+- python 3.10 버전 낮춰도 안됨
+- python 3.8 시도 필요
