@@ -1,4 +1,4 @@
-# Mac에서 Otel 테스트 환경 구성하기
+# Mac에서 Otel 테스트 환경 구성하기(roll-dice)
 ## 목차
 - [Otel 환경 구성](#otel-환경-구성)
 - [Otel Collector](#otel-collector)
