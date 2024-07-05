@@ -1,6 +1,14 @@
 {
   "__inputs": [
     {
+      "name": "DS_LOKI",
+      "label": "loki",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "loki",
+      "pluginName": "Loki"
+    },
+    {
       "name": "DS_JAEGER",
       "label": "jaeger",
       "description": "",
@@ -26,6 +34,12 @@
       "version": ""
     },
     {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
@@ -36,6 +50,18 @@
       "id": "jaeger",
       "name": "Jaeger",
       "version": "11.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "logs",
+      "name": "Logs",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "loki",
+      "name": "Loki",
+      "version": "1.0.0"
     },
     {
       "type": "datasource",
@@ -95,6 +121,224 @@
   "panels": [
     {
       "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 26,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "editorMode": "builder",
+          "expr": "{service_name=\"otel-auto-django-01\"} |= ``",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Log - Django System",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 17,
+        "x": 0,
+        "y": 8
+      },
+      "id": 27,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": false,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "editorMode": "builder",
+          "expr": "{service_name=\"otel-auto-django-01\"} |= `Exception` or `Invalid` or `Error`",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Error log - Django System",
+      "type": "logs"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 17,
+        "y": 8
+      },
+      "id": 28,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "editorMode": "builder",
+          "expr": "sum by(service_name) (count_over_time({service_name=\"otel-auto-django-01\"} |= `SELECT` [1h]))",
+          "legendFormat": "SELECT",
+          "queryType": "range",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "editorMode": "builder",
+          "expr": "sum by(service_name) (count_over_time({service_name=\"otel-auto-django-01\"} |= `INSERT` [1h]))",
+          "hide": false,
+          "legendFormat": "INSERT",
+          "queryType": "range",
+          "refId": "B"
+        }
+      ],
+      "title": "Success",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 21,
+        "y": 8
+      },
+      "id": 30,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "editorMode": "builder",
+          "expr": "sum by(service_name) (count_over_time({service_name=\"otel-auto-django-01\"} |= `Error` [1h]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Exceptions",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
         "type": "jaeger",
         "uid": "${DS_JAEGER}"
       },
@@ -102,7 +346,7 @@
         "h": 13,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 15
       },
       "id": 25,
       "pluginVersion": "11.0.0",
@@ -146,7 +390,7 @@
         "h": 8,
         "w": 11,
         "x": 0,
-        "y": 13
+        "y": 28
       },
       "id": 19,
       "options": {
@@ -230,7 +474,7 @@
         "h": 8,
         "w": 13,
         "x": 11,
-        "y": 13
+        "y": 28
       },
       "id": 21,
       "options": {
@@ -382,7 +626,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 36
       },
       "id": 2,
       "options": {
@@ -485,7 +729,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 36
       },
       "id": 17,
       "options": {
@@ -549,7 +793,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 44
       },
       "id": 23,
       "options": {
@@ -911,7 +1155,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 44
       },
       "id": 24,
       "options": {
@@ -989,6 +1233,6 @@
   "timezone": "",
   "title": "Django Monitoring",
   "uid": "django-monitoring",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
