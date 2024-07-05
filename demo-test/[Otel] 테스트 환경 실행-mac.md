@@ -1,9 +1,10 @@
 # Mac에서 Otel 테스트 환경 구성하기
 ## 목차
-- [Otel git 코드 내려받기](#Otel_git_코드_내려받기)
-- [Otel Collector](#Otel_Collector)
-- [JAVA(SpringBoot) Agent 실행](#JAVASpringBoot_Agent_실행)
-- [Python(SDK) 실행](#PythonSDK_실행)
+- [Otel git 코드 내려받기](#otel_git_코드_내려받기)
+- [Otel Collector](#otel_collector)
+- [JAVA(SpringBoot) Agent 실행](#javaspringboot_agent_실행)
+- [Python(SDK) 실행](#pythonsdk_실행)
+
   ---
 ## Otel git 코드 내려받기
 ```shell
