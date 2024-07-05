@@ -159,36 +159,36 @@ cd /Users/jihyoun/2024/otel/otel-collector/example.log
 example.log
 
 ---
-#[Otel]JAVA-Agent_사용-mac.txt
+# [Otel]JAVA-Agent_사용-mac.txt
 [ 공식문서 따라하기 ]
 
-# java 예제
+### java 예제
 	https://opentelemetry.io/docs/languages/java/getting-started/
 	https://opentelemetry.io/docs/languages/java/instrumentation/
 
-# java
+### java
 	https://github.com/open-telemetry/opentelemetry-java
 
-# sdk
+### sdk
 	https://opentelemetry.io/docs/languages/java/
 	java의 경우 1.8이 미니멈임
 =====================================================================
-# 참고사항
+### 참고사항
 	권장사양
 	https://opentelemetry.io/docs/demo/development/
 
 	
-# 프로젝트 생성 및 빌드
+### 프로젝트 생성 및 빌드
 	- 스프링부트 프로젝트로 생성했으며, 별도의 라이브러리 임포트 없음,다만 로깅내용만 간단히 남김
 	- jar 로 빌드하여 실행 파일 생성
 	- 컨트롤러 하나를 생성해 두고, 사용자가 접속할수 있도록 설정
 	ex) http://localhost:8080/rolldice
 
-# agent jar 다운로드
+### agent jar 다운로드
 	java 에이전트임
 	https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar
 
-# agent 다운로드 후 cmd창에서 아래와 같이 설정
+### agent 다운로드 후 cmd창에서 아래와 같이 설정
 	설정 관련 정보 링크 : 
 		https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md#logging-exporter
 	엔드포인트(콜렉터) 설정 방법 예시 : 
@@ -225,7 +225,7 @@ example.log
 		뭐 아무리 설정을 뒤져봐도 안됐음.
 		프로토콜을 grpc로 바꾸고 콜렉터 설정에도 grpc를 넣어주면 작동함
 
-# 위 설정 완료 후 프로젝트 파일 실행
+### 위 설정 완료 후 프로젝트 파일 실행
 	java -jar otel-test-springboot.jar
 	=====================================================================
     [otel.javaagent 2024-05-10 14:16:13:567 +0900] [main] INFO io.opentelemetry.javaagent.tooling.VersionLogger - opentelemetry-javaagent - version: 2.3.0
@@ -233,33 +233,33 @@ example.log
 	=====================================================================
 
 
-# 콜렉터 실행
+### 콜렉터 실행
 	[Otel]otel-collector-설치-및-사용.txt 파일 참고
     /Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-collector//otel-collector-config.yaml
 ---
-#[Otel]python-사용-mac.txt
+# [Otel]python-사용-mac.txt
 [공식문서 따라하기]
 1. python
 https://opentelemetry.io/docs/languages/python/getting-started/
 
 
-# 맥에서 가상 환경 설치 및 필요한 라이브러리 설치
+### 맥에서 가상 환경 설치 및 필요한 라이브러리 설치
 Pycharm > Settings > Python Interpreter > python v3.11
 
-# 플라스크 설치
+### 플라스크 설치
 pip install flask
 
-# 플라스크 실행
+### 플라스크 실행
 flask run -p 8080
 
-# opentelemetry-distro  설치 (interpreter settings에서)
+### opentelemetry-distro  설치 (interpreter settings에서)
 pip install opentelemetry-distro
 opentelemetry-bootstrap -a install
 
-# opentelemetry-exporter-otlp 설치
+### opentelemetry-exporter-otlp 설치
 pip install opentelemetry-exporter-otlp
 
-# 트레이스, 메트릭, 로그 확인
+### 트레이스, 메트릭, 로그 확인
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
     --traces_exporter console \
@@ -268,8 +268,8 @@ opentelemetry-instrument \
     --service_name dice-server \
     python3 flask run -p 8080
 
-# tmp 폴더에 yaml 파일 생성
-# /tmp/otel-collector-config.yaml
+### tmp 폴더에 yaml 파일 생성
+### /tmp/otel-collector-config.yaml
 receivers:
   otlp:
     protocols:
@@ -295,17 +295,17 @@ service:
       processors: [batch]
       exporters: [file]
 
-# collector 설치
+### collector 설치
 curl --proto '=https' --tlsv1.2 -fOL https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.100.0/otelcol_0.100.0_darwin_arm64.tar.gz
 tar -xvf otelcol_0.100.0_darwin_arm64.tar.gz
 
-# collector 권한부여
+### collector 권한부여
 chmod +x /Users/jihyoun/Otel/otelcol
 
-# collector 실행
+### collector 실행
 /Users/jihyoun/Otel/otelcol --config=/Users/jihyoun/2024/otel/otel-test-python/tmp/otel-collector-config.yaml
 
-# 플라스크 실행
+### 플라스크 실행
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
 --metric_export_interval=15000 \
@@ -324,13 +324,13 @@ git에서는 python3 -m flask run -p 8080으로 해야 실행됨
 (기존에는 flask run -p 8080)
 
 
-# prometheus 설치
+### prometheus 설치
 brew install prometheus
 
-# yml 파일 경로
+### yml 파일 경로
 /opt/homebrew/etc/prometheus.yml
 
-# prometheus yml 파일 수정
+### prometheus yml 파일 수정
 global:
   scrape_interval: 15s
 
@@ -344,8 +344,8 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
 
-# yaml 파일 수정
-# /tmp/otel-collector-config.yaml
+### yaml 파일 수정
+### /tmp/otel-collector-config.yaml
 receivers:
   otlp:
     protocols:
@@ -382,13 +382,13 @@ service:
       exporters: [prometheus]
       processors: [batch]
 
-# export 시 필요한 라이브러리 설치
+### export 시 필요한 라이브러리 설치
 pip3 install opentelemetry-exporter-otlp-proto-grpc
 pip3 install flask opentelemetry-api opentelemetry-sdk opentelemetry-instrumentation-flask opentelemetry-exporter-otlp
 pip3 install opentelemetry-exporter-prometheus
 
 
-# 플라스크 실행
+### 플라스크 실행
 export OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 opentelemetry-instrument \
 --service_name=python-roll-dice-service \
