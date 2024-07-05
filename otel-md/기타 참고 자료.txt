@@ -26,3 +26,22 @@ https://binux.tistory.com/151
 
 # 오픈텔레메트리를 사용한 쿠버네티스 모니터링
 https://velog.io/@shjeong19/%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-OpenTelemetry
+
+
+# 오픈텔레메트리 정리 블로그
+https://haandol.github.io/2021/11/30/demystifying-observability-and-opentelemetry-1.html
+https://haandol.github.io/2021/12/13/demystifying-observability-and-opentelemetry-2.html
+
+# 옵저버빌리티 장애대응 자료
+    # 장애 대응 능력을 확인할 수 있는 지표 MTTD/MTTR/MTTF/MTBF
+    https://www.whatap.io/bbs/board.php?bo_table=blog&wr_id=220&page=2
+
+    # MTTD / MTTR / MTTF / MTBF
+    https://blog.skby.net/mttd-mttr-mttf-mtbf/
+
+    # Using Mean Time to Identify (MTTI) as a Service Desk Metric
+    https://www.bmc.com/blogs/mtti-mean-time-to-identify/
+    # “한국 기업, 시스템 중단에 따른 비용 매년 61억원”
+    http://m.bikorea.net/news/articleView.html?idxno=38119
+    # “한국 기업, 시스템 중단에 따른 비용 매년 61억 원 상당” 뉴렐릭
+    https://www.itworld.co.kr/numbers/82001/309637
