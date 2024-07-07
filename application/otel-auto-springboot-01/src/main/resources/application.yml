@@ -42,6 +42,8 @@ otel:
   instrumentation:
     micrometer:
       enabled: true
+    spring-core:
+      enabled: true
     spring-web:
       enabled: true
     spring-webmvc:
@@ -62,3 +64,5 @@ otel:
     exporter: otlp
   log:
     level: debug
+  propagators:
+    tracecontext

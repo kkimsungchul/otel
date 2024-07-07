@@ -120,7 +120,7 @@ implementation 'io.opentelemetry.instrumentation:opentelemetry-logback-appender-
   - Application -> OpenTelemetry collector ->  Prometheus
 
 - log
-  - Application -> OpenTelemetry collector -> file 
+  - Application -> OpenTelemetry collector -> file & loki
 
 ---
 ## FAQ
