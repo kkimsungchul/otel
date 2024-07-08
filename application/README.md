@@ -1,7 +1,7 @@
 
 
 ### Data Flow Overview
-![data-flow-overview.png](/application/data-flow-overview.png)
+![data-flow-overview](https://github.com/kkimsungchul/otel/assets/70503803/7629a21e-2a82-492f-b7bf-81a852cdb10e)
 
 ## 실행 방법
 - nginx, spring, django, flask, collector

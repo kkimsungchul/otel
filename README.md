@@ -95,14 +95,14 @@
 ---
 ## OpenTelemetry 와 prometheus 의 관계 그림 설명
 <span style="color:violet;background:gray">__현재 여기까지 진행 완료__</span>
-![image_OTel.png](image_OTel.png)
+![image_OTel](https://github.com/kkimsungchul/otel/assets/70503803/8753b897-9927-4726-acbd-82b522b3de1f)
 출처 : https://www.asserts.ai/blog/opentelemetry-histograms-with-prometheus/
 
 ## OpenTelemetry collector 도식도
-![image_Otel-collector.png](image_Otel-collector.png)
+![image_Otel-collector](https://github.com/kkimsungchul/otel/assets/70503803/a29baef9-4b39-42ea-bc2f-f1e1ab97e3f6)
 출처 : https://opentelemetry.io/docs/collector/
 
 ## OpenTelemetry 최종 활용 단계 예상도
-![image_Otel-completed-diagram.png](image_Otel-completed-diagram.png)
+![image_Otel-completed-diagram](https://github.com/kkimsungchul/otel/assets/70503803/d25cda2c-c2a9-40ea-8f9a-132f13db1d80)
 출처 : https://grafana.com/blog/2023/07/20/a-practical-guide-to-data-collection-with-opentelemetry-and-prometheus/
 
