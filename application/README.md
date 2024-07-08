@@ -3,7 +3,7 @@
 ### Data Flow Overview
 ![data-falow-overview.png](/application/data-falow-overview.png)
 
-### 실행 방법
+## 실행 방법
 - nginx ,spring , django , collector
   - all_run_server.bat
 - prometheus
@@ -14,57 +14,67 @@
 ※ 프로메테우스와 예거는 현재 프로젝트에 포함되어 있지 않으며 별도로 실행해야 합니다.
 
 
-### 종료 방법
+## 종료 방법
 - spring , django , collector , prometheus , jaeger
     - 실행중인 CMD창을 닫으면 종료
 - nginx
     - 윈도우 작업 관리자에서 종료
 
-### 접속 방법
+## 접속 방법
+---
+### nginx 접속 확인
 #### nginx
 - http://localhost
 
+---
+### 테스트 어플리케이션
 #### spring - sdk
-- http://localhost/java/board/10
-- http://localhost:8080/board/10
+- [nginx에 등록된 url] http://localhost/java/board/10
+- [default url] http://localhost:8080/board/10
 
 #### spring - agent
-- http://localhost/agent-java/board/10
-- http://localhost:5050/board/10
+- [nginx에 등록된 url] http://localhost/agent-java/board/10
+- [default url] http://localhost:5050/board/10
 
 #### spring - auto
-- http://localhost/auto-java/board/10
-- http://localhost:6060/board/10
+- [nginx에 등록된 url] http://localhost/auto-java/board/10
+- [default url] http://localhost:6060/board/10
 
 #### django - sdk
-- http://localhost/django/board/10
-- http://localhost:8000/board/10
+- [nginx에 등록된 url] http://localhost/django/board/10
+- [default url] http://localhost:8000/board/10
 
 #### django - auto
-- http://localhost/auto-django/board/10
-- http://localhost:8001/board/10
+- [nginx에 등록된 url] http://localhost/auto-django/board/10
+- [default url] http://localhost:8001/board/10
  
 #### flask - sdk
-- http://localhost/flask/board/10
-- http://localhost:5000/board/10
+- [nginx에 등록된 url] http://localhost/flask/board/10
+- [default url] http://localhost:5000/board/10
 
 #### flask - auto
-- http://localhost/auto-flask/board/10
-- http://localhost:5001/board/10
+- [nginx에 등록된 url] http://localhost/auto-flask/board/10
+- [default url] http://localhost:5001/board/10
 
+---
+### 오픈텔레메트리 콜렉터
 #### collector
-- http://localhost/otlp/metrics
-- http://localhost:9464/metrics
+- [nginx에 등록된 url] http://localhost/otlp/metrics
+- [default url] http://localhost:9464/metrics
 
+--- 
+### 오픈텔레메트리 모니터링 백엔드 시스템
 #### prometheus
-- http://localhost/prometheus/graph
-- http://localhost:9090/graph
+- [nginx에 등록된 url] http://localhost/prometheus/graph
+- [default url] http://localhost:9090/graph
 
 #### jaeger
-- http://localhost:16686/search
-
-#### grafana
-- http://localhost:3000 
+- [default url] http://localhost:16686/search
 
 #### loki
-- http://localhost:3100 
+- [default url] http://localhost:3100 
+
+---
+### 통합 모니터링
+#### grafana
+- [default url] http://localhost:3000 
