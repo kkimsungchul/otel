@@ -81,20 +81,21 @@ def get_client_ip(request):
 
 ---
 - 게시글 선택조회 및 로그 저장: localhost:8000/board/{가져올 게시글 개수} 
-- 게시글 전체조회: localhost:8000/board/
-- 로그 조회: localhost:8000/log/
+- 게시글 전체조회: localhost:8000/board
+- 로그 조회: localhost:8000/log
 ## url
 ## 내부 접속 시
 ### boards api
 localhost:8000/board/{가져올 게시글 개수}
 ### log_api
-localhost:8000/log/
+localhost:8000/log
 
 ## 외부 접속 시
 ### boards api
 192.168.0.40:8000/board/{가져올 게시글 개수}
 ### log_api
-192.168.0.40:8000/log/
+192.168.0.40:8000/log
+
 # 작업순서
 ## settings.py
 - exporter, service name, metric 수집 주기 설정

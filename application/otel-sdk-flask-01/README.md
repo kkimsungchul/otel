@@ -44,7 +44,7 @@ python app.py
 ## API 설명
 
 ---
-- 게시글 선택조회 및 로그 저장: localhost:5000/board{가져올 게시글 개수} 
+- 게시글 선택조회 및 로그 저장: localhost:5000/board/{가져올 게시글 개수} 
 - 게시글 전체조회: localhost:5000/board
 - 로그 조회: localhost:5000/log
 
