@@ -1,0 +1,226 @@
+# HELP http_server_active_requests measures the number of concurrent HTTP requests those are currently in flight
+# TYPE http_server_active_requests gauge
+http_server_active_requests{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",job="otel-auto-django-01"} 0
+# HELP http_server_duration_milliseconds Duration of HTTP client requests.
+# TYPE http_server_duration_milliseconds histogram
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="0"} 0
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="5"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="10"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="25"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="50"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="75"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="100"} 1
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="250"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="500"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="750"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="1000"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="2500"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="5000"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="7500"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="10000"} 2
+http_server_duration_milliseconds_bucket{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001",le="+Inf"} 2
+http_server_duration_milliseconds_sum{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001"} 111
+http_server_duration_milliseconds_count{http_flavor="1.1",http_host="localhost:8001",http_method="GET",http_scheme="http",http_server_name="waitress.invalid",http_status_code="200",job="otel-auto-django-01",net_host_name="localhost:8001",net_host_port="8001"} 2
+# HELP process_runtime_cpython_context_switches_total Runtime context switches
+# TYPE process_runtime_cpython_context_switches_total counter
+process_runtime_cpython_context_switches_total{job="otel-auto-django-01",type="involuntary"} 0
+process_runtime_cpython_context_switches_total{job="otel-auto-django-01",type="voluntary"} 128673
+# HELP process_runtime_cpython_cpu_time_seconds_total Runtime cpython CPU time
+# TYPE process_runtime_cpython_cpu_time_seconds_total counter
+process_runtime_cpython_cpu_time_seconds_total{job="otel-auto-django-01",type="system"} 51.296875
+process_runtime_cpython_cpu_time_seconds_total{job="otel-auto-django-01",type="user"} 7.046875
+# HELP process_runtime_cpython_cpu_utilization_ratio Runtime CPU utilization
+# TYPE process_runtime_cpython_cpu_utilization_ratio gauge
+process_runtime_cpython_cpu_utilization_ratio{job="otel-auto-django-01"} 12.5
+# HELP process_runtime_cpython_gc_count_bytes_total Runtime cpython GC count
+# TYPE process_runtime_cpython_gc_count_bytes_total counter
+process_runtime_cpython_gc_count_bytes_total{count="0",job="otel-auto-django-01"} 13
+process_runtime_cpython_gc_count_bytes_total{count="1",job="otel-auto-django-01"} 11
+process_runtime_cpython_gc_count_bytes_total{count="2",job="otel-auto-django-01"} 4
+# HELP process_runtime_cpython_memory_bytes Runtime cpython memory
+# TYPE process_runtime_cpython_memory_bytes gauge
+process_runtime_cpython_memory_bytes{job="otel-auto-django-01",type="rss"} 7.8483456e+07
+process_runtime_cpython_memory_bytes{job="otel-auto-django-01",type="vms"} 6.2488576e+07
+# HELP process_runtime_cpython_thread_count Runtime active threads count
+# TYPE process_runtime_cpython_thread_count gauge
+process_runtime_cpython_thread_count{job="otel-auto-django-01"} 27
+# HELP system_cpu_time_seconds_total System CPU time
+# TYPE system_cpu_time_seconds_total counter
+system_cpu_time_seconds_total{cpu="1",job="otel-auto-django-01",state="idle"} 350836.62499999994
+system_cpu_time_seconds_total{cpu="1",job="otel-auto-django-01",state="system"} 4135.718750000058
+system_cpu_time_seconds_total{cpu="1",job="otel-auto-django-01",state="user"} 3549.375
+system_cpu_time_seconds_total{cpu="10",job="otel-auto-django-01",state="idle"} 353460.24999999994
+system_cpu_time_seconds_total{cpu="10",job="otel-auto-django-01",state="system"} 2476.562500000058
+system_cpu_time_seconds_total{cpu="10",job="otel-auto-django-01",state="user"} 2584.71875
+system_cpu_time_seconds_total{cpu="11",job="otel-auto-django-01",state="idle"} 353298.95312499994
+system_cpu_time_seconds_total{cpu="11",job="otel-auto-django-01",state="system"} 2217.625
+system_cpu_time_seconds_total{cpu="11",job="otel-auto-django-01",state="user"} 3004.953125
+system_cpu_time_seconds_total{cpu="12",job="otel-auto-django-01",state="idle"} 353236.23437499994
+system_cpu_time_seconds_total{cpu="12",job="otel-auto-django-01",state="system"} 2382.109375
+system_cpu_time_seconds_total{cpu="12",job="otel-auto-django-01",state="user"} 2903.1875
+system_cpu_time_seconds_total{cpu="2",job="otel-auto-django-01",state="idle"} 352797.07812499994
+system_cpu_time_seconds_total{cpu="2",job="otel-auto-django-01",state="system"} 2682.890625
+system_cpu_time_seconds_total{cpu="2",job="otel-auto-django-01",state="user"} 3041.59375
+system_cpu_time_seconds_total{cpu="3",job="otel-auto-django-01",state="idle"} 340860.8125
+system_cpu_time_seconds_total{cpu="3",job="otel-auto-django-01",state="system"} 10423.03125
+system_cpu_time_seconds_total{cpu="3",job="otel-auto-django-01",state="user"} 7237.71875
+system_cpu_time_seconds_total{cpu="4",job="otel-auto-django-01",state="idle"} 345311.796875
+system_cpu_time_seconds_total{cpu="4",job="otel-auto-django-01",state="system"} 7425.734374999942
+system_cpu_time_seconds_total{cpu="4",job="otel-auto-django-01",state="user"} 5784.031249999999
+system_cpu_time_seconds_total{cpu="5",job="otel-auto-django-01",state="idle"} 344163.984375
+system_cpu_time_seconds_total{cpu="5",job="otel-auto-django-01",state="system"} 8497.859374999942
+system_cpu_time_seconds_total{cpu="5",job="otel-auto-django-01",state="user"} 5859.718749999999
+system_cpu_time_seconds_total{cpu="6",job="otel-auto-django-01",state="idle"} 341038.17187499994
+system_cpu_time_seconds_total{cpu="6",job="otel-auto-django-01",state="system"} 9170.156250000058
+system_cpu_time_seconds_total{cpu="6",job="otel-auto-django-01",state="user"} 8313.203125
+system_cpu_time_seconds_total{cpu="7",job="otel-auto-django-01",state="idle"} 338845.20312499994
+system_cpu_time_seconds_total{cpu="7",job="otel-auto-django-01",state="system"} 12336.375000000058
+system_cpu_time_seconds_total{cpu="7",job="otel-auto-django-01",state="user"} 7339.937499999999
+system_cpu_time_seconds_total{cpu="8",job="otel-auto-django-01",state="idle"} 342065.984375
+system_cpu_time_seconds_total{cpu="8",job="otel-auto-django-01",state="system"} 9524.328125
+system_cpu_time_seconds_total{cpu="8",job="otel-auto-django-01",state="user"} 6931.21875
+system_cpu_time_seconds_total{cpu="9",job="otel-auto-django-01",state="idle"} 351597.328125
+system_cpu_time_seconds_total{cpu="9",job="otel-auto-django-01",state="system"} 3311.859375
+system_cpu_time_seconds_total{cpu="9",job="otel-auto-django-01",state="user"} 3612.328125
+# HELP system_cpu_utilization_ratio System CPU utilization
+# TYPE system_cpu_utilization_ratio gauge
+system_cpu_utilization_ratio{cpu="1",job="otel-auto-django-01",state="idle"} 0.609
+system_cpu_utilization_ratio{cpu="1",job="otel-auto-django-01",state="system"} 0.016
+system_cpu_utilization_ratio{cpu="1",job="otel-auto-django-01",state="user"} 0
+system_cpu_utilization_ratio{cpu="10",job="otel-auto-django-01",state="idle"} 0.547
+system_cpu_utilization_ratio{cpu="10",job="otel-auto-django-01",state="system"} 0.031
+system_cpu_utilization_ratio{cpu="10",job="otel-auto-django-01",state="user"} 0.047
+system_cpu_utilization_ratio{cpu="11",job="otel-auto-django-01",state="idle"} 0.625
+system_cpu_utilization_ratio{cpu="11",job="otel-auto-django-01",state="system"} 0
+system_cpu_utilization_ratio{cpu="11",job="otel-auto-django-01",state="user"} 0
+system_cpu_utilization_ratio{cpu="12",job="otel-auto-django-01",state="idle"} 0.578
+system_cpu_utilization_ratio{cpu="12",job="otel-auto-django-01",state="system"} 0.016
+system_cpu_utilization_ratio{cpu="12",job="otel-auto-django-01",state="user"} 0.031
+system_cpu_utilization_ratio{cpu="2",job="otel-auto-django-01",state="idle"} 0.625
+system_cpu_utilization_ratio{cpu="2",job="otel-auto-django-01",state="system"} 0
+system_cpu_utilization_ratio{cpu="2",job="otel-auto-django-01",state="user"} 0
+system_cpu_utilization_ratio{cpu="3",job="otel-auto-django-01",state="idle"} 0.594
+system_cpu_utilization_ratio{cpu="3",job="otel-auto-django-01",state="system"} 0.016
+system_cpu_utilization_ratio{cpu="3",job="otel-auto-django-01",state="user"} 0.016
+system_cpu_utilization_ratio{cpu="4",job="otel-auto-django-01",state="idle"} 0.578
+system_cpu_utilization_ratio{cpu="4",job="otel-auto-django-01",state="system"} 0.047
+system_cpu_utilization_ratio{cpu="4",job="otel-auto-django-01",state="user"} 0
+system_cpu_utilization_ratio{cpu="5",job="otel-auto-django-01",state="idle"} 0.609
+system_cpu_utilization_ratio{cpu="5",job="otel-auto-django-01",state="system"} 0
+system_cpu_utilization_ratio{cpu="5",job="otel-auto-django-01",state="user"} 0.016
+system_cpu_utilization_ratio{cpu="6",job="otel-auto-django-01",state="idle"} 0.469
+system_cpu_utilization_ratio{cpu="6",job="otel-auto-django-01",state="system"} 0.078
+system_cpu_utilization_ratio{cpu="6",job="otel-auto-django-01",state="user"} 0.078
+system_cpu_utilization_ratio{cpu="7",job="otel-auto-django-01",state="idle"} 0.5
+system_cpu_utilization_ratio{cpu="7",job="otel-auto-django-01",state="system"} 0.094
+system_cpu_utilization_ratio{cpu="7",job="otel-auto-django-01",state="user"} 0.031
+system_cpu_utilization_ratio{cpu="8",job="otel-auto-django-01",state="idle"} 0.562
+system_cpu_utilization_ratio{cpu="8",job="otel-auto-django-01",state="system"} 0.016
+system_cpu_utilization_ratio{cpu="8",job="otel-auto-django-01",state="user"} 0.047
+system_cpu_utilization_ratio{cpu="9",job="otel-auto-django-01",state="idle"} 0.594
+system_cpu_utilization_ratio{cpu="9",job="otel-auto-django-01",state="system"} 0.016
+system_cpu_utilization_ratio{cpu="9",job="otel-auto-django-01",state="user"} 0.016
+# HELP system_disk_io_bytes_total System disk IO
+# TYPE system_disk_io_bytes_total counter
+system_disk_io_bytes_total{device="PhysicalDrive0",direction="read",job="otel-auto-django-01"} 8.8925720064e+10
+system_disk_io_bytes_total{device="PhysicalDrive0",direction="write",job="otel-auto-django-01"} 1.2789360896e+11
+system_disk_io_bytes_total{device="PhysicalDrive1",direction="read",job="otel-auto-django-01"} 1.95369568256e+11
+system_disk_io_bytes_total{device="PhysicalDrive1",direction="write",job="otel-auto-django-01"} 8.4231108096e+10
+# HELP system_disk_operations_total System disk operations
+# TYPE system_disk_operations_total counter
+system_disk_operations_total{device="PhysicalDrive0",direction="read",job="otel-auto-django-01"} 440350
+system_disk_operations_total{device="PhysicalDrive0",direction="write",job="otel-auto-django-01"} 286967
+system_disk_operations_total{device="PhysicalDrive1",direction="read",job="otel-auto-django-01"} 5.345908e+06
+system_disk_operations_total{device="PhysicalDrive1",direction="write",job="otel-auto-django-01"} 3.271747e+06
+# HELP system_disk_time_seconds_total System disk time
+# TYPE system_disk_time_seconds_total counter
+system_disk_time_seconds_total{device="PhysicalDrive0",direction="read",job="otel-auto-django-01"} 4.391
+system_disk_time_seconds_total{device="PhysicalDrive0",direction="write",job="otel-auto-django-01"} 4.293
+system_disk_time_seconds_total{device="PhysicalDrive1",direction="read",job="otel-auto-django-01"} 1.978
+system_disk_time_seconds_total{device="PhysicalDrive1",direction="write",job="otel-auto-django-01"} 3.26
+# HELP system_memory_usage_bytes System memory usage
+# TYPE system_memory_usage_bytes gauge
+system_memory_usage_bytes{job="otel-auto-django-01",state="free"} 2.10853888e+10
+system_memory_usage_bytes{job="otel-auto-django-01",state="used"} 1.3221064704e+10
+# HELP system_memory_utilization_ratio System memory utilization
+# TYPE system_memory_utilization_ratio gauge
+system_memory_utilization_ratio{job="otel-auto-django-01",state="free"} 0.6146187275680223
+system_memory_utilization_ratio{job="otel-auto-django-01",state="used"} 0.38538127243197773
+# HELP system_network_connections System network connections
+# TYPE system_network_connections gauge
+system_network_connections{family="2",job="otel-auto-django-01",protocol="tcp",state="CLOSE_WAIT",type="1"} 5
+system_network_connections{family="2",job="otel-auto-django-01",protocol="tcp",state="ESTABLISHED",type="1"} 57
+system_network_connections{family="2",job="otel-auto-django-01",protocol="tcp",state="LISTEN",type="1"} 68
+system_network_connections{family="2",job="otel-auto-django-01",protocol="tcp",state="SYN_SENT",type="1"} 1
+system_network_connections{family="2",job="otel-auto-django-01",protocol="tcp",state="TIME_WAIT",type="1"} 1
+system_network_connections{family="2",job="otel-auto-django-01",protocol="udp",state="NONE",type="2"} 21
+system_network_connections{family="23",job="otel-auto-django-01",protocol="tcp",state="ESTABLISHED",type="1"} 2
+system_network_connections{family="23",job="otel-auto-django-01",protocol="tcp",state="LISTEN",type="1"} 24
+system_network_connections{family="23",job="otel-auto-django-01",protocol="udp",state="NONE",type="2"} 10
+# HELP system_network_dropped_packets_total System network dropped_packets
+# TYPE system_network_dropped_packets_total counter
+system_network_dropped_packets_total{device="Bluetooth 네트워크 연결",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="Bluetooth 네트워크 연결",direction="transmit",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="Loopback Pseudo-Interface 1",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="Loopback Pseudo-Interface 1",direction="transmit",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="Wi-Fi",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="Wi-Fi",direction="transmit",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="로컬 영역 연결* 10",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="로컬 영역 연결* 10",direction="transmit",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="로컬 영역 연결* 9",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="로컬 영역 연결* 9",direction="transmit",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="이더넷",direction="receive",job="otel-auto-django-01"} 0
+system_network_dropped_packets_total{device="이더넷",direction="transmit",job="otel-auto-django-01"} 0
+# HELP system_network_errors_total System network errors
+# TYPE system_network_errors_total counter
+system_network_errors_total{device="Bluetooth 네트워크 연결",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="Bluetooth 네트워크 연결",direction="transmit",job="otel-auto-django-01"} 0
+system_network_errors_total{device="Loopback Pseudo-Interface 1",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="Loopback Pseudo-Interface 1",direction="transmit",job="otel-auto-django-01"} 0
+system_network_errors_total{device="Wi-Fi",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="Wi-Fi",direction="transmit",job="otel-auto-django-01"} 0
+system_network_errors_total{device="로컬 영역 연결* 10",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="로컬 영역 연결* 10",direction="transmit",job="otel-auto-django-01"} 0
+system_network_errors_total{device="로컬 영역 연결* 9",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="로컬 영역 연결* 9",direction="transmit",job="otel-auto-django-01"} 0
+system_network_errors_total{device="이더넷",direction="receive",job="otel-auto-django-01"} 0
+system_network_errors_total{device="이더넷",direction="transmit",job="otel-auto-django-01"} 0
+# HELP system_network_io_bytes_total System network io
+# TYPE system_network_io_bytes_total counter
+system_network_io_bytes_total{device="Bluetooth 네트워크 연결",direction="receive",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="Bluetooth 네트워크 연결",direction="transmit",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="Loopback Pseudo-Interface 1",direction="receive",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="Loopback Pseudo-Interface 1",direction="transmit",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="Wi-Fi",direction="receive",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="Wi-Fi",direction="transmit",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="로컬 영역 연결* 10",direction="receive",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="로컬 영역 연결* 10",direction="transmit",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="로컬 영역 연결* 9",direction="receive",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="로컬 영역 연결* 9",direction="transmit",job="otel-auto-django-01"} 0
+system_network_io_bytes_total{device="이더넷",direction="receive",job="otel-auto-django-01"} 1.1948971137e+10
+system_network_io_bytes_total{device="이더넷",direction="transmit",job="otel-auto-django-01"} 5.06984595e+08
+# HELP system_network_packets_total System network packets
+# TYPE system_network_packets_total counter
+system_network_packets_total{device="Bluetooth 네트워크 연결",direction="receive",job="otel-auto-django-01"} 0
+system_network_packets_total{device="Bluetooth 네트워크 연결",direction="transmit",job="otel-auto-django-01"} 0
+system_network_packets_total{device="Loopback Pseudo-Interface 1",direction="receive",job="otel-auto-django-01"} 0
+system_network_packets_total{device="Loopback Pseudo-Interface 1",direction="transmit",job="otel-auto-django-01"} 0
+system_network_packets_total{device="Wi-Fi",direction="receive",job="otel-auto-django-01"} 0
+system_network_packets_total{device="Wi-Fi",direction="transmit",job="otel-auto-django-01"} 0
+system_network_packets_total{device="로컬 영역 연결* 10",direction="receive",job="otel-auto-django-01"} 0
+system_network_packets_total{device="로컬 영역 연결* 10",direction="transmit",job="otel-auto-django-01"} 0
+system_network_packets_total{device="로컬 영역 연결* 9",direction="receive",job="otel-auto-django-01"} 0
+system_network_packets_total{device="로컬 영역 연결* 9",direction="transmit",job="otel-auto-django-01"} 0
+system_network_packets_total{device="이더넷",direction="receive",job="otel-auto-django-01"} 1.178143e+06
+system_network_packets_total{device="이더넷",direction="transmit",job="otel-auto-django-01"} 4.730239e+06
+# HELP system_swap_usage_pages System swap usage
+# TYPE system_swap_usage_pages gauge
+system_swap_usage_pages{job="otel-auto-django-01",state="free"} 4.863053824e+09
+system_swap_usage_pages{job="otel-auto-django-01",state="used"} 2.3721984e+08
+# HELP system_swap_utilization_ratio System swap utilization
+# TYPE system_swap_utilization_ratio gauge
+system_swap_utilization_ratio{job="otel-auto-django-01",state="free"} 0.9534888016550165
+system_swap_utilization_ratio{job="otel-auto-django-01",state="used"} 0.04651119834498355
+# HELP system_thread_count System active threads count
+# TYPE system_thread_count gauge
+system_thread_count{job="otel-auto-django-01"} 8
