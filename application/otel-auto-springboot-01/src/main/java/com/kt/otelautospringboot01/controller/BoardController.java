@@ -3,12 +3,9 @@ package com.kt.otelautospringboot01.controller;
 
 import com.kt.otelautospringboot01.domain.Board;
 import com.kt.otelautospringboot01.service.BoardService;
-import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.context.Scope;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +28,7 @@ public class BoardController {
         return boardService.all();
 
     }
+
 
     @GetMapping("/{pageSize}")
     public List<Board> all(@PathVariable int pageSize) {

@@ -24,6 +24,12 @@ spring:
 server:
   port: 6060
 
+logging:
+  level:
+    io.opentelemetry: DEBUG
+    io.opentelemetry.instrumentation.spring: TRACE
+
+# https://opentelemetry.io/docs/zero-code/java/spring-boot-starter/out-of-the-box-instrumentation/
 otel:
   sdk:
     metrics:
@@ -40,8 +46,14 @@ otel:
         name: otel-auto-springboot-01
       env: dev
   instrumentation:
+    annotations:
+      enabled: true
+    methods:
+      enabled: true
     micrometer:
       enabled: true
+    spring:
+      enabled : true
     spring-core:
       enabled: true
     spring-web:
