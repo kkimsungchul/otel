@@ -1,17 +1,20 @@
 
 
 ### Data Flow Overview
-![data-falow-overview.png](/application/data-falow-overview.png)
+![data-flow-overview.png](/application/data-flow-overview.png)
 
 ## 실행 방법
-- nginx ,spring , django , collector
+- nginx, spring, django, flask, collector
   - all_run_server.bat
-- prometheus
-  - prometheus.exe
-- jaeger
-  - jaeger-all-in-one.exe 
+- flask
+  - flask_run_server.bat
+- prometheus, jaeger, grafana
+  - dashboard_run.bat
+- Jmeter
+  - Jmeter_run.bat
 
-※ 프로메테우스와 예거는 현재 프로젝트에 포함되어 있지 않으며 별도로 실행해야 합니다.
+※ dashboard_run.bat에서는 모니터링 툴의 경로가 절대경로로 잡혀 있어서, 각자 서버 환경에 맞게 수정해줘야 합니다.
+ex) C:/jaeger-1.58.0-windows-amd64/jaeger-all-in-one.exe
 
 
 ## 종료 방법
@@ -19,6 +22,7 @@
     - 실행중인 CMD창을 닫으면 종료
 - nginx
     - 윈도우 작업 관리자에서 종료
+
 
 ## 접속 방법
 ---
