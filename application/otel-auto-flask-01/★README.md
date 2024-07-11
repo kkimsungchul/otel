@@ -28,6 +28,11 @@ pip install opentelemetry-sdk
 pip install opentelemetry-instrumentation
 opentelemetry-bootstrap -a install
 ```
+#### 설치 라이브러리
+1. opentelemetry-distro: opentelemetry-instrument로 명령어 실행 가능
+2. opentelemetry-exporter-otlp: grpc통신 가능
+3. opentelemetry-instrumentation-system-metrics: 시스템 메트릭 수집 (설치 안 할 경우 db.connection 만 넘어옴)
+4. opentelemetry-bootstrap - a install: span 데이터가 콜렉터에 쌓임
 
 ### 3. 실행 명령어
 - 실행 시 명령어에 원하는 설정을 입력
