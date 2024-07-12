@@ -12,6 +12,7 @@ pip install opentelemetry-sdk
 pip install opentelemetry-exporter-otlp
 pip install opentelemetry-api
 pip install opentelemetry-instrumentation
+pip install psutil
 log_collector_v2.py
 ---
 
@@ -20,6 +21,10 @@ log_collector_v2.py
 2. 콜렉터 실행
 3. 파이썬 파일 실행
 4. 콜렉터 경로에 example.log 파일 생성되면 내용 확인
+
+
+---
+pip install psutil -> 서버 CPU / Memory / Disk 계측
 
 
 ---

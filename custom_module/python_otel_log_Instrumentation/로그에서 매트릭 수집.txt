@@ -2,15 +2,15 @@ import psutil
 import enum
 import time
 from pathlib import Path
-from opentelemetry import metrics
-from opentelemetry.sdk.metrics import MeterProvider
-from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
-from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
-from opentelemetry.sdk._logs import LoggerProvider, LogRecord
+from opentelemetry.sdk._logs import (
+    LoggerProvider,
+    LogRecord,
+)
 from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
 from opentelemetry.exporter.otlp.proto.grpc._log_exporter import OTLPLogExporter
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.trace import INVALID_SPAN_ID, INVALID_TRACE_ID, TraceFlags
+from opentelemetry.util.types import Attributes
 
 # SeverityNumber를 직접 정의
 class SeverityNumber(enum.Enum):
@@ -114,38 +114,26 @@ log_processor = BatchLogRecordProcessor(log_exporter)
 logger_provider.add_log_record_processor(log_processor)
 logger = logger_provider.get_logger(__name__)
 
-# 매트릭 설정
-metric_exporter = OTLPMetricExporter(endpoint="http://localhost:9999")
-# 매트릭 전송주기
-reader = PeriodicExportingMetricReader(metric_exporter, export_interval_millis=1000)
-meter_provider = MeterProvider(resource=resource, metric_readers=[reader])
-metrics.set_meter_provider(meter_provider)
-meter = metrics.get_meter(__name__)
-
-cpu_gauge = meter.create_gauge("cpu_usage", unit="1", description="CPU usage")
-memory_gauge = meter.create_gauge("memory_usage", unit="1", description="Memory usage")
-disk_gauge = meter.create_gauge("disk_usage", unit="1", description="Disk usage")
-
-
-def get_system_metrics():
-    cpu_percent = psutil.cpu_percent(interval=1)
-    memory = psutil.virtual_memory()
-    disk = psutil.disk_usage('/')
-    #print(cpu_percent)
-    #print(memory.percent)
-    #print(disk.percent)
-    cpu_gauge.set(cpu_percent)
-    memory_gauge.set(memory.percent)
-    disk_gauge.set(disk.percent)
-
 def tail_file(filepath):
     with open(filepath, 'r') as file:
         file.seek(0, 2)
         while True:
             line = file.readline()
             if not line:
-                return  # 파일의 끝에 도달하면 함수 종료
+                time.sleep(0.1)
+                continue
             yield line
+
+def get_system_metrics():
+    cpu_percent = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
+    
+    return {
+        'cpu_percent': cpu_percent,
+        'memory_percent': memory.percent,
+        'disk_percent': disk.percent
+    }
 
 def main():
     log_file = Path(r"C:\ConvertedLogs\Application.log")
@@ -154,7 +142,20 @@ def main():
     
     while True:
         # 시스템 메트릭 수집
-        get_system_metrics()
+        metrics = get_system_metrics()
+        
+        # 메트릭 로그 기록
+        log_record = LogRecord(
+            timestamp=int(time.time() * 1_000_000_000),
+            trace_id=INVALID_TRACE_ID,
+            span_id=INVALID_SPAN_ID,
+            trace_flags=TraceFlags(0),
+            severity_text="INFO",
+            severity_number=SeverityNumber.INFO,
+            body=f"System Metrics: CPU: {metrics['cpu_percent']}%, Memory: {metrics['memory_percent']}%, Disk: {metrics['disk_percent']}%",
+            resource=resource
+        )
+        logger.emit(log_record)
         
         # 로그 파일 모니터링
         for line in tail_file(log_file):
@@ -170,14 +171,13 @@ def main():
             )
             logger.emit(log_record)
         
-        # 1초 쉬고 반복
-        time.sleep(1)
+        # 주기적으로 메트릭 수집 (예: 60초마다)
+        time.sleep(5)
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("Stopping log collection and metric export...")
+        print("Stopping log collection...")
     finally:
         logger_provider.shutdown()
-        meter_provider.shutdown()
