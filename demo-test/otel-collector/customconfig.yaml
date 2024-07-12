@@ -5,6 +5,16 @@ receivers:
         endpoint: 127.0.0.1:9999
       http:
         endpoint: 127.0.0.1:4318
+  postgresql:
+    endpoint: 127.0.0.1:5432
+    transport: tcp
+    username: otel-user
+    password: otel-user
+    databases:
+      - otel
+    tls:
+      insecure: true
+    collection_interval: 10s
 
 exporters:
   logging :
@@ -35,6 +45,6 @@ service:
       exporters: [otlp/jaeger,file]
       processors: [batch]
     metrics:
-      receivers: [otlp]
+      receivers: [postgresql,otlp]
       exporters: [prometheus]
       processors: [batch]
