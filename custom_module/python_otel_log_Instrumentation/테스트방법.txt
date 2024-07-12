@@ -17,6 +17,8 @@ log_collector_v2.py
 
 # 테스트 방법
 1. 로그파일을 C:\ConvertedLogs\Application.log 경로에 생성
+- 로그파일 내에 로그 입력
+(ex 2024-07-12T13:41:32.612+0900    error   exporterhelper/queue_sender.go:101      Exporting failed. Dropping data.       {"kind": "exporter", "data_type": "logs", "name": "otlphttp", "error": "no more retries left: failed to make an HTTP request: Post \"http://127.0.0.1:3100/otlp/v1/logs\": dial tcp 127.0.0.1:3100: connectex: No connection could be made because the target machine actively refused it.", "dropped_items": 1})
 2. 콜렉터 실행
 3. 파이썬 파일 실행
 4. 콜렉터 경로에 example.log 파일 생성되면 내용 확인
