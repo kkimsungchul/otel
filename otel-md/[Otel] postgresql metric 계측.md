@@ -141,13 +141,13 @@ service:
 
 ### 서비스로 실행 방법
 ```shell
-otelcol-contrib.exe --config config.yaml --windows-service install
+otelcol-contrib.exe --config customconfig.yaml --windows-service install
 sc start otelcol-contrib
 ```
 
 ### 기존 콜렉터 실행 방법
 ```shell
-otelcol-contrib.exe --config config.yaml
+otelcol-contrib.exe --config customconfig.yaml
 ```
 
 ### Metric 확인

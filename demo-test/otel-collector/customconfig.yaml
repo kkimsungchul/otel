@@ -16,6 +16,25 @@ receivers:
       insecure: true
     collection_interval: 10s
 
+
+  sqlquery:
+    driver: postgres
+    datasource: "host=localhost port=5432 user=postgres password=postgres sslmode=disable"
+    queries:
+      - sql: "SELECT query, calls, total_exec_time, rows, mean_exec_time FROM pg_stat_statements"
+        #tracking_start_value: "10000"
+        #tracking_column: log_id
+        logs:
+          - body_column: query
+#      - sql: "select count(*) as count, genre from movie group by genre"
+#        metrics:
+#          - metric_name: movie.genres
+#            value_column: "count"
+
+# 윈도우 application 이벤트 로그파일 수집
+  windowseventlog:
+    channel: application
+
 exporters:
   logging :
     verbosity: detailed
@@ -37,7 +56,7 @@ processors:
 service:
   pipelines:
     logs/dev:
-      receivers: [otlp]
+      receivers: [otlp,windowseventlog,sqlquery]
       exporters: [file]
       processors: [batch]
     traces:
