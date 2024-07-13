@@ -2,6 +2,9 @@
 ## collector에서 log 파일 읽기
 - github url : https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver
 
+## 참고사항
+- 현재 md문서는 postgresql에 대해서 다뤘지만 .log .json .gz 파일이면 모두 수집이 가능함
+- 아래 적용한 내용을 토대로 nginx , apache 등 다양한 서비스의 로그를 수집가능함
 
 ### postgresql config 수정
 - 경로 : C:\Program Files\PostgreSQL\16\data\postgresql.conf
@@ -61,6 +64,7 @@ log_min_duration_statement = 1000  # 1초 이상 걸린 쿼리만 로그에 기�
 
 
 ### 실제 파싱된 로그
+- 아래의 예시를 보면 select 쿼리문이 들어가 있음
 ```json
 {
   "resourceLogs":[
