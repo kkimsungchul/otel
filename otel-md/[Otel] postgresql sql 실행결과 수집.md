@@ -1,4 +1,4 @@
-## 쿼리 실행 로그 가져오기
+## 쿼리 실행 결과 가져오기
 
 ### github readme.md
 - url :https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/sqlqueryreceiver
