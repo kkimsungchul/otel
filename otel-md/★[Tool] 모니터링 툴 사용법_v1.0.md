@@ -40,10 +40,10 @@ Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 �
 - 타겟 수: 모니터링되는 타겟의 수와 각 타겟에서 수집되는 메트릭의 수
 - 데이터 압축: Prometheus는 효율적인 압축 알고리즘을 사용하여 데이터 저장 
 
-
-###  프로메테우스 사용 방법
-
 ---
+###  프로메테우스 사용 방법
+v2.52.0
+
 #### 설치 파일 다운로드
 - 다운로드 경로: https://prometheus.io/download/
 - Windows: https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.windows-amd64.zip
@@ -116,6 +116,9 @@ https://github.com/prometheus/prometheus
 - 오류 및 장애 분석: 요청 경로에서 발생하는 오류와 장애를 추적하여 근본 원인을 파악하고 해결합니다.
 - 의존성 관리: 서비스 간의 의존성을 관리하고, 변경 사항이 전체 시스템에 미치는 영향을 분석합니다.
 ---
+### 예거 사용 방법
+v1.58.0
+
 ### 다운로드 링크
 Binaries 파일로 다운로드
 - URL : https://www.jaegertracing.io/download/
@@ -249,6 +252,9 @@ https://www.jaegertracing.io/docs/1.58/windows/
 - Loki의 3.0.0 버전부터 Opentelemetry 에서 바로 수신하는 기능을 제공해주며, 해당 문서는 3.0.0 버전 기준으로 작성되었습니다.
 - 3.0.0 미만의 버전에서는 promtail을 사용하여 Opentelemetry 의 로그를 수신해야 합니다. 
 ---
+### 로키 사용 방법
+v3.0.0
+
 ### Loki 설치
 1. 아래의 URL 접속
     - https://github.com/grafana/loki/releases/
@@ -368,6 +374,9 @@ service:
 - IoT 데이터 모니터링: IoT 센서와 기기의 상태 데이터를 실시간으로 모니터링하고 시각화합니다.
 - 개발 및 테스트 모니터링: 개발 중인 애플리케이션의 성능 테스트 결과를 시각화하고 분석합니다.
 ---
+### 그라파나 사용 방법
+v11.0.0
+
 ### 다운로드 링크
 - URL : https://grafana.com/grafana/download
 - Windows Installer : https://dl.grafana.com/enterprise/release/grafana-enterprise-11.0.0.windows-amd64.msi
