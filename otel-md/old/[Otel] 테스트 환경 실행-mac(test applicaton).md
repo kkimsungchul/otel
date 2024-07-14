@@ -33,7 +33,7 @@ cd 2024/otel/otel-collector
 
 ### customconfig.yaml 파일 검증
 ```shell
-./otelcol validate --config=customconfig.yaml
+#./otelcol validate --config=customconfig.yaml
 
 ./otelcol validate --config=infrastructure/otel-collector/customconfig.yaml
 ```
