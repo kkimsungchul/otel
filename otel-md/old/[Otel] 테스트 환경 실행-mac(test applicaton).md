@@ -34,7 +34,6 @@ cd 2024/otel/otel-collector
 ### customconfig.yaml 파일 검증
 ```shell
 #./otelcol validate --config=customconfig.yaml
-
 ./otelcol validate --config=infrastructure/otel-collector/customconfig.yaml
 ```
 
@@ -42,5 +41,6 @@ cd 2024/otel/otel-collector
 
 ### collector 실행
 ```shell
-./otelcol --config=customconfig.yaml
+#./otelcol --config=customconfig.yaml
+./otelcol --config=infrastructure/otel-collector/customconfig.yaml
 ```
