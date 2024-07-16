@@ -18,8 +18,8 @@ public class RestTemplateConfig {
 				.requestFactory(() ->
 						new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory())
 				)
-				.setConnectTimeout(Duration.ofMillis(5000)) // connection-timeout
-				.setReadTimeout(Duration.ofMillis(5000)) // read-timeout
+				.setConnectTimeout(Duration.ofMillis(3000)) // connection-timeout
+				.setReadTimeout(Duration.ofMillis(3000)) // read-timeout
 				.build();
 	}
 

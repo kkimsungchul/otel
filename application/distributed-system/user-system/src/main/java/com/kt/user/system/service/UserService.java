@@ -18,8 +18,9 @@ public class UserService {
     public boolean getUserList(){
         String endpoint = "http://localhost:10030/ldap";
         getSleepTime(100,500);
+        boolean result = restTemplate.getForObject(endpoint, Boolean.class);
         getUserLog();
-        return restTemplate.getForObject(endpoint, Boolean.class);
+        return result;
     }
 
     @WithSpan
