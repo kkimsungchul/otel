@@ -13,7 +13,7 @@ git clone https://github.com/kkimsungchul/otel.git
 ```
 ---
 ### 시각화 툴 설치 및 실행
-- [Tool] 시각화 툴 사용법_v1.0.md 파일 참고
+- [Tool] 모니터링_툴_사용법_v1.0.md 파일 참고
 ---
 ### 오픈텔레메트리 콜렉터 설치 및 실행
 - [Otel] otel-collector-설치-및-사용.md 파일 참고
