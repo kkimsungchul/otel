@@ -1,39 +1,24 @@
 # 시각화 도구
-## Q1. 시각화 도구의 데이터 적재 및 모니터링 역할이 무엇인가요?
+## Q1. 시각화 도구의 모니터링 역할과 데이터 적재 방식이 무엇인가요?
 
 ---
 
 ### 도구 소개
 #### Jaeger
 - 역할: Jaeger는 분산 트레이싱 시스템입니다. 마이크로서비스 아키텍처에서 서비스 간의 호출 관계와 지연 시간을 추적하는 데 사용됩니다.
-- 데이터 적재: Jaeger 에이전트 또는 콜렉터가 애플리케이션에서 수집한 트레이스 데이터를 저장합니다. 기본적으로 Jaeger는 다양한 백엔드 스토리지를 지원하며, 주로 Elasticsearch, Kafka, Cassandra 등이 사용됩니다.
+- 데이터 적재: Jaeger 에이전트 또는 콜렉터가 애플리케이션에서 수집한 트레이스 데이터를 백엔드(예: Elasticsearch)에 저장합니다. 기본적으로 Jaeger는 다양한 백엔드 스토리지를 지원하며, 주로 Elasticsearch, Kafka, Cassandra 등이 사용됩니다.
 
 #### Prometheus
-- 역할: Prometheus는 모니터링과 경고 시스템입니다. 애플리케이션, 시스템 및 서비스의 메트릭 데이터를 수집하고 저장합니다.
-- 데이터 적재: Prometheus는 타임 시리즈 데이터베이스에 메트릭 데이터를 저장합니다. 애플리케이션에서 Prometheus 클라이언트 라이브러리를 사용하여 메트릭 데이터를 노출하고, Prometheus 서버는 이를 스크랩하여 저장합니다.
+- 역할: Prometheus는 메트릭 데이터를 수집하고 저장하는 메트릭 기반의 모니터링 시스템입니다.
+- 데이터 적재: Prometheus는 데이터베이스에 시계열 메트릭 데이터를 저장할 수 있습니다. 애플리케이션에서 Prometheus 클라이언트 라이브러리를 사용하여 메트릭 데이터를 출력하고, Prometheus 서버는 이를 수집 및 저장합니다. 
 
 #### Grafana
 - 역할: Grafana는 시각화 도구입니다. Prometheus 및 Jaeger와 같은 데이터 소스에서 데이터를 가져와 대시보드를 통해 시각화합니다.
-- 데이터 가져오기: Grafana는 다양한 데이터 소스(예: Prometheus, Jaeger 등)에 연결하여 데이터를 쿼리하고 시각화합니다.
+- 데이터 적재: Grafana는 데이터 적재가 불가하지만, 다양한 데이터 소스(예: Prometheus, Jaeger 등)에 연결하여 데이터를 쿼리하고 시각화합니다. 
 
 ---
 
-### 상호작용 흐름
-
-#### Jaeger 데이터 적재
-애플리케이션에서 Jaeger 클라이언트를 사용하여 트레이스 데이터를 Jaeger 에이전트나 콜렉터로 전송합니다.
-Jaeger 콜렉터는 이 데이터를 저장 백엔드(예: Elasticsearch)에 저장합니다.
-
-#### Prometheus 데이터 적재
-애플리케이션에서 Prometheus 클라이언트 라이브러리를 사용하여 메트릭 데이터를 노출합니다.
-Prometheus 서버는 정기적으로 이 메트릭 데이터를 스크랩하여 자체 타임 시리즈 데이터베이스에 저장합니다.
-
-#### Grafana 데이터 시각화
-Grafana는 데이터 소스로 Jaeger와 Prometheus를 설정합니다.
-Grafana 대시보드에서 Jaeger의 트레이스 데이터와 Prometheus의 메트릭 데이터를 쿼리하고 시각화합니다.
-
----
-
+- Grafana는 통합 모니터링 도구로, 백엔드 서비스인 Prometheus, Jaeger, Loki 등 데이터 소스와 연동하여 한 번에 메트릭, 트레이싱, 로그 데이터를 확인할 수 있습니다.
 ### Grafana 설정
 Grafana에서 Jaeger와 Prometheus 데이터 소스를 설정하고 대시보드를 생성하여 데이터를 시각화합니다.
 
@@ -72,6 +57,8 @@ OpenTelemetry 수집기(Collector)에서 데이터를 Grafana로 직접 전송�
 ### OpenTelemetry 수집기 설정
 OpenTelemetry 수집기를 설정하여 데이터를 수집하고 Prometheus로 전송하는 방법입니다.
 
+- OpenTelemetry Collector yaml파일
+
 ```
 receivers:
   otlp:
@@ -83,7 +70,7 @@ receivers:
 
 exporters:
   prometheus:
-    endpoint: "0.0.0.0:8889"
+    endpoint: "127.0.0.1:9464"
 
 service:
   pipelines:
@@ -138,11 +125,10 @@ Manual 방식은 코드 내부에 사용자가 Span, Metrics, Log 계측을 위�
 코드 변경이 필요하며 학습 곡선이 존재하지만, 세밀한 제어가 가능하며 커스텀 메트릭 생성이 용이하다는 장점이 있습니다.
 
 ---
-
+## Q4. 오픈텔레메트리에서 제공하는 로깅, 트레이싱, 메트릭 표준 예시가 있나요?
 ## 로깅
 ### logging example
 https://opentelemetry.io/docs/zero-code/python/logs-example/
-
 
 ## 트레이싱
 ### span example
@@ -153,7 +139,7 @@ https://opentelemetry.io/docs/zero-code/python/example/
 
 측정항목과 관련된 다음과 같은 의미 체계 규칙이 정의됩니다.
 
-- 일반 지침 : 일반 측정항목 지침입니다.
+일반 측정항목 지침
 - 데이터베이스 : SQL 및 NoSQL 클라이언트 측정항목용입니다.
   - https://opentelemetry.io/docs/specs/semconv/database/sql/
 - FaaS : 서비스로서의 기능(Function as a Service) 지표용.
