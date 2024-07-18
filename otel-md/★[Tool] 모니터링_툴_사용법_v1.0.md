@@ -10,7 +10,6 @@
 
 ## Prometheus(프로메테우스)
 
----
 ### 프로메테우스란?
 
 - Prometheus는 오픈 소스 시스템 모니터링 및 경고 도구입니다. Prometheus는 SoundCloud에서 시작되었으며, 현재는 CNCF(Cloud Native Computing Foundation)의 프로젝트로 관리되고 있습니다. Prometheus는 다음과 같은 주요 기능과 특징을 가지고 있습니다:
@@ -42,12 +41,12 @@ Prometheus가 로컬 디스크에 얼마나 많은 데이터를 저장할 수 �
 
 ---
 ###  프로메테우스 사용 방법
-v2.52.0
+버전: `2.52.0`
 
 #### 설치 파일 다운로드
 - 다운로드 경로: https://prometheus.io/download/
-- Windows: https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.windows-amd64.zip
----
+- Window 용 : https://github.com/prometheus/prometheus/releases/download/v2.52.0/prometheus-2.52.0.windows-amd64.zip
+
 #### prometheus.yml 설정
 ※ 프로메테우스 다운로드 후 압축을 푼다음, exe 파일이 있는 경로에 yml파일을 생성
 
@@ -65,13 +64,13 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9464"]  # 로컬에서 실행 중인 서비스의 포트
 ```
----
+
 #### 실행
 - prometheus.exe
 
 #### 접속
 - http://localhost:9090/
----
+
 ### 추가 설정 옵션 (prometheus 실행 시 전달할 수 있는 명령어)
 이 설정은 Prometheus가 30일 동안 최대 100GB의 데이터를 저장하도록 설정합니다. 실제로 이러한 설정 값은 모니터링 요구 사항에 맞게 조정해야 합니다.
 ```
@@ -81,7 +80,7 @@ scrape_configs:
 --storage.tsdb.min-block-duration=2h
 --storage.tsdb.max-block-duration=36h
 ```
----
+
 ### 참고 자료
 - Prometheus 공식 웹사이트
 https://prometheus.io/docs/introduction/overview/
@@ -116,11 +115,10 @@ https://github.com/prometheus/prometheus
 - 오류 및 장애 분석: 요청 경로에서 발생하는 오류와 장애를 추적하여 근본 원인을 파악하고 해결합니다.
 - 의존성 관리: 서비스 간의 의존성을 관리하고, 변경 사항이 전체 시스템에 미치는 영향을 분석합니다.
 ---
-### 예거 사용 방법
-v1.58.0
+### Jaeger 사용 방법
+버전: `1.58.0`
 
-### 다운로드 링크
-Binaries 파일로 다운로드
+#### Jaeger 다운로드
 - URL : https://www.jaegertracing.io/download/
 - Windows : https://github.com/jaegertracing/jaeger/releases/download/v1.57.0/jaeger-1.57.0-windows-amd64.tar.gz
 
@@ -129,12 +127,11 @@ Binaries 파일로 다운로드
 cd C:\Users\sung\Desktop\otel\jaeger-1.57.0-windows-amd64
 jaeger-all-in-one.exe 
 ```
----
 ### 접속
 - URL : http://localhost:16686
----
+
 ### OpenTelemetry 연동
-참고 링크 : https://www.jaegertracing.io/docs/1.21/opentelemetry/
+- 참고 링크 : https://www.jaegertracing.io/docs/1.21/opentelemetry/
 ---
 ### OpenTelemetry collector 설정 변경
 - jaeger에서 gRPC를 지원해주면서 OpenTelemetry Collector없이 OpenTelemetry SDK와 Jaeger로 바로 데이터 전송이 가능함
@@ -247,13 +244,13 @@ https://www.jaegertracing.io/docs/1.58/windows/
 - 보안 로그 분석: 시스템 및 애플리케이션의 보안 로그를 분석하여 침해 시도를 탐지합니다.
 - 운영 문제 해결: 로그 데이터를 통해 운영 문제를 신속하게 식별하고 해결합니다.
 
----
+
 ### 시작 전 참고사항
 - Loki의 3.0.0 버전부터 Opentelemetry 에서 바로 수신하는 기능을 제공해주며, 해당 문서는 3.0.0 버전 기준으로 작성되었습니다.
 - 3.0.0 미만의 버전에서는 promtail을 사용하여 Opentelemetry 의 로그를 수신해야 합니다. 
 ---
-### 로키 사용 방법
-v3.0.0
+### Loki 사용 방법
+버전: `3.0.0`
 
 ### Loki 설치
 1. 아래의 URL 접속
@@ -375,7 +372,7 @@ service:
 - 개발 및 테스트 모니터링: 개발 중인 애플리케이션의 성능 테스트 결과를 시각화하고 분석합니다.
 ---
 ### 그라파나 사용 방법
-v11.0.0
+버전: `11.0.0`
 
 ### 다운로드 링크
 - URL : https://grafana.com/grafana/download
@@ -412,7 +409,7 @@ connection : 프로메테우스 접속 URL:port
 ### Grafana & Jaeger 연동
 - 프로메테우스 연동 방법과 똑같으며 connection 부분만 jaeger URL로 변경
 ---
-### 대시보드 제작
+### Grafana 대시보드 제작
 
 1. Home > Dashbords > New > New dashboard
 2. Add > Visualization
@@ -470,27 +467,27 @@ sum(count_over_time({deployment_environment="dev"} |= `error` !~ `(?i)info`))
 ```
 
 #### Jaeger
-- 전체 Trace의 응답시간 확인 가능
+전체 Trace의 응답시간 확인하는 방법
 1. Data source: Jaeger설정
 2. Query type: Search
 3. Select a Service: 확인하고 싶은 서비스 선택
 4. Operation Name: 확인하고 싶은 API 선택
 ---
-### 대시보드 추출
+### Grafana 대시보드 추출
 - 대시보드를 json 형태로 추출 후 Import 해서 사용 가능
 1. Home > Dashboards > 기 만들어놓은 대시보드 선택
 2. Share > Export > Export for sharing externally 선택
 3. Save to file
----
-### 대시보드 임포트
+
+### Grafana 대시보드 임포트
 - json 형태로 추출된 대시보드를 Import해서 사용 가능
 1. Home > Dashbords
 2. New > Import > Import dashboard
 3. Upload dashboard Json file 클릭
 4. 다운받은 대시보드 선택 후 열기
 5. Load 클릭
----
-### 알람기능 추가
+
+### Grafana 알람기능 추가
 이메일, 슬랙, 텔레그램 등 이상 발생 시 알람 발송 가능
 - 구글 메일서버 사용하여 알람기능 추가
 - 2차 인증 메일인 경우 앱 비밀번호 부여
