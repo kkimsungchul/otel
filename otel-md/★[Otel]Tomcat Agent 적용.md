@@ -35,19 +35,6 @@ http_server_request_duration_seconds_bucket{http_request_method="GET",http_respo
 startup.bat
 ```
 
-## Mac 환경
-###catalina.sh 파일 수정
-- OS 로 시작하는 부분에 CATALINA_OPTS="$CATALINA_OPTS -javaagent:opentelemetry-javaagent.jar" 내용 추가
-```shell
-# OS specific support.  $var _must_ be set to either true or false.
-CATALINA_OPTS="$CATALINA_OPTS -javaagent:opentelemetry-javaagent.jar"
-```
-
-### Tomcat 실행
-```shell
-startup.sh
-```
-
 
 ## Tomcat 접속 URL
 - http://localhost:9080/
