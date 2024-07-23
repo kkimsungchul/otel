@@ -3,6 +3,7 @@ filebeat.inputs:
   enabled: true
   paths:
     - C:\Users\sung\Desktop\otel\*.log
+  scan_frequency: 1s   # 파일 시스템을 5초마다 스캔
 
 output.file:
   path: C:\Users\sung\Desktop\otel\filebeat-8.14.3-windows-x86_64\filebeat-8.14.3-windows-x86_64\output
