@@ -1,0 +1,26 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - /home/lampadmin/test.log
+        - /jb_log/lampwas11/transaction/transaction.log
+        - /jb_log/lampwas12/transaction/transaction.log
+      #    - /jb_log/lampwas11/transaction.log
+      #    - /jb_log/lampwas12/transaction.log
+      input_type: log
+      tail_files: true
+
+output:
+  kafka:
+    hosts: ["192.168.0.2:9092", "192.168.0.3:9092", "192.168.0.4:9092"]
+    ssl:
+      certificate: ssl/lampkafka.crt
+      key: ssl/lampkafka.key
+      certificate_authorities: ssl/lampkafka.crt
+      verification_mode: none
+    topic: "TOPIC_LAMP05"
+    partition.round_robin:
+      reachable_only: false
+    required_acks: 1
+    compression: gzip
+    max_message_bytes: 1000000

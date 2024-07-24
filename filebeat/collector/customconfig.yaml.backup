@@ -1,0 +1,40 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:9999
+      http:
+        endpoint: 127.0.0.1:4318
+
+exporters:
+  logging :
+    verbosity: detailed
+  file: # the File Exporter, to ingest logs to local file
+    path: example.log
+    rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+  
+  otlp/jaeger:
+    endpoint: 127.0.0.1:4317
+    tls :
+      insecure : true
+
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    logs/dev:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp/jaeger,file]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
+      processors: [batch]

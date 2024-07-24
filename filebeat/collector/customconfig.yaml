@@ -1,0 +1,42 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:9999
+      http:
+        endpoint: 127.0.0.1:4318
+  filelog:
+    include: [ 'C:\Users\sung\Desktop\otel\*.log' ]
+    start_at: beginning
+    encoding: utf-8
+    operators:
+      - type: regex_parser
+        regex: '(?P<log>.*)'
+        timestamp:
+          parse_from: attributes.timestamp
+          layout: '%Y-%m-%d %H:%M:%S.%f'
+
+exporters:
+  logging :
+    verbosity: detailed
+  file: # the File Exporter, to ingest logs to local file
+    path: example.log
+    rotation:
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    logs/dev:
+      receivers: [filelog]
+      exporters: [file]
+      processors: [batch]
+    traces:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [file]
+      processors: [batch]

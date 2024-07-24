@@ -1,0 +1,79 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:9999
+      http:
+        endpoint: 127.0.0.1:4318
+  postgresql:
+    endpoint: 127.0.0.1:5432
+    transport: tcp
+    username: otel-user
+    password: otel-user
+    databases:
+      - otel
+    tls:
+      insecure: true
+    collection_interval: 10s
+
+  filelog:
+    include: [ 'C:\Users\sung\Desktop\otel\*.log' ]
+    start_at: beginning
+    encoding: utf-8
+    operators:
+      - type: json_parser
+        regex: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) (?P<timezone>\w+) \[(?P<pid>\d+)\] (?P<level>\w+):  (?P<message>.*)$'
+        timestamp:
+          parse_from: attributes.timestamp
+          layout: '%Y-%m-%d %H:%M:%S.%f'
+
+#  sqlquery:
+#    driver: postgres
+#    datasource: "host=localhost port=5432 user=postgres password=postgres sslmode=disable"
+#    queries:
+#      - sql: "SELECT query, calls, total_exec_time, rows, mean_exec_time FROM pg_stat_statements"
+#        #tracking_start_value: "10000"
+#        #tracking_column: log_id
+#        logs:
+#          - body_column: query
+#      - sql: "select count(*) as count, genre from movie group by genre"
+#        metrics:
+#          - metric_name: movie.genres
+#            value_column: "count"
+
+# 윈도우 application 이벤트 로그파일 수집
+#  windowseventlog:
+#    channel: application
+
+exporters:
+  logging :
+    verbosity: detailed
+  file: # the File Exporter, to ingest logs to local file
+    path: example.log
+    rotation:
+  prometheus:
+    endpoint: 127.0.0.1:9464 # 프로메테우스에서 수집에 사용하는 IP
+  
+  otlp/jaeger:
+    endpoint: 127.0.0.1:4317
+    tls :
+      insecure : true
+
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    logs/dev:
+      receivers: [otlp,filelog]
+      exporters: [file]
+      processors: [batch]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp/jaeger,file]
+      processors: [batch]
+    metrics:
+      receivers: [postgresql,otlp]
+      exporters: [prometheus]
+      processors: [batch]
