@@ -1,0 +1,7 @@
+customconfig.yaml -> 로그파일 수집
+customconfig.yaml.backup_2024.07.30_filebeat_success_1  -> 파일비트 형식으로 변환
+customconfig.yaml.backup_2024.07.30_filebeat_success_2  -> 파일비트 형식으로 변환
+
+
+example.log_2024.07.31 -> customconfig.yaml.backup_2024.07.30_filebeat_success_2 설정으로 수집
+example.log -> customconfig.yaml 설정으로 수집

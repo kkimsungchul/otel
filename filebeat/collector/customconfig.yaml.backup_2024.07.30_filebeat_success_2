@@ -1,0 +1,86 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 127.0.0.1:9999
+      http:
+        endpoint: 127.0.0.1:4318
+  filelog:
+    include: ['C:\Users\sung\Desktop\otel\*.log']
+    start_at: beginning
+    encoding: utf-8
+    operators:
+      - type: regex_parser
+        regex: '(?P<log>.*)'
+        timestamp:
+          parse_from: body.timestamp
+          layout: '%Y-%m-%d %H:%M:%S.%f'
+
+exporters:
+  logging:
+    verbosity: detailed
+  file:
+    path: example.log
+    format: json
+
+processors:
+  batch:
+  attributes:
+    actions:
+      - key: "@timestamp"
+        from_attribute: body.timestamp
+        action: insert
+      - key: "@metadata.beat"
+        value: "filebeat"
+        action: insert
+      - key: "@metadata.type"
+        value: "_doc"
+        action: insert
+      - key: "@metadata.version"
+        value: "8.14.3"
+        action: insert
+      - key: "message"
+        from_attribute: log
+        action: insert
+      - key: "log.file.path"
+        value: "C:\\Users\\sung\\Desktop\\otel\\test.log"
+        action: insert
+      - key: "input.type"
+        value: "log"
+        action: insert
+      - key: "ecs.version"
+        value: "8.0.0"
+        action: insert
+      - key: "host.name"
+        value: "sung-PC"
+        action: insert
+      - key: "agent.id"
+        value: "fa0c8bf8-e320-44be-8e23-6bca2446386d"
+        action: insert
+      - key: "agent.name"
+        value: "sung-PC"
+        action: insert
+      - key: "agent.type"
+        value: "filebeat"
+        action: insert
+      - key: "agent.version"
+        value: "8.14.3"
+        action: insert
+      - key: "agent.ephemeral_id"
+        value: "c8dc5c02-089b-4daa-94e4-8788794f79ba"
+        action: insert
+
+service:
+  pipelines:
+    logs:
+      receivers: [filelog]
+      processors: [batch, attributes]
+      exporters: [file, logging]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [file]
