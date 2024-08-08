@@ -1,5 +1,13 @@
 # Tomcat에 opentelemetry Agent 적용
 
+## 주의사항
+```text
+해당 현재 생성하는 프로젝트들은 Springboot 3.3.0  & JDK 17로 생성하였음
+tomcat 8, 9 버전대에서는 인식을 못함
+war파일을 배포하여 계측할 경우 tomcat 10버전 이상을 사용해야 함
+아래의 테스트 내용은 war파일 없이 계측했던 내용임
+```
+
 ## 적용 방법
 - 이미 운영중인 어플리케이션의 소스코드를 수정이 어려울 경우에 Agent를 톰캣에 추가하여 바로 사용
 - Agent만 설정 해주고 톰캣만 재실행 하면 바로 적용이 됨
@@ -16,9 +24,20 @@
 
 ```shell
 setlocal
+set JAVA_OPTS=%JAVA_OPTS% -Duser.language=en
 set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar"
 set CATALINA_OPTS=%CATALINA_OPTS% -Dotel.resource.attributes=service.name=tomcat_service,service.namespace=TOMCAT
-set JAVA_OPTS=%JAVA_OPTS% -Duser.language=en
+set OTEL_METRIC_EXPORT_INTERVAL=1000
+set OTEL_TRACES_EXPORTER=otlp
+set OTEL_METRICS_EXPORTER=otlp
+set OTEL_LOGS_EXPORTER=otlp
+set OTEL_SERVICE_NAME =board-system
+set OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:9999
+set OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:9999
+set OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:9999
+set OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://127.0.0.1:9999
+set OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+
 ```
 
 - set CATALINA_OPTS=%CATALINA_OPTS% -javaagent:"opentelemetry-javaagent.jar" <br>
