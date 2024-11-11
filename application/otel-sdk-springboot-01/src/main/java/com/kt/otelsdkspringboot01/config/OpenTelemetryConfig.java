@@ -62,7 +62,7 @@ public class OpenTelemetryConfig {
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
                 .addSpanProcessor(BatchSpanProcessor.builder(
                                 OtlpGrpcSpanExporter.builder()
-                                        .setEndpoint("http://127.0.0.1:9999")
+                                        .setEndpoint("http://127.0.0.1:4317")
                                         .build()
                         ).build()
                 ).setResource(resource)
@@ -73,7 +73,7 @@ public class OpenTelemetryConfig {
                         PeriodicMetricReader
                                 .builder(
                                         OtlpGrpcMetricExporter.builder()
-                                                .setEndpoint("http://127.0.0.1:9999")
+                                                .setEndpoint("http://127.0.0.1:4317")
                                                 .build()
                                 ).setInterval(Duration.ofMillis(500)
                                 ).build()
@@ -85,7 +85,7 @@ public class OpenTelemetryConfig {
                 .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(
                                 OtlpGrpcLogRecordExporter.builder()
-                                        .setEndpoint("http://127.0.0.1:9999")
+                                        .setEndpoint("http://127.0.0.1:4317")
                                         .build()
                         ).build()
                 ).setResource(resource)
