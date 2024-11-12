@@ -13,7 +13,7 @@ public class MicrometerConfig {
 
     @Bean
     public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
-        return registry -> registry.config().commonTags("application", "otel-sdk-springboot-01-service");
+        return registry -> registry.config().commonTags("application", "sdk-springboot");
     }
 
     @Bean

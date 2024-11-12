@@ -54,7 +54,7 @@ public class OpenTelemetryConfig {
 
         Resource resource = Resource.getDefault()
                 .toBuilder()
-                .put(ResourceAttributes.SERVICE_NAME, "otel-sdk-springboot-01-service")    //서비스명 설정
+                .put(ResourceAttributes.SERVICE_NAME, "sdk-springboot")    //서비스명 설정
                 .put(ResourceAttributes.SERVICE_VERSION, "1.0.0")       //서비스 버전 설정
                 .build();
 
